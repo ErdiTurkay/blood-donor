@@ -75,10 +75,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processLogin(data: LoginResponse?) {
-        showToast("Success:" + data?.token)
-
         if (!data?.token.isNullOrEmpty()) {
-            data?.token?.let { SessionManager.saveAuthToken(this, it) }
+            data?.let {
+                SessionManager.saveAuthToken(this, it.token)
+                SessionManager.run {
+                    saveString(this@MainActivity, NAME, it.user.name)
+                    saveString(this@MainActivity, SURNAME, it.user.surname)
+                }
+            }
             navigateToHome()
         }
     }

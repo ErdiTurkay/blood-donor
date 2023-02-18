@@ -1,10 +1,13 @@
 package com.example.blooddonor.data.api.response
 
+import com.example.blooddonor.data.model.User
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
     @SerializedName("message")
     var message: String,
     @SerializedName("token")
-    var token: String
+    var token: String,
+    @SerializedName("user")
+    var user: User
 )
