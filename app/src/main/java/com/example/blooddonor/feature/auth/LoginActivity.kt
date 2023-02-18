@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature
+package com.example.blooddonor.feature.auth
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
@@ -9,19 +9,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
-import com.example.blooddonor.databinding.ActivityMainBinding
+import com.example.blooddonor.databinding.ActivityLoginBinding
 import com.example.blooddonor.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<MainViewModel>()
+    private lateinit var binding: ActivityLoginBinding
+    private val viewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -51,10 +51,22 @@ class MainActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             doLogin()
         }
+
+        binding.btnRegister.setOnClickListener {
+            navigateToRegister()
+        }
     }
 
     private fun navigateToHome() {
+        finish()
         val intent = Intent(this, LogoutActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(FLAG_ACTIVITY_NO_HISTORY)
+        startActivity(intent)
+    }
+
+    private fun navigateToRegister() {
+        val intent = Intent(this, RegisterActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(FLAG_ACTIVITY_NO_HISTORY)
         startActivity(intent)
@@ -79,8 +91,8 @@ class MainActivity : AppCompatActivity() {
             data?.let {
                 SessionManager.saveAuthToken(this, it.token)
                 SessionManager.run {
-                    saveString(this@MainActivity, NAME, it.user.name)
-                    saveString(this@MainActivity, SURNAME, it.user.surname)
+                    saveString(this@LoginActivity, NAME, it.user.name)
+                    saveString(this@LoginActivity, SURNAME, it.user.surname)
                 }
             }
             navigateToHome()

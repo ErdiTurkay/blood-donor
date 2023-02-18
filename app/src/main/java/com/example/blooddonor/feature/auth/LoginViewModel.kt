@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature
+package com.example.blooddonor.feature.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,7 @@ import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     var userRepository: UserRepository
 ): ViewModel() {
     val loginResult: MutableLiveData<BaseResponse<LoginResponse>> = MutableLiveData()

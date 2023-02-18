@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature
+package com.example.blooddonor.feature.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +21,7 @@ class LogoutActivity : AppCompatActivity() {
 
         binding.btnLogout.setOnClickListener {
             SessionManager.clearData(this)
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             startActivity(intent)
