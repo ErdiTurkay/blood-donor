@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.databinding.ActivityLoginBinding
@@ -75,6 +76,20 @@ class LoginActivity : AppCompatActivity() {
     fun doLogin() {
         val email = binding.txtInputEmail.text.toString()
         val password = binding.txtPass.text.toString()
+
+        binding.txtInputEmail.run {
+            if (text.isNullOrEmpty()) {
+                error = getString(R.string.should_not_empty)
+                return
+            }
+        }
+
+        binding.txtPass.run {
+            if (text.isNullOrEmpty()) {
+                error = getString(R.string.should_not_empty)
+                return
+            }
+        }
         viewModel.loginUser(email = email, password = password)
     }
 
