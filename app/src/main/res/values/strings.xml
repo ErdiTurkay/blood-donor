@@ -5,4 +5,10 @@
     <string name="password">Şifre</string>
     <string name="logout">Çıkış Yap</string>
     <string name="should_not_empty">Bu alan boş geçilemez.</string>
+    <string name="should_not_be_empty">Bu alan boş geçilemez.</string>
+
+    <string name="good_morning">Günaydın</string>
+    <string name="good_evening">İyi Akşamlar</string>
+    <string name="good_night">İyi Geceler</string>
+    <string name="good_day">İyi Günler</string>
 </resources>
