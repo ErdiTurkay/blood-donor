@@ -1,44 +1,46 @@
 package com.example.blooddonor.feature.auth
 
-import android.app.Activity
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
-import com.example.blooddonor.databinding.ActivityLoginBinding
+import com.example.blooddonor.databinding.FragmentLoginBinding
+import com.example.blooddonor.feature.HomeFragment
+import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityLoginBinding
-    private val viewModel by viewModels<LoginViewModel>()
+class LoginFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
     private var isLoginEnable: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentLoginBinding.inflate(layoutInflater)
 
-        val token = SessionManager.getToken(this)
+        val token = SessionManager.getToken(requireContext())
         if (!token.isNullOrBlank()) {
-            navigateToActivity(LogoutActivity())
+            navigateToHome()
         }
 
         inputChangeListener()
 
-        binding.timeTitle.text = GreetingMessage.getTime(this)
+        binding.timeTitle.text = GreetingMessage.getTimeString(requireContext())
+        binding.timeImage.setImageDrawable(GreetingMessage.getTimeDrawable(requireContext()))
 
-        viewModel.loginResult.observe(this) {
+        viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
                     showLoading()
@@ -61,8 +63,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            navigateToActivity(RegisterActivity())
+            navigateToRegister()
         }
+
+        return binding.root
     }
 
     private fun inputChangeListener() {
@@ -89,15 +93,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToActivity(activity: Activity, finishThisActivity: Boolean? = false) {
-        if (finishThisActivity == true) {
-            finish()
-        }
+    private fun navigateToHome() {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, HomeFragment())
+            .commit()
+    }
 
-        val intent = Intent(this, activity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addFlags(FLAG_ACTIVITY_NO_HISTORY)
-        startActivity(intent)
+    private fun navigateToRegister() {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, RegisterFragment())
+            .addToBackStack("auth")
+            .commit()
     }
 
     private fun doLogin() {
@@ -110,6 +118,12 @@ class LoginActivity : AppCompatActivity() {
 
         if (password.isEmpty()) {
             binding.errorPassword.visibility = View.VISIBLE
+        }
+
+        // TODO: This is for development. It will be deleted later.
+        if (email == "1" && password == "1") {
+            viewModel.loginUser(email = "erditurkay@gmail.com", password = "12345678")
+            return
         }
 
         if (isLoginEnable) {
@@ -128,13 +142,13 @@ class LoginActivity : AppCompatActivity() {
     private fun processLogin(data: LoginResponse?) {
         if (!data?.token.isNullOrEmpty()) {
             data?.let {
-                SessionManager.saveAuthToken(this, it.token)
+                SessionManager.saveAuthToken(requireContext(), it.token)
                 SessionManager.run {
-                    saveString(this@LoginActivity, NAME, it.user.name)
-                    saveString(this@LoginActivity, SURNAME, it.user.surname)
+                    saveString(requireContext(), NAME, it.user.name)
+                    saveString(requireContext(), SURNAME, it.user.surname)
                 }
             }
-            navigateToActivity(LogoutActivity())
+            navigateToHome()
         }
     }
 
@@ -143,6 +157,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 }

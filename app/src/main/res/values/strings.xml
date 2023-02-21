@@ -14,4 +14,6 @@
     <string name="sign_in_title">Giriş Yap</string>
     <string name="dont_you_have_an_account">Hesabın yok mu?</string>
     <string name="sign_up">Kayıt Ol</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

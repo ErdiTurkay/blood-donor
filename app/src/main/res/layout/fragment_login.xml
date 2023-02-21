@@ -27,18 +27,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
+    <ImageView
+        android:id="@+id/time_image"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/morning" />
+
     <TextView
         android:id="@+id/time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/campton"
         android:textColor="@color/white"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="İyi Akşamlar" />
+        app:layout_constraintTop_toBottomOf="@id/time_image"
+        tools:text="Günaydın" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
