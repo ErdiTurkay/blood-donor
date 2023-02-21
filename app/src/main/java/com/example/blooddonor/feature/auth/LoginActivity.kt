@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         inputChangeListener()
 
-        binding.signInTitle.text = GreetingMessage.getTime(this)
+        binding.timeTitle.text = GreetingMessage.getTime(this)
 
         viewModel.loginResult.observe(this) {
             when (it) {
@@ -69,20 +69,20 @@ class LoginActivity : AppCompatActivity() {
         binding.run {
             txtInputEmail.doAfterTextChanged {
                 if (it?.length == 0) {
-                    emailError.visibility = View.VISIBLE
+                    errorEmail.visibility = View.VISIBLE
                     isLoginEnable = false
                 } else {
-                    emailError.visibility = View.INVISIBLE
+                    errorEmail.visibility = View.INVISIBLE
                     isLoginEnable = true
                 }
             }
 
-            txtPass.doAfterTextChanged {
+            txtInputPassword.doAfterTextChanged {
                 if (it?.length == 0) {
-                    passwordError.visibility = View.VISIBLE
+                    errorPassword.visibility = View.VISIBLE
                     isLoginEnable = false
                 } else {
-                    passwordError.visibility = View.INVISIBLE
+                    errorPassword.visibility = View.INVISIBLE
                     isLoginEnable = true
                 }
             }
@@ -102,14 +102,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun doLogin() {
         val email = binding.txtInputEmail.text.toString()
-        val password = binding.txtPass.text.toString()
+        val password = binding.txtInputPassword.text.toString()
 
         if (email.isEmpty()) {
-            binding.emailError.visibility = View.VISIBLE
+            binding.errorEmail.visibility = View.VISIBLE
         }
 
         if (password.isEmpty()) {
-            binding.passwordError.visibility = View.VISIBLE
+            binding.errorPassword.visibility = View.VISIBLE
         }
 
         if (isLoginEnable) {

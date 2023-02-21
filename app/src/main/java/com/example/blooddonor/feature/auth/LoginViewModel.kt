@@ -24,13 +24,13 @@ class LoginViewModel @Inject constructor(
             try {
                 val loginRequest = LoginRequest(email, password)
                 val response = userRepository.loginUser(loginRequest)
-                if (response?.code() == HttpURLConnection.HTTP_OK) {
+
+                if (response.code() == HttpURLConnection.HTTP_OK) {
                     loginResult.value = BaseResponse.Success(response.body())
                 } else {
-                    response?.body()?.message
-                    loginResult.value = BaseResponse.Error(response?.message())
+                    response.body()?.message
+                    loginResult.value = BaseResponse.Error(response.message())
                 }
-
             } catch (ex: Exception) {
                 loginResult.value = BaseResponse.Error(ex.message)
             }

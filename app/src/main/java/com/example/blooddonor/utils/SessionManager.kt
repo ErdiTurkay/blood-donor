@@ -6,20 +6,14 @@ import com.example.blooddonor.R
 
 object SessionManager {
 
-    const val JWT_TOKEN = "jwt_token"
+    private const val JWT_TOKEN = "jwt_token"
     const val NAME = "name"
     const val SURNAME = "surname"
 
-    /**
-     * Function to save auth token
-     */
     fun saveAuthToken(context: Context, token: String) {
         saveString(context, JWT_TOKEN, token)
     }
 
-    /**
-     * Function to fetch auth token
-     */
     fun getToken(context: Context): String? {
         return getString(context, JWT_TOKEN)
     }

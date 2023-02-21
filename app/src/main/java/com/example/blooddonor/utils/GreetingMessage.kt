@@ -6,7 +6,8 @@ import java.util.*
 
 object GreetingMessage {
 
-    private const val NIGHT_LIMIT = 4
+    private const val NIGHT_LIMIT_1 = 4
+    private const val NIGHT_LIMIT_2 = 22
     private const val MORNING_LIMIT = 12
     private const val DAY_LIMIT = 18
 
@@ -15,7 +16,7 @@ object GreetingMessage {
         val hours = cal.get(Calendar.HOUR_OF_DAY)
 
         return context.run {
-            if (hours < NIGHT_LIMIT) {
+            if (hours < NIGHT_LIMIT_1 || hours > NIGHT_LIMIT_2) {
                 getString(R.string.good_night)
             } else if (hours < MORNING_LIMIT) {
                 getString(R.string.good_morning)

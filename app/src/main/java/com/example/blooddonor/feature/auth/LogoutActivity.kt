@@ -16,7 +16,7 @@ class LogoutActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.name.text = "Hoşgeldin ${SessionManager.getString(this, "name")}"
+        binding.name.text = "Hoşgeldin ${SessionManager.getString(this, SessionManager.NAME)}"
         binding.token.text = SessionManager.getToken(this)
 
         binding.btnLogout.setOnClickListener {
