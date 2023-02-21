@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.container, LoginFragment())
             .commit()
 
-        binding.header.visibility = View.GONE
+        binding.includeHeader.root.visibility = View.GONE
     }
 
     fun navigateToHome() {
-        binding.header.visibility = View.VISIBLE
+        binding.includeHeader.root.visibility = View.VISIBLE
 
         supportFragmentManager
             .beginTransaction()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setHeaderTitle() {
-        binding.headerTitle.text =
+        binding.includeHeader.headerTitle.text =
             GreetingMessage.getTimeString(this)
                 .plus("\n")
                 .plus(SessionManager.getString(this, SessionManager.NAME))
