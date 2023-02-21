@@ -2,10 +2,12 @@ package com.example.blooddonor.feature
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.view.View
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.ActivityMainBinding
 import com.example.blooddonor.feature.auth.LoginFragment
+import com.example.blooddonor.feature.profile.ProfileFragment
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,22 @@ class MainActivity : AppCompatActivity() {
             navigateToHome()
         } else {
             navigateToLogin()
+        }
+
+        binding.includeHeader.notification.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, NotificationFragment())
+                .addToBackStack("notification")
+                .commit()
+        }
+
+        binding.includeHeader.profile.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, ProfileFragment())
+                .addToBackStack("profile")
+                .commit()
         }
     }
 

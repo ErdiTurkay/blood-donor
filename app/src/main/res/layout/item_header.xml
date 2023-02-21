@@ -25,7 +25,7 @@
         tools:text="Günaydın\nErdi" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/profile"
+        android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
@@ -33,7 +33,7 @@
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/notification"
+        app:layout_constraintEnd_toStartOf="@id/profile"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -46,7 +46,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/notification"
+        android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
