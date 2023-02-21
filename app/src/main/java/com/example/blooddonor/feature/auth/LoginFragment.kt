@@ -12,7 +12,6 @@ import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.databinding.FragmentLoginBinding
-import com.example.blooddonor.feature.HomeFragment
 import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
@@ -21,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var activity: MainActivity
     private val viewModel: LoginViewModel by viewModels()
     private var isLoginEnable: Boolean = false
 
@@ -29,11 +29,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
-        val token = SessionManager.getToken(requireContext())
-        if (!token.isNullOrBlank()) {
-            navigateToHome()
-        }
+        activity = requireActivity() as MainActivity
 
         inputChangeListener()
 
@@ -93,13 +89,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun navigateToHome() {
-        parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, HomeFragment())
-            .commit()
-    }
-
     private fun navigateToRegister() {
         parentFragmentManager
             .beginTransaction()
@@ -147,8 +136,9 @@ class LoginFragment : Fragment() {
                     saveString(requireContext(), NAME, it.user.name)
                     saveString(requireContext(), SURNAME, it.user.surname)
                 }
+
+                activity.navigateToHome()
             }
-            navigateToHome()
         }
     }
 
