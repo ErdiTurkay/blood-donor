@@ -27,22 +27,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             navigateToLogin()
         }
-
-        binding.includeHeader.notification.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, NotificationFragment())
-                .addToBackStack("notification")
-                .commit()
-        }
-
-        binding.includeHeader.profile.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, ProfileFragment())
-                .addToBackStack("profile")
-                .commit()
-        }
     }
 
     fun navigateToLogin() {
@@ -50,13 +34,9 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.container, LoginFragment())
             .commit()
-
-        binding.includeHeader.root.visibility = View.GONE
     }
 
     fun navigateToHome() {
-        binding.includeHeader.root.visibility = View.VISIBLE
-
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, HomeFragment())

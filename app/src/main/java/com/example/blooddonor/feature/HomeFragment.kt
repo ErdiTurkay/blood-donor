@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.utils.SessionManager
+import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,9 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
+
+        activity.binding.bottomNav.show()
+        activity.binding.includeHeader.root.show()
 
         binding.name.text = "Hoşgeldin ${SessionManager.getString(requireContext(), SessionManager.NAME)}"
         binding.token.text = SessionManager.getToken(requireContext())

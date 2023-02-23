@@ -15,6 +15,7 @@ import com.example.blooddonor.databinding.FragmentLoginBinding
 import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
+import com.example.blooddonor.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +31,9 @@ class LoginFragment : Fragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
+
+        activity.binding.bottomNav.hide()
+        activity.binding.includeHeader.root.hide()
 
         inputChangeListener()
 
