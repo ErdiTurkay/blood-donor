@@ -2,53 +2,35 @@ package com.example.blooddonor.feature
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Profile
-import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.ActivityMainBinding
-import com.example.blooddonor.feature.auth.LoginFragment
-import com.example.blooddonor.feature.profile.ProfileFragment
-import com.example.blooddonor.utils.GreetingMessage
-import com.example.blooddonor.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    lateinit var navHostFragment: NavHostFragment
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val token = SessionManager.getToken(this)
-        if (!token.isNullOrBlank()) {
-            navigateToHome()
-        } else {
-            navigateToLogin()
+        // Fragment transitions are provided according to the clicks in the Bottom Navigation.
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        binding.bottomNav.setupWithNavController(navController)
+
+        binding.includeHeader.profile.setOnClickListener {
+            navController.navigate(R.id.action_global_profileFragment)
         }
-    }
 
-    fun navigateToLogin() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, LoginFragment())
-            .commit()
-    }
-
-    fun navigateToHome() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, HomeFragment())
-            .commit()
-
-        setHeaderTitle()
-    }
-
-    private fun setHeaderTitle() {
-        binding.includeHeader.headerTitle.text =
-            GreetingMessage.getTimeString(this)
-                .plus("\n")
-                .plus(SessionManager.getString(this, SessionManager.NAME))
+        binding.includeHeader.notification.setOnClickListener {
+            navController.navigate(R.id.action_global_notificationFragment)
+        }
     }
 }

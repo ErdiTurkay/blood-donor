@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.blooddonor.R
-import com.example.blooddonor.databinding.FragmentLoginBinding
 import com.example.blooddonor.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 

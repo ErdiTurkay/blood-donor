@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
@@ -34,6 +35,11 @@ class LoginFragment : Fragment() {
 
         activity.binding.bottomNav.hide()
         activity.binding.includeHeader.root.hide()
+
+        val token = SessionManager.getToken(requireContext())
+        if (!token.isNullOrBlank()) {
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
 
         inputChangeListener()
 
@@ -63,7 +69,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener {
-            navigateToRegister()
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         return binding.root
@@ -91,14 +97,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun navigateToRegister() {
-        parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, RegisterFragment())
-            .addToBackStack("auth")
-            .commit()
     }
 
     private fun doLogin() {
@@ -141,7 +139,7 @@ class LoginFragment : Fragment() {
                     saveString(requireContext(), SURNAME, it.user.surname)
                 }
 
-                activity.navigateToHome()
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
     }
