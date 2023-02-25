@@ -32,6 +32,7 @@
                 app:cardCornerRadius="250dp">
 
                 <ImageView
+                    android:id="@+id/patient_image"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     android:scaleType="centerCrop"

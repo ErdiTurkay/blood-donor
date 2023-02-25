@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
+import com.example.blooddonor.data.model.BloodAd
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
@@ -38,7 +39,20 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
 
+        setBloodAdRV()
+
         return binding.root
+    }
+
+    private fun setBloodAdRV() {
+        val bloodAdAdapter = BloodAdAdapter()
+        binding.bloodAdRv.adapter = bloodAdAdapter
+        val bloodAdList = listOf(
+            BloodAd("Ulaş Deniz Işık", 27, "A Rh+", "https://imgyukle.com/f/2023/02/25/QIHJqH.png"),
+            BloodAd("Celal Şengör", 63, "A Rh+", "https://cdn.karar.com/news/1528527.jpg")
+        )
+
+        bloodAdAdapter.setActorList(bloodAdList)
     }
 
     private fun setHeaderTitle() {
