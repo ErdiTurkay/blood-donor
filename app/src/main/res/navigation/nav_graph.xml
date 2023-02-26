@@ -42,6 +42,10 @@
             app:destination="@id/loginFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:popUpTo="@id/profileFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_profileFragment"
@@ -59,4 +63,9 @@
         app:destination="@id/notificationFragment"
         app:launchSingleTop="true"
         app:popUpTo="@id/homeFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.blooddonor.feature.changepassword.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

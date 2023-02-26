@@ -20,11 +20,19 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
+        binding.profileName.text =
+            SessionManager.getString(requireContext(), SessionManager.NAME)
+                .plus(" ")
+                .plus(SessionManager.getString(requireContext(), SessionManager.SURNAME))
+
+        binding.profileMail.text =
+            SessionManager.getString(requireContext(), SessionManager.MAIL)
+
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
             rowText.text = getString(R.string.change_password)
             root.setOnClickListener {
-                // TODO: Yönlendirme yapılacak.
+                findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
             }
         }
 

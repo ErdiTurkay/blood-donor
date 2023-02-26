@@ -115,6 +115,17 @@ class LoginFragment : Fragment() {
         if (email == "1" && password == "1") {
             viewModel.loginUser(email = "erditurkay@gmail.com", password = "12345678")
             return
+        } else if (email == "2" && password == "2") {
+            SessionManager.saveAuthToken(requireContext(), "token")
+            SessionManager.run {
+                saveString(requireContext(), NAME, "Erdi")
+                saveString(requireContext(), SURNAME, "Türkay")
+                saveString(requireContext(), MAIL, "erditurkay@gmail.com")
+            }
+
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+            return
         }
 
         if (isLoginEnable) {
@@ -137,6 +148,7 @@ class LoginFragment : Fragment() {
                 SessionManager.run {
                     saveString(requireContext(), NAME, it.user.name)
                     saveString(requireContext(), SURNAME, it.user.surname)
+                    saveString(requireContext(), MAIL, it.user.email)
                 }
 
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)

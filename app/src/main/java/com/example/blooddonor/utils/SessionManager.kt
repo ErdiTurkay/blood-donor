@@ -9,6 +9,7 @@ object SessionManager {
     private const val JWT_TOKEN = "jwt_token"
     const val NAME = "name"
     const val SURNAME = "surname"
+    const val MAIL = "mail"
 
     fun saveAuthToken(context: Context, token: String) {
         saveString(context, JWT_TOKEN, token)
