@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.blooddonor.feature.auth.LoginFragment"
+        android:name="com.example.blooddonor.feature.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.blooddonor.feature.auth.RegisterFragment"
+        android:name="com.example.blooddonor.feature.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
@@ -46,8 +46,9 @@
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:launchSingleTop="true" />
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/homeFragment" />
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.blooddonor.feature.NotificationFragment"
@@ -56,5 +57,6 @@
     <action
         android:id="@+id/action_global_notificationFragment"
         app:destination="@id/notificationFragment"
-        app:launchSingleTop="true" />
+        app:launchSingleTop="true"
+        app:popUpTo="@id/homeFragment" />
 </navigation>

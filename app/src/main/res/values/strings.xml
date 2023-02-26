@@ -1,21 +1,32 @@
 <resources>
     <string name="app_name">BloodDonor</string>
+
+    <!-- Header -->
+    <string name="good_morning">Günaydın</string>
+    <string name="good_evening">İyi Akşamlar</string>
+    <string name="good_night">İyi Geceler</string>
+    <string name="good_day">İyi Günler</string>
+    <!-- ***************************************************************** -->
+
+    <!-- Bottom Navigation -->
+    <string name="home">Anasayfa</string>
+    <string name="profile">Profil</string>
+    <!-- ***************************************************************** -->
+
+    <!-- Login/Register -->
     <string name="sign_in">Giriş</string>
     <string name="email">Email</string>
     <string name="password">Şifre</string>
     <string name="logout">Çıkış Yap</string>
     <string name="should_not_empty">Bu alan boş geçilemez.</string>
     <string name="should_not_be_empty">Bu alan boş geçilemez.</string>
-
-    <string name="good_morning">Günaydın</string>
-    <string name="good_evening">İyi Akşamlar</string>
-    <string name="good_night">İyi Geceler</string>
-    <string name="good_day">İyi Günler</string>
-    <string name="sign_in_title">Giriş Yap</string>
     <string name="dont_you_have_an_account">Hesabın yok mu?</string>
+    <string name="sign_in_title">Giriş Yap</string>
     <string name="sign_up">Kayıt Ol</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home">Anasayfa</string>
-    <string name="profile">Profil</string>
+    <!-- ***************************************************************** -->
+
+    <!-- Profile Rows -->
+    <string name="change_password">Şifreni Değiştir</string>
+    <string name="change_phone_number">Telefon Numaranı Değiştir</string>
+    <string name="exit">Çıkış Yap</string>
 </resources>

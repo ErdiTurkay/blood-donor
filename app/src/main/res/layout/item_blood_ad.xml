@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/campton_bold"
+            android:textColor="@color/main_color"
             android:textSize="18sp"
-            android:textColor="@color/purple_500"
             app:layout_constraintStart_toEndOf="@id/icon_card"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Celal ŞENGÖR" />
@@ -98,11 +98,11 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/right_arrow"
+            android:src="@drawable/ic_right_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/purple_500" />
+            app:tint="@color/main_color" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

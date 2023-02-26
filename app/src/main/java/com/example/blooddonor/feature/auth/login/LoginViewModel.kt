@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature.auth
+package com.example.blooddonor.feature.auth.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature.auth
+package com.example.blooddonor.feature.auth.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

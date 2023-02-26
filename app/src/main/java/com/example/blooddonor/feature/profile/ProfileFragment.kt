@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.FragmentProfileBinding
@@ -19,8 +20,25 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
+        binding.changePassword.run {
+            rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
+            rowText.text = getString(R.string.change_password)
+            root.setOnClickListener {
+                // TODO: Yönlendirme yapılacak.
+            }
+        }
+
+        binding.changePhone.run {
+            rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_phone))
+            rowText.text = getString(R.string.change_phone_number)
+            root.setOnClickListener {
+                // TODO: Yönlendirme yapılacak.
+            }
+        }
+
         binding.logout.run {
-            rowText.text = "Çıkış Yap"
+            rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_exit))
+            rowText.text = getString(R.string.exit)
             root.setOnClickListener {
                 SessionManager.clearData(requireContext())
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)

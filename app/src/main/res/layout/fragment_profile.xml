@@ -4,14 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="8dp"
     tools:context=".feature.profile.ProfileFragment">
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/change_password"
+            layout="@layout/item_profile_row" />
+
+        <include
+            android:id="@+id/change_phone"
+            layout="@layout/item_profile_row" />
 
         <include
             android:id="@+id/logout"
@@ -22,10 +34,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout"
         android:layout_marginStart="12dp"
         android:fontFamily="@font/campton"
-        android:text="version 1.0" />
+        android:text="version 1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
