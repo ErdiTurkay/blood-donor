@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.blooddonor.R
 import com.example.blooddonor.data.model.BloodAd
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.utils.GreetingMessage
@@ -30,14 +28,6 @@ class HomeFragment : Fragment() {
         activity.binding.bottomNav.show()
         activity.binding.includeHeader.root.show()
         setHeaderTitle()
-
-        binding.name.text = "Hoşgeldin ${SessionManager.getString(requireContext(), SessionManager.NAME)}"
-        binding.token.text = SessionManager.getToken(requireContext())
-
-        binding.btnLogout.setOnClickListener {
-            SessionManager.clearData(requireContext())
-            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-        }
 
         setBloodAdRV()
 

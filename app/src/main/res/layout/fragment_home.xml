@@ -16,37 +16,6 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_blood_ad"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="5" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/campton"
-        app:layout_constraintTop_toBottomOf="@id/blood_ad_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="8dp"
-        tools:text="Hoşgeldin Ad" />
-
-    <TextView
-        android:id="@+id/token"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/campton"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="8dp"
-        tools:text="Token: XXXXXXX" />
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        app:layout_constraintTop_toBottomOf="@id/token"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:itemCount="7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
