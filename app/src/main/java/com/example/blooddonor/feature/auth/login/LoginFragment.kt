@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -67,7 +66,7 @@ class LoginFragment : Fragment() {
 
                 is BaseResponse.Error -> {
                     binding.progress.hide()
-                    processError(it.msg)
+                    binding.errorInvalid.show()
                 }
             }
         }
@@ -93,6 +92,8 @@ class LoginFragment : Fragment() {
                     errorEmail.visibility = View.INVISIBLE
                     isLoginEnable = true
                 }
+
+                binding.errorInvalid.hide()
             }
 
             txtInputPassword.doAfterTextChanged {
@@ -103,6 +104,8 @@ class LoginFragment : Fragment() {
                     errorPassword.visibility = View.INVISIBLE
                     isLoginEnable = true
                 }
+
+                binding.errorInvalid.hide()
             }
         }
     }
@@ -131,7 +134,7 @@ class LoginFragment : Fragment() {
                 saveString(SessionManager.MAIL, "erditurkay@gmail.com")
             }
 
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
 
             return
         }
@@ -154,13 +157,5 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
-    }
-
-    private fun processError(message: String?) {
-        showToast("Error: $message")
-    }
-
-    private fun showToast(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 }
