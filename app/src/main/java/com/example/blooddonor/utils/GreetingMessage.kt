@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import com.example.blooddonor.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GreetingMessage @Inject constructor() {
+class GreetingMessage @Inject constructor(
+    @ApplicationContext val context: Context
+) {
     companion object {
         private const val NIGHT_LIMIT_1 = 4
         private const val NIGHT_LIMIT_2 = 22
@@ -17,7 +20,7 @@ class GreetingMessage @Inject constructor() {
         private const val DAY_LIMIT = 18
     }
 
-    fun getTimeString(context: Context) : String {
+    fun getTimeString() : String {
         val cal = Calendar.getInstance()
         val hours = cal.get(Calendar.HOUR_OF_DAY)
 
@@ -35,7 +38,7 @@ class GreetingMessage @Inject constructor() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getTimeDrawable(context: Context) : Drawable? {
+    fun getTimeDrawable() : Drawable? {
         val cal = Calendar.getInstance()
         val hours = cal.get(Calendar.HOUR_OF_DAY)
 

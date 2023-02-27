@@ -54,8 +54,8 @@ class HomeFragment : Fragment() {
 
     private fun setHeaderTitle() {
         activity.binding.includeHeader.headerTitle.text =
-            greetingMessage.getTimeString(requireContext())
+            greetingMessage.getTimeString()
                 .plus("\n")
-                .plus(sessionManager.getString(requireContext(), SessionManager.NAME))
+                .plus(sessionManager.getString(SessionManager.NAME))
     }
 }

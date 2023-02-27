@@ -43,15 +43,15 @@ class LoginFragment : Fragment() {
         activity.binding.bottomNav.hide()
         activity.binding.includeHeader.root.hide()
 
-        val token = sessionManager.getToken(requireContext())
+        val token = sessionManager.getToken()
         if (!token.isNullOrBlank()) {
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
         inputChangeListener()
 
-        binding.timeTitle.text = greetingMessage.getTimeString(requireContext())
-        binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable(requireContext()))
+        binding.timeTitle.text = greetingMessage.getTimeString()
+        binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable())
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -123,11 +123,11 @@ class LoginFragment : Fragment() {
             viewModel.loginUser(email = "erditurkay@gmail.com", password = "12345678")
             return
         } else if (email == "2" && password == "2") {
-            sessionManager.saveAuthToken(requireContext(), "token")
+            sessionManager.saveAuthToken("token")
             sessionManager.run {
-                saveString(requireContext(), SessionManager.NAME, "Erdi")
-                saveString(requireContext(), SessionManager.SURNAME, "Türkay")
-                saveString(requireContext(), SessionManager.MAIL, "erditurkay@gmail.com")
+                saveString(SessionManager.NAME, "Erdi")
+                saveString(SessionManager.SURNAME, "Türkay")
+                saveString(SessionManager.MAIL, "erditurkay@gmail.com")
             }
 
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
@@ -151,11 +151,11 @@ class LoginFragment : Fragment() {
     private fun processLogin(data: LoginResponse?) {
         if (!data?.token.isNullOrEmpty()) {
             data?.let {
-                sessionManager.saveAuthToken(requireContext(), it.token)
+                sessionManager.saveAuthToken(it.token)
                 sessionManager.run {
-                    saveString(requireContext(), SessionManager.NAME, it.user.name)
-                    saveString(requireContext(), SessionManager.SURNAME, it.user.surname)
-                    saveString(requireContext(), SessionManager.MAIL, it.user.email)
+                    saveString(SessionManager.NAME, it.user.name)
+                    saveString(SessionManager.SURNAME, it.user.surname)
+                    saveString(SessionManager.MAIL, it.user.email)
                 }
 
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)

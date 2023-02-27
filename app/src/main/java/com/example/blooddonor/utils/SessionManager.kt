@@ -3,11 +3,14 @@ package com.example.blooddonor.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.blooddonor.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SessionManager @Inject constructor(){
+class SessionManager @Inject constructor(
+    @ApplicationContext val context: Context
+){
 
     companion object {
         private const val JWT_TOKEN = "jwt_token"
@@ -16,15 +19,15 @@ class SessionManager @Inject constructor(){
         const val MAIL = "mail"
     }
 
-    fun saveAuthToken(context: Context, token: String) {
-        saveString(context, JWT_TOKEN, token)
+    fun saveAuthToken(token: String) {
+        saveString(JWT_TOKEN, token)
     }
 
-    fun getToken(context: Context): String? {
-        return getString(context, JWT_TOKEN)
+    fun getToken(): String? {
+        return getString(JWT_TOKEN)
     }
 
-    fun saveString(context: Context, key: String, value: String) {
+    fun saveString(key: String, value: String) {
         val prefs: SharedPreferences =
             context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
         val editor = prefs.edit()
@@ -33,13 +36,13 @@ class SessionManager @Inject constructor(){
 
     }
 
-    fun getString(context: Context, key: String): String? {
+    fun getString(key: String): String? {
         val prefs: SharedPreferences =
             context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
         return prefs.getString(key, null)
     }
 
-    fun clearData(context: Context){
+    fun clearData(){
         val editor = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE).edit()
         editor.clear()
         editor.apply()

@@ -27,12 +27,12 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         binding.profileName.text =
-            sessionManager.getString(requireContext(), SessionManager.NAME)
+            sessionManager.getString(SessionManager.NAME)
                 .plus(" ")
-                .plus(sessionManager.getString(requireContext(), SessionManager.SURNAME))
+                .plus(sessionManager.getString(SessionManager.SURNAME))
 
         binding.profileMail.text =
-            sessionManager.getString(requireContext(), SessionManager.MAIL)
+            sessionManager.getString(SessionManager.MAIL)
 
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
@@ -54,7 +54,7 @@ class ProfileFragment : Fragment() {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_exit))
             rowText.text = getString(R.string.exit)
             root.setOnClickListener {
-                sessionManager.clearData(requireContext())
+                sessionManager.clearData()
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
             }
         }
