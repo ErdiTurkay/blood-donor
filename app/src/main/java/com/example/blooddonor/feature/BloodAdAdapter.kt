@@ -34,7 +34,7 @@ class BloodAdAdapter: RecyclerView.Adapter<BloodAdAdapter.ViewHolder>() {
     override fun getItemCount() = bloodAdList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setActorList(bloodAds: List<BloodAd>) {
+    fun setBloodAdList(bloodAds: List<BloodAd>) {
         bloodAdList = bloodAds
         notifyDataSetChanged()
     }

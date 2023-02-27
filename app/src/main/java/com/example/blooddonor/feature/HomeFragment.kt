@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
             BloodAd("Celal Şengör", 63, "A Rh+", "https://cdn.karar.com/news/1528527.jpg")
         )
 
-        bloodAdAdapter.setActorList(bloodAdList)
+        bloodAdAdapter.setBloodAdList(bloodAdList)
     }
 
     private fun setHeaderTitle() {

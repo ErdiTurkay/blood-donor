@@ -29,10 +29,11 @@
     <string name="change_password">Şifreni Değiştir</string>
     <string name="change_phone_number">Telefon Numaranı Değiştir</string>
     <string name="exit">Çıkış Yap</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Change Password -->
     <string name="current_password">Mevcut Şifre</string>
     <string name="new_password">Yeni Şifre</string>
     <string name="update_password">Şifreyi Güncelle</string>
     <string name="new_password_confirm">Yeni Şifre (Tekrar)</string>
+    <!-- ***************************************************************** -->
 </resources>

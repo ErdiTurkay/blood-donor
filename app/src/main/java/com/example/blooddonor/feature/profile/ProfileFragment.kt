@@ -26,10 +26,7 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        binding.profileName.text =
-            sessionManager.getString(SessionManager.NAME)
-                .plus(" ")
-                .plus(sessionManager.getString(SessionManager.SURNAME))
+        binding.profileName.text = sessionManager.getFullName()
 
         binding.profileMail.text =
             sessionManager.getString(SessionManager.MAIL)

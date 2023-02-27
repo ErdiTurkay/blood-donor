@@ -27,18 +27,19 @@ class SessionManager @Inject constructor(
         return getString(JWT_TOKEN)
     }
 
+    fun getFullName(): String {
+        return getString(NAME).plus(" ").plus(getString(SURNAME))
+    }
+
     fun saveString(key: String, value: String) {
-        val prefs: SharedPreferences =
-            context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
         val editor = prefs.edit()
         editor.putString(key, value)
         editor.apply()
-
     }
 
     fun getString(key: String): String? {
-        val prefs: SharedPreferences =
-            context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
         return prefs.getString(key, null)
     }
 

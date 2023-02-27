@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePasswordBinding
+import com.example.blooddonor.utils.hide
+import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,14 +33,16 @@ class ChangePasswordFragment : Fragment() {
         viewModel.responseResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
-
+                    binding.progress.show()
                 }
 
                 is BaseResponse.Success -> {
+                    binding.progress.hide()
                     findNavController().navigate(R.id.action_global_profileFragment)
                 }
 
                 is BaseResponse.Error -> {
+                    binding.progress.hide()
                     Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -109,5 +113,4 @@ class ChangePasswordFragment : Fragment() {
             }
         }
     }
-
 }

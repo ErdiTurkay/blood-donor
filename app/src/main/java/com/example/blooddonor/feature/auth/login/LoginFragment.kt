@@ -17,6 +17,7 @@ import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.hide
+import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,16 +57,16 @@ class LoginFragment : Fragment() {
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
-                    showLoading()
+                    binding.progress.show()
                 }
 
                 is BaseResponse.Success -> {
-                    stopLoading()
+                    binding.progress.hide()
                     processLogin(it.data)
                 }
 
                 is BaseResponse.Error -> {
-                    stopLoading()
+                    binding.progress.hide()
                     processError(it.msg)
                 }
             }
@@ -138,14 +139,6 @@ class LoginFragment : Fragment() {
         if (isLoginEnable) {
             viewModel.loginUser(email = email, password = password)
         }
-    }
-
-    private fun showLoading() {
-        binding.progress.visibility = View.VISIBLE
-    }
-
-    private fun stopLoading() {
-        binding.progress.visibility = View.GONE
     }
 
     private fun processLogin(data: LoginResponse?) {
