@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blooddonor.data.api.request.ChangePasswordRequest
-import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.ChangePasswordResponse
-import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

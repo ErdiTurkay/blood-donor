@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePasswordBinding
-import com.example.blooddonor.feature.auth.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

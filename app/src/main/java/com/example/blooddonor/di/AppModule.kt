@@ -1,6 +1,7 @@
 package com.example.blooddonor.di
 
 import com.example.blooddonor.data.api.ApiService
+import com.example.blooddonor.data.api.AuthInterceptor
 import com.example.blooddonor.utils.Constant
 import dagger.Module
 import dagger.Provides
@@ -15,13 +16,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
-    fun provideAPI(): ApiService {
+    fun provideAPI(
+        authInterceptor: AuthInterceptor
+    ): ApiService {
         val mHttpLoggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val mOkHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(mHttpLoggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()
