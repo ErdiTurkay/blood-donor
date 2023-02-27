@@ -18,6 +18,7 @@ import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.hide
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -25,6 +26,12 @@ class LoginFragment : Fragment() {
     private lateinit var activity: MainActivity
     private val viewModel: LoginViewModel by viewModels()
     private var isLoginEnable: Boolean = false
+
+    @Inject
+    lateinit var sessionManager: SessionManager
+
+    @Inject
+    lateinit var greetingMessage: GreetingMessage
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +43,15 @@ class LoginFragment : Fragment() {
         activity.binding.bottomNav.hide()
         activity.binding.includeHeader.root.hide()
 
-        val token = SessionManager.getToken(requireContext())
+        val token = sessionManager.getToken(requireContext())
         if (!token.isNullOrBlank()) {
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
         inputChangeListener()
 
-        binding.timeTitle.text = GreetingMessage.getTimeString(requireContext())
-        binding.timeImage.setImageDrawable(GreetingMessage.getTimeDrawable(requireContext()))
+        binding.timeTitle.text = greetingMessage.getTimeString(requireContext())
+        binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable(requireContext()))
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -116,11 +123,11 @@ class LoginFragment : Fragment() {
             viewModel.loginUser(email = "erditurkay@gmail.com", password = "12345678")
             return
         } else if (email == "2" && password == "2") {
-            SessionManager.saveAuthToken(requireContext(), "token")
-            SessionManager.run {
-                saveString(requireContext(), NAME, "Erdi")
-                saveString(requireContext(), SURNAME, "Türkay")
-                saveString(requireContext(), MAIL, "erditurkay@gmail.com")
+            sessionManager.saveAuthToken(requireContext(), "token")
+            sessionManager.run {
+                saveString(requireContext(), SessionManager.NAME, "Erdi")
+                saveString(requireContext(), SessionManager.SURNAME, "Türkay")
+                saveString(requireContext(), SessionManager.MAIL, "erditurkay@gmail.com")
             }
 
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
@@ -144,11 +151,11 @@ class LoginFragment : Fragment() {
     private fun processLogin(data: LoginResponse?) {
         if (!data?.token.isNullOrEmpty()) {
             data?.let {
-                SessionManager.saveAuthToken(requireContext(), it.token)
-                SessionManager.run {
-                    saveString(requireContext(), NAME, it.user.name)
-                    saveString(requireContext(), SURNAME, it.user.surname)
-                    saveString(requireContext(), MAIL, it.user.email)
+                sessionManager.saveAuthToken(requireContext(), it.token)
+                sessionManager.run {
+                    saveString(requireContext(), SessionManager.NAME, it.user.name)
+                    saveString(requireContext(), SessionManager.SURNAME, it.user.surname)
+                    saveString(requireContext(), SessionManager.MAIL, it.user.email)
                 }
 
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)

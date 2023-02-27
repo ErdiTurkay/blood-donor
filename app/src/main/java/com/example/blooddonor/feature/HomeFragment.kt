@@ -11,12 +11,19 @@ import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var activity: MainActivity
     // private val viewModel: HomeViewModel by viewModels()
+
+    @Inject
+    lateinit var sessionManager: SessionManager
+
+    @Inject
+    lateinit var greetingMessage: GreetingMessage
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +54,8 @@ class HomeFragment : Fragment() {
 
     private fun setHeaderTitle() {
         activity.binding.includeHeader.headerTitle.text =
-            GreetingMessage.getTimeString(requireContext())
+            greetingMessage.getTimeString(requireContext())
                 .plus("\n")
-                .plus(SessionManager.getString(requireContext(), SessionManager.NAME))
+                .plus(sessionManager.getString(requireContext(), SessionManager.NAME))
     }
 }

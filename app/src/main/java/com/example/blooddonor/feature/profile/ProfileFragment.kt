@@ -10,9 +10,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.FragmentProfileBinding
 import com.example.blooddonor.utils.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,12 +27,12 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         binding.profileName.text =
-            SessionManager.getString(requireContext(), SessionManager.NAME)
+            sessionManager.getString(requireContext(), SessionManager.NAME)
                 .plus(" ")
-                .plus(SessionManager.getString(requireContext(), SessionManager.SURNAME))
+                .plus(sessionManager.getString(requireContext(), SessionManager.SURNAME))
 
         binding.profileMail.text =
-            SessionManager.getString(requireContext(), SessionManager.MAIL)
+            sessionManager.getString(requireContext(), SessionManager.MAIL)
 
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
@@ -48,7 +54,7 @@ class ProfileFragment : Fragment() {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_exit))
             rowText.text = getString(R.string.exit)
             root.setOnClickListener {
-                SessionManager.clearData(requireContext())
+                sessionManager.clearData(requireContext())
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
             }
         }

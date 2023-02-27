@@ -3,13 +3,18 @@ package com.example.blooddonor.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.blooddonor.R
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object SessionManager {
+@Singleton
+class SessionManager @Inject constructor(){
 
-    private const val JWT_TOKEN = "jwt_token"
-    const val NAME = "name"
-    const val SURNAME = "surname"
-    const val MAIL = "mail"
+    companion object {
+        private const val JWT_TOKEN = "jwt_token"
+        const val NAME = "name"
+        const val SURNAME = "surname"
+        const val MAIL = "mail"
+    }
 
     fun saveAuthToken(context: Context, token: String) {
         saveString(context, JWT_TOKEN, token)

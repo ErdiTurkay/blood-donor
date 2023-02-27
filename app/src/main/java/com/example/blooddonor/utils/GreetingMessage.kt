@@ -5,13 +5,17 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import com.example.blooddonor.R
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object GreetingMessage {
-
-    private const val NIGHT_LIMIT_1 = 4
-    private const val NIGHT_LIMIT_2 = 22
-    private const val MORNING_LIMIT = 12
-    private const val DAY_LIMIT = 18
+@Singleton
+class GreetingMessage @Inject constructor() {
+    companion object {
+        private const val NIGHT_LIMIT_1 = 4
+        private const val NIGHT_LIMIT_2 = 22
+        private const val MORNING_LIMIT = 12
+        private const val DAY_LIMIT = 18
+    }
 
     fun getTimeString(context: Context) : String {
         val cal = Calendar.getInstance()
