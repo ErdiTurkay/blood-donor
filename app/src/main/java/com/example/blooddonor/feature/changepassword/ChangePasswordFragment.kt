@@ -14,6 +14,7 @@ import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePasswordBinding
 import com.example.blooddonor.utils.hide
 import com.example.blooddonor.utils.show
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +39,13 @@ class ChangePasswordFragment : Fragment() {
 
                 is BaseResponse.Success -> {
                     binding.progress.hide()
+
+                    Snackbar.make(
+                        requireView(),
+                        R.string.password_change_successful,
+                        Snackbar.LENGTH_LONG
+                    ).show()
+
                     findNavController().navigate(R.id.action_global_profileFragment)
                 }
 

@@ -35,5 +35,6 @@
     <string name="new_password">Yeni Şifre</string>
     <string name="update_password">Şifreyi Güncelle</string>
     <string name="new_password_confirm">Yeni Şifre (Tekrar)</string>
+    <string name="password_change_successful">Şifreniz başarıyla değiştirildi.</string>
     <!-- ***************************************************************** -->
 </resources>
