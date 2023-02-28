@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
 
                 is BaseResponse.Error -> {
                     binding.progress.hide()
+                    binding.errorInvalid.text = it.msg
                     binding.errorInvalid.show()
                 }
             }

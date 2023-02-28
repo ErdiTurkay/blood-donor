@@ -51,7 +51,7 @@ class ChangePasswordFragment : Fragment() {
 
                 is BaseResponse.Error -> {
                     binding.progress.hide()
-                    Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.msg, Toast.LENGTH_SHORT).show()
                 }
             }
         }
