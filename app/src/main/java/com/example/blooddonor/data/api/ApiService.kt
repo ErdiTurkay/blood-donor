@@ -1,9 +1,11 @@
 package com.example.blooddonor.data.api
 
 import com.example.blooddonor.data.api.request.ChangePasswordRequest
+import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.request.RegisterRequest
 import com.example.blooddonor.data.api.response.ChangePasswordResponse
+import com.example.blooddonor.data.api.response.ChangePhoneNumberResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.data.api.response.RegisterResponse
 import com.example.blooddonor.utils.APIConstants
@@ -20,4 +22,7 @@ interface ApiService {
 
     @POST(APIConstants.UPDATE_PASSWORD_URL)
     suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest): Response<ChangePasswordResponse>
+
+    @POST(APIConstants.UPDATE_PHONE_NUMBER_URL)
+    suspend fun changePhoneNumber(@Body changePhoneNumberRequest: ChangePhoneNumberRequest): Response<ChangePhoneNumberResponse>
 }

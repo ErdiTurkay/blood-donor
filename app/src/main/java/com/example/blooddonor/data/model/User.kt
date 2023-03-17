@@ -31,7 +31,7 @@ data class User(
     val lastDonation: String,
 
     @SerializedName("phone")
-    val phone: String,
+    var phone: String,
 
     @SerializedName("chats")
     val chats: List<String>,

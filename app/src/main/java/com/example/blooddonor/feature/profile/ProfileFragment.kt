@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_phone))
             rowText.text = getString(R.string.change_phone_number)
             root.setOnClickListener {
-                // TODO: Yönlendirme yapılacak.
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToChangePhoneNumberFragment())
             }
         }
 

@@ -46,6 +46,10 @@
             android:id="@+id/action_profileFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment"
             app:popUpTo="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePhoneNumberFragment"
+            app:destination="@id/changePhoneNumberFragment"
+            app:popUpTo="@id/profileFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_profileFragment"
@@ -68,4 +72,9 @@
         android:name="com.example.blooddonor.feature.changepassword.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/changePhoneNumberFragment"
+        android:name="com.example.blooddonor.feature.changephonenumber.ChangePhoneNumberFragment"
+        android:label="fragment_change_phone_number"
+        tools:layout="@layout/fragment_change_phone_number" />
 </navigation>

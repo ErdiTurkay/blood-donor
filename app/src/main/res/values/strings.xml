@@ -37,4 +37,11 @@
     <string name="new_password_confirm">Yeni Şifre (Tekrar)</string>
     <string name="password_change_successful">Şifreniz başarıyla değiştirildi.</string>
     <!-- ***************************************************************** -->
+
+    <!-- Change Phone Number -->
+    <string name="update_phone_number">Telefon Numarasını Güncelle</string>
+    <string name="phone_number">Telefon Numarası</string>
+    <string name="phone_number_is_succesfully_changed">Telefon numarası başarıyla değiştirildi.</string>
+    <string name="passwords_cannot_be_same">Girilen şifre, mevcut şifre ile aynı olamaz.</string>
+    <!-- ***************************************************************** -->
 </resources>

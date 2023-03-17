@@ -2,9 +2,11 @@ package com.example.blooddonor.data.repository
 
 import com.example.blooddonor.data.api.ApiService
 import com.example.blooddonor.data.api.request.ChangePasswordRequest
+import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.request.RegisterRequest
 import com.example.blooddonor.data.api.response.ChangePasswordResponse
+import com.example.blooddonor.data.api.response.ChangePhoneNumberResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.data.api.response.RegisterResponse
 import retrofit2.Response
@@ -23,5 +25,9 @@ class UserRepository @Inject constructor(
 
     suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): Response<ChangePasswordResponse> {
         return api.changePassword(changePasswordRequest = changePasswordRequest)
+    }
+
+    suspend fun changePhoneNumber(changePhoneNumberRequest: ChangePhoneNumberRequest): Response<ChangePhoneNumberResponse> {
+        return api.changePhoneNumber(changePhoneNumberRequest = changePhoneNumberRequest)
     }
 }
