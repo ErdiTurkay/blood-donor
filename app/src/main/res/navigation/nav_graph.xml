@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.blooddonor.feature.HomeFragment"
+        android:name="com.example.blooddonor.feature.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -55,7 +55,7 @@
         app:popUpTo="@id/homeFragment" />
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.example.blooddonor.feature.NotificationFragment"
+        android:name="com.example.blooddonor.feature.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
     <action

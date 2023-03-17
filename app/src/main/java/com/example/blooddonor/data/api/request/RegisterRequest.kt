@@ -7,20 +7,28 @@ import java.util.Date
 data class RegisterRequest(
     @SerializedName("email")
     var email: String,
+
     @SerializedName("password")
     var password: String,
+
     @SerializedName("name")
     var name: String,
+
     @SerializedName("surname")
     var surname: String,
+
     @SerializedName("bloodType")
     var bloodType: String,
+
     @SerializedName("location")
     var location: Location,
+
     @SerializedName("lastDonation")
     var lastDonation: Date,
+
     @SerializedName("dateOfBirth")
     var dateOfBirth: Date,
+
     @SerializedName("phone")
     var phone: String
 )

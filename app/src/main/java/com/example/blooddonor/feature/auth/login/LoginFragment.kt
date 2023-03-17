@@ -13,10 +13,7 @@ import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.databinding.FragmentLoginBinding
 import com.example.blooddonor.feature.MainActivity
-import com.example.blooddonor.utils.GreetingMessage
-import com.example.blooddonor.utils.SessionManager
-import com.example.blooddonor.utils.hide
-import com.example.blooddonor.utils.show
+import com.example.blooddonor.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,7 +22,6 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var activity: MainActivity
     private val viewModel: LoginViewModel by viewModels()
-    private var isLoginEnable: Boolean = false
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -40,18 +36,26 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
-        activity.binding.bottomNav.hide()
-        activity.binding.includeHeader.root.hide()
+        activity.binding.bottomNav.gone()
+        activity.binding.includeHeader.root.gone()
 
         val token = sessionManager.getToken()
         if (!token.isNullOrBlank()) {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
-
-        inputChangeListener()
 
         binding.timeTitle.text = greetingMessage.getTimeString()
         binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable())
+
+        txtInputTextChange()
+
+        binding.btnLogin.setOnClickListener {
+            doLogin()
+        }
+
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -60,53 +64,29 @@ class LoginFragment : Fragment() {
                 }
 
                 is BaseResponse.Success -> {
-                    binding.progress.hide()
+                    binding.progress.gone()
                     processLogin(it.data)
                 }
 
                 is BaseResponse.Error -> {
-                    binding.progress.hide()
+                    binding.progress.gone()
                     binding.errorInvalid.text = it.msg
                     binding.errorInvalid.show()
                 }
             }
         }
 
-        binding.btnLogin.setOnClickListener {
-            doLogin()
-        }
-
-        binding.btnRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-
         return binding.root
     }
 
-    private fun inputChangeListener() {
+    private fun txtInputTextChange() {
         binding.run {
             txtInputEmail.doAfterTextChanged {
-                if (it?.length == 0) {
-                    errorEmail.visibility = View.VISIBLE
-                    isLoginEnable = false
-                } else {
-                    errorEmail.visibility = View.INVISIBLE
-                    isLoginEnable = true
-                }
-
-                binding.errorInvalid.hide()
+                binding.errorEmail.showOrHide(it?.length == 0)
             }
 
             txtInputPassword.doAfterTextChanged {
-                if (it?.length == 0) {
-                    errorPassword.visibility = View.VISIBLE
-                    isLoginEnable = false
-                } else {
-                    errorPassword.visibility = View.INVISIBLE
-                    isLoginEnable = true
-                }
-
-                binding.errorInvalid.hide()
+                binding.errorPassword.showOrHide(it?.length == 0)
             }
         }
     }
@@ -115,48 +95,22 @@ class LoginFragment : Fragment() {
         val email = binding.txtInputEmail.text.toString()
         val password = binding.txtInputPassword.text.toString()
 
-        if (email.isEmpty()) {
-            binding.errorEmail.visibility = View.VISIBLE
-        }
+        binding.errorEmail.showOrHide(email.isEmpty())
+        binding.errorPassword.showOrHide(password.isEmpty())
 
-        if (password.isEmpty()) {
-            binding.errorPassword.visibility = View.VISIBLE
-        }
+        val isAvailable = email.isNotEmpty() && password.isNotEmpty()
 
-        // TODO: This is for development. It will be deleted later.
-        if (email == "1" && password == "1") {
-            viewModel.loginUser(email = "erditurkay@gmail.com", password = "12345678")
-            return
-        } else if (email == "2" && password == "2") {
-            sessionManager.saveAuthToken("token")
-            sessionManager.run {
-                saveString(SessionManager.NAME, "Erdi")
-                saveString(SessionManager.SURNAME, "Türkay")
-                saveString(SessionManager.MAIL, "erditurkay@gmail.com")
-            }
-
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-
-            return
-        }
-
-        if (isLoginEnable) {
+        if (isAvailable) {
             viewModel.loginUser(email = email, password = password)
         }
     }
 
     private fun processLogin(data: LoginResponse?) {
-        if (!data?.token.isNullOrEmpty()) {
-            data?.let {
-                sessionManager.saveAuthToken(it.token)
-                sessionManager.run {
-                    saveString(SessionManager.NAME, it.user.name)
-                    saveString(SessionManager.SURNAME, it.user.surname)
-                    saveString(SessionManager.MAIL, it.user.email)
-                }
+        data?.run {
+            sessionManager.saveAuthToken(token)
+            sessionManager.saveUser(user)
 
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-            }
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
 }

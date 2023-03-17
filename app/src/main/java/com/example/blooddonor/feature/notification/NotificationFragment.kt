@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature
+package com.example.blooddonor.feature.notification
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,7 +15,6 @@ class NotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNotificationBinding.inflate(layoutInflater)
-
 
         return binding.root
     }

@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.ChangePasswordResponse
+import com.example.blooddonor.data.api.response.ErrorResponse
 import com.example.blooddonor.data.api.response.LoginResponse
-import com.example.blooddonor.repository.UserRepository
+import com.example.blooddonor.data.repository.UserRepository
+import com.example.blooddonor.utils.convertToErrorResponse
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,7 +33,7 @@ class LoginViewModel @Inject constructor(
                     loginResult.value = BaseResponse.Success(response.body())
                 } else {
                     val json = response.errorBody()?.string()
-                    val errorObject = Gson().fromJson(json, LoginResponse::class.java)
+                    val errorObject = json.convertToErrorResponse()
                     loginResult.value = BaseResponse.Error(errorObject.message)
                 }
             } catch (ex: Exception) {

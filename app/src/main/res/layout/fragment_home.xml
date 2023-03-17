@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="15dp"
     android:paddingVertical="8dp"
-    tools:context=".feature.HomeFragment">
+    tools:context=".feature.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/blood_ad_rv"

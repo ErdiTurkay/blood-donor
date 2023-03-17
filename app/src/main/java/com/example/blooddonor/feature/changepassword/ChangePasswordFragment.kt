@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePasswordBinding
+import com.example.blooddonor.utils.gone
 import com.example.blooddonor.utils.hide
 import com.example.blooddonor.utils.show
+import com.example.blooddonor.utils.showOrHide
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChangePasswordFragment : Fragment() {
     private lateinit var binding: FragmentChangePasswordBinding
     private val viewModel: ChangePasswordViewModel by viewModels()
-    private var isAvailable: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class ChangePasswordFragment : Fragment() {
                 }
 
                 is BaseResponse.Success -> {
-                    binding.progress.hide()
+                    binding.progress.gone()
 
                     Snackbar.make(
                         requireView(),
@@ -50,74 +51,54 @@ class ChangePasswordFragment : Fragment() {
                 }
 
                 is BaseResponse.Error -> {
-                    binding.progress.hide()
-                    Toast.makeText(requireContext(), it.msg, Toast.LENGTH_SHORT).show()
+                    binding.progress.gone()
+                    binding.errorCurrentPassword.text = it.msg
+                    binding.errorCurrentPassword.show()
                 }
             }
         }
 
         binding.btnChangePassword.setOnClickListener {
-            val currentPassword = binding.txtInputCurrentPassword.text.toString()
-            val newPassword = binding.txtInputNewPassword.text.toString()
-            val newPasswordConfirm = binding.txtInputNewPasswordConfirm.text.toString()
-
-            if (currentPassword.isEmpty()) {
-                binding.errorCurrentPassword.visibility = View.VISIBLE
-            }
-
-            if (newPassword.isEmpty()) {
-                binding.errorNewPassword.visibility = View.VISIBLE
-            }
-
-            if (newPasswordConfirm.isEmpty()) {
-                binding.errorNewPasswordConfirm.visibility = View.VISIBLE
-            }
-
-            if (newPassword != newPasswordConfirm) {
-                binding.errorNewPassword.text = "Girilen şifreler aynı olmalıdır."
-                binding.errorNewPasswordConfirm.text = "Girilen şifreler aynı olmalıdır."
-                binding.errorNewPassword.visibility = View.VISIBLE
-                binding.errorNewPasswordConfirm.visibility = View.VISIBLE
-            }
-
-            if (isAvailable) {
-                viewModel.changePassword(newPassword)
-            }
+            changePassword()
         }
 
         return binding.root
     }
 
+    private fun changePassword() {
+        val currentPassword = binding.txtInputCurrentPassword.text.toString()
+        val newPassword = binding.txtInputNewPassword.text.toString()
+        val newPasswordConfirm = binding.txtInputNewPasswordConfirm.text.toString()
+
+        val listOfInput = listOf(currentPassword, newPassword, newPasswordConfirm)
+
+        val isAvailable = listOfInput.all { it.isNotEmpty() } && newPassword == newPasswordConfirm
+
+        binding.errorCurrentPassword.showOrHide(currentPassword.isEmpty())
+        binding.errorNewPassword.showOrHide(
+            newPassword.isEmpty() || newPassword != newPasswordConfirm
+        )
+        binding.errorNewPasswordConfirm.showOrHide(
+            newPasswordConfirm.isEmpty() || newPassword != newPasswordConfirm
+        )
+
+        if (isAvailable) {
+            viewModel.changePassword(currentPassword, newPassword)
+        }
+    }
+
     private fun inputChangeListener() {
         binding.run {
             txtInputCurrentPassword.doAfterTextChanged {
-                if (it?.length == 0) {
-                    errorCurrentPassword.visibility = View.VISIBLE
-                    isAvailable = false
-                } else {
-                    errorCurrentPassword.visibility = View.INVISIBLE
-                    isAvailable = true
-                }
+                errorCurrentPassword.showOrHide(it?.length == 0)
             }
 
             txtInputNewPassword.doAfterTextChanged {
-                if (it?.length == 0) {
-                    errorNewPassword.visibility = View.VISIBLE
-                    isAvailable = false
-                } else {
-                    errorNewPassword.visibility = View.INVISIBLE
-                    isAvailable = true
-                }
+                errorNewPassword.showOrHide(it?.length == 0)
             }
 
             txtInputNewPasswordConfirm.doAfterTextChanged {
-                if (it?.length == 0) {
-                    errorNewPasswordConfirm.visibility = View.VISIBLE
-                    isAvailable = false
-                } else {
-                    errorNewPasswordConfirm.visibility = View.INVISIBLE
-                    isAvailable = true
-                }
+                errorNewPasswordConfirm.showOrHide(it?.length == 0)
             }
         }
     }

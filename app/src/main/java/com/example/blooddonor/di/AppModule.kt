@@ -2,7 +2,7 @@ package com.example.blooddonor.di
 
 import com.example.blooddonor.data.api.ApiService
 import com.example.blooddonor.data.api.AuthInterceptor
-import com.example.blooddonor.utils.Constant
+import com.example.blooddonor.utils.APIConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +29,7 @@ object AppModule {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+            .baseUrl(APIConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(mOkHttpClient)
             .build()

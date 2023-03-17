@@ -1,4 +1,4 @@
-package com.example.blooddonor.repository
+package com.example.blooddonor.data.repository
 
 import com.example.blooddonor.data.api.ApiService
 import com.example.blooddonor.data.api.request.ChangePasswordRequest

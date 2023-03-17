@@ -1,4 +1,4 @@
-package com.example.blooddonor.feature
+package com.example.blooddonor.feature.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -14,12 +14,12 @@ import com.example.blooddonor.data.model.BloodAd
 class BloodAdAdapter: RecyclerView.Adapter<BloodAdAdapter.ViewHolder>() {
     private var bloodAdList = listOf<BloodAd>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BloodAdAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blood_ad, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BloodAdAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.patientName.text = bloodAdList[position].patientName
         holder.patientAge.text = bloodAdList[position].patientAge.toString()
         holder.patientBloodGroup.text = bloodAdList[position].patientBloodGroup

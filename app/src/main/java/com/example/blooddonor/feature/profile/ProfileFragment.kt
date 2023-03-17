@@ -28,14 +28,13 @@ class ProfileFragment : Fragment() {
 
         binding.profileName.text = sessionManager.getFullName()
 
-        binding.profileMail.text =
-            sessionManager.getString(SessionManager.MAIL)
+        binding.profileMail.text = sessionManager.getUser().email
 
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
             rowText.text = getString(R.string.change_password)
             root.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment())
             }
         }
 
@@ -52,7 +51,7 @@ class ProfileFragment : Fragment() {
             rowText.text = getString(R.string.exit)
             root.setOnClickListener {
                 sessionManager.clearData()
-                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
             }
         }
 
