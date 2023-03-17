@@ -1,6 +1,5 @@
 package com.example.blooddonor.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
@@ -12,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GreetingMessage @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
 ) {
 
     @Inject
@@ -44,7 +43,7 @@ class GreetingMessage @Inject constructor(
 
     fun getHeaderText(): String {
         return getTimeString()
-            .plus( "\n")
+            .plus("\n")
             .plus(sessionManager.getUser().name)
     }
 

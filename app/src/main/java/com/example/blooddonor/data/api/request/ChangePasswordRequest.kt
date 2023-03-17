@@ -7,5 +7,5 @@ data class ChangePasswordRequest(
     var oldPassword: String,
 
     @SerializedName("newPassword")
-    var newPassword: String
+    var newPassword: String,
 )

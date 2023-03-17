@@ -8,17 +8,14 @@ import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.ChangePasswordResponse
 import com.example.blooddonor.data.repository.UserRepository
 import com.example.blooddonor.utils.convertToErrorResponse
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(
-    var userRepository: UserRepository
-): ViewModel() {
+    var userRepository: UserRepository,
+) : ViewModel() {
     val responseResult: MutableLiveData<BaseResponse<ChangePasswordResponse>> = MutableLiveData()
 
     fun changePassword(oldPassword: String, newPassword: String) {

@@ -23,8 +23,9 @@ class HomeFragment : Fragment() {
     lateinit var greetingMessage: GreetingMessage
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
         binding.bloodAdRv.adapter = bloodAdAdapter
         val bloodAdList = listOf(
             BloodAd("Ulaş Deniz Işık", 27, "A Rh+", "https://imgyukle.com/f/2023/02/25/QIHJqH.png"),
-            BloodAd("Celal Şengör", 63, "A Rh+", "https://cdn.karar.com/news/1528527.jpg")
+            BloodAd("Celal Şengör", 63, "A Rh+", "https://cdn.karar.com/news/1528527.jpg"),
         )
 
         bloodAdAdapter.setBloodAdList(bloodAdList)

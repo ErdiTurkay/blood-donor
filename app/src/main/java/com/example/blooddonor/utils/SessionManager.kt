@@ -10,12 +10,12 @@ import javax.inject.Singleton
 
 @Singleton
 class SessionManager @Inject constructor(
-    @ApplicationContext val context: Context
-){
+    @ApplicationContext val context: Context,
+) {
 
     companion object {
         private const val JWT_TOKEN = "jwt_token"
-        const val USER = "user"
+        private const val USER = "user"
     }
 
     fun saveAuthToken(token: String) {

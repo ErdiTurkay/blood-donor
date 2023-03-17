@@ -1,19 +1,18 @@
 package com.example.blooddonor.feature.auth.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.databinding.FragmentLoginBinding
 import com.example.blooddonor.feature.MainActivity
-import com.example.blooddonor.utils.*
+import com.example.blooddonor.utils.* // ktlint-disable no-wildcard-imports
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,8 +29,9 @@ class LoginFragment : Fragment() {
     lateinit var greetingMessage: GreetingMessage
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity

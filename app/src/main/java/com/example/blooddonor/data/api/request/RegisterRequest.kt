@@ -30,5 +30,5 @@ data class RegisterRequest(
     var dateOfBirth: Date,
 
     @SerializedName("phone")
-    var phone: String
+    var phone: String,
 )

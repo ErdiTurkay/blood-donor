@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.blooddonor.NavGraphDirections
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePasswordBinding
 import com.example.blooddonor.utils.gone
-import com.example.blooddonor.utils.hide
 import com.example.blooddonor.utils.show
 import com.example.blooddonor.utils.showOrHide
 import com.google.android.material.snackbar.Snackbar
@@ -25,8 +24,9 @@ class ChangePasswordFragment : Fragment() {
     private val viewModel: ChangePasswordViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentChangePasswordBinding.inflate(layoutInflater)
 
@@ -44,10 +44,10 @@ class ChangePasswordFragment : Fragment() {
                     Snackbar.make(
                         requireView(),
                         R.string.password_change_successful,
-                        Snackbar.LENGTH_LONG
+                        Snackbar.LENGTH_LONG,
                     ).show()
 
-                    findNavController().navigate(R.id.action_global_profileFragment)
+                    findNavController().navigate(NavGraphDirections.actionGlobalProfileFragment())
                 }
 
                 is BaseResponse.Error -> {
@@ -76,10 +76,10 @@ class ChangePasswordFragment : Fragment() {
 
         binding.errorCurrentPassword.showOrHide(currentPassword.isEmpty())
         binding.errorNewPassword.showOrHide(
-            newPassword.isEmpty() || newPassword != newPasswordConfirm
+            newPassword.isEmpty() || newPassword != newPasswordConfirm,
         )
         binding.errorNewPasswordConfirm.showOrHide(
-            newPasswordConfirm.isEmpty() || newPassword != newPasswordConfirm
+            newPasswordConfirm.isEmpty() || newPassword != newPasswordConfirm,
         )
 
         if (isAvailable) {

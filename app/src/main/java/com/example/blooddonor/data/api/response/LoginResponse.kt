@@ -11,5 +11,5 @@ data class LoginResponse(
     var token: String,
 
     @SerializedName("user")
-    var user: User
+    var user: User,
 )

@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AppModule {
     @Provides
     fun provideAPI(
-        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor,
     ): ApiService {
         val mHttpLoggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)

@@ -5,12 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.response.BaseResponse
-import com.example.blooddonor.data.api.response.ChangePasswordResponse
-import com.example.blooddonor.data.api.response.ErrorResponse
 import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.data.repository.UserRepository
 import com.example.blooddonor.utils.convertToErrorResponse
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
@@ -18,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    var userRepository: UserRepository
-): ViewModel() {
+    var userRepository: UserRepository,
+) : ViewModel() {
     val loginResult: MutableLiveData<BaseResponse<LoginResponse>> = MutableLiveData()
 
     fun loginUser(email: String, password: String) {

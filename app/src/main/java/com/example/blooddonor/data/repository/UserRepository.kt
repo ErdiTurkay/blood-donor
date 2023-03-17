@@ -11,7 +11,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
-    private val api: ApiService
+    private val api: ApiService,
 ) {
     suspend fun loginUser(loginRequest: LoginRequest): Response<LoginResponse> {
         return api.loginUser(loginRequest = loginRequest)

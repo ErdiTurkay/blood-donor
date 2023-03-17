@@ -8,5 +8,5 @@ data class ChangePasswordResponse(
     var message: String,
 
     @SerializedName("user")
-    var user: User
+    var user: User,
 )

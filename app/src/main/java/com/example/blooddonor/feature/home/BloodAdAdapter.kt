@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.blooddonor.R
 import com.example.blooddonor.data.model.BloodAd
 
-class BloodAdAdapter: RecyclerView.Adapter<BloodAdAdapter.ViewHolder>() {
+class BloodAdAdapter : RecyclerView.Adapter<BloodAdAdapter.ViewHolder>() {
     private var bloodAdList = listOf<BloodAd>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

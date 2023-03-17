@@ -11,5 +11,5 @@ data class RegisterResponse(
     var token: String,
 
     @SerializedName("user")
-    var user: User
+    var user: User,
 )

@@ -4,5 +4,5 @@ data class BloodAd(
     val patientName: String,
     val patientAge: Int,
     val patientBloodGroup: String,
-    val patientImage: String
+    val patientImage: String,
 )
