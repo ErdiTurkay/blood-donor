@@ -28,7 +28,6 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         binding.profileName.text = sessionManager.getFullName()
-
         binding.profileMail.text = sessionManager.getUser().email
 
         binding.changePassword.run {

@@ -82,11 +82,11 @@ class LoginFragment : Fragment() {
     private fun txtInputTextChange() {
         binding.run {
             txtInputEmail.doAfterTextChanged {
-                binding.errorEmail.showOrHide(it?.length == 0)
+                errorEmail.showOrHide(it?.length == 0)
             }
 
             txtInputPassword.doAfterTextChanged {
-                binding.errorPassword.showOrHide(it?.length == 0)
+                errorPassword.showOrHide(it?.length == 0)
             }
         }
     }
@@ -107,8 +107,10 @@ class LoginFragment : Fragment() {
 
     private fun processLogin(data: LoginResponse?) {
         data?.run {
-            sessionManager.saveAuthToken(token)
-            sessionManager.saveUser(user)
+            sessionManager.run {
+                saveUser(user)
+                saveAuthToken(token)
+            }
 
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }

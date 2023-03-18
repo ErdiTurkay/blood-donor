@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.blooddonor.data.model.BloodAd
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.feature.MainActivity
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var activity: MainActivity
-    // private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     @Inject
     lateinit var greetingMessage: GreetingMessage
