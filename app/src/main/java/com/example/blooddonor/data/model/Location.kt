@@ -7,5 +7,9 @@ data class Location(
     val city: String,
 
     @SerializedName("district")
-    val district: String
+    val district: String,
 )
+
+fun Location.fullLocation(): String {
+    return "$district/$city"
+}

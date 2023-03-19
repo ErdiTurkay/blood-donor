@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="8dp"
+    tools:context=".feature.postdetail.PostDetailFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/image_card"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardBackgroundColor="@color/main_color"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/celalsengor" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/person_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_card"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:id="@+id/full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_bold"
+                android:textColor="@color/main_color"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Erdi Türkay" />
+
+            <TextView
+                android:id="@+id/label_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton"
+                android:text="Yaş: "
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/full_name"
+                app:layout_constraintTop_toBottomOf="@id/full_name" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_light"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/label_age"
+                app:layout_constraintTop_toBottomOf="@id/full_name"
+                tools:text="67" />
+
+            <TextView
+                android:id="@+id/label_blood_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/campton"
+                android:text="Kan Grubu: "
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/age"
+                app:layout_constraintTop_toBottomOf="@id/full_name" />
+
+            <TextView
+                android:id="@+id/blood_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_light"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/label_blood_group"
+                app:layout_constraintTop_toBottomOf="@id/full_name"
+                tools:text="A Rh+" />
+
+            <TextView
+                android:id="@+id/label_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton"
+                android:text="Konum: "
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_age" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_light"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/label_location"
+                app:layout_constraintTop_toTopOf="@id/label_location"
+                tools:text="Bağcılar/İstanbul" />
+
+            <TextView
+                android:id="@+id/label_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton"
+                android:text="İlan Tarihi: "
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_location" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_light"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/label_date"
+                app:layout_constraintTop_toTopOf="@id/label_date"
+                tools:text="Bağcılar/İstanbul" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/message_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/person_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:id="@+id/label_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/campton_bold"
+                android:text="Message: "
+                android:textColor="@color/main_color"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/campton"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_message"
+                tools:text="Message: " />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

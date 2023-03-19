@@ -4,7 +4,7 @@ import com.example.blooddonor.data.api.request.ChangePasswordRequest
 import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.request.RegisterRequest
-import com.example.blooddonor.data.api.response.*
+import com.example.blooddonor.data.api.response.* // ktlint-disable no-wildcard-imports
 import com.example.blooddonor.utils.APIConstants
 import retrofit2.Response
 import retrofit2.http.Body

@@ -1,25 +1,26 @@
 package com.example.blooddonor.feature.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.model.Post
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
+import com.example.blooddonor.utils.convertToJson
 import com.example.blooddonor.utils.gone
 import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PostClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var activity: MainActivity
     private val viewModel: HomeViewModel by viewModels()
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setBloodAdRV() {
-        val bloodAdAdapter = BloodAdAdapter()
+        val bloodAdAdapter = BloodAdAdapter(this)
         binding.bloodAdRv.adapter = bloodAdAdapter
         var postList = emptyList<Post>()
 
@@ -77,5 +78,10 @@ class HomeFragment : Fragment() {
 
     private fun setHeaderTitle() {
         activity.binding.includeHeader.headerTitle.text = greetingMessage.getHeaderText()
+    }
+
+    override fun postOnClick(post: Post) {
+        val postJson = post.convertToJson()
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson))
     }
 }

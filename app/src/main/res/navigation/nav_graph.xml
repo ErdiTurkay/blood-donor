@@ -26,6 +26,11 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -77,4 +82,13 @@
         android:name="com.example.blooddonor.feature.changephonenumber.ChangePhoneNumberFragment"
         android:label="fragment_change_phone_number"
         tools:layout="@layout/fragment_change_phone_number" />
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.example.blooddonor.feature.postdetail.PostDetailFragment"
+        android:label="fragment_post_detail"
+        tools:layout="@layout/fragment_post_detail" >
+        <argument
+            android:name="post"
+            app:argType="string" />
+    </fragment>
 </navigation>

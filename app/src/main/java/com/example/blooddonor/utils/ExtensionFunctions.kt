@@ -1,9 +1,8 @@
 package com.example.blooddonor.utils
 
-import android.os.Build
 import android.view.View
-import androidx.annotation.RequiresApi
 import com.example.blooddonor.data.api.response.ErrorResponse
+import com.example.blooddonor.data.model.Post
 import com.google.gson.Gson
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,8 +31,20 @@ fun String?.convertToErrorResponse(): ErrorResponse {
     return Gson().fromJson(this, ErrorResponse::class.java)
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun String?.convertToLocalDateTime(): LocalDateTime {
     val formatter = DateTimeFormatter.ofPattern(APIConstants.DATE_TIME_PATTERN)
     return LocalDateTime.parse(this, formatter)
+}
+
+fun Post.convertToJson(): String {
+    return Gson().toJson(this)
+}
+
+fun String?.convertToPost(): Post {
+    return Gson().fromJson(this, Post::class.java)
+}
+
+fun LocalDateTime?.convertToReadableDate(): String? {
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    return this?.format(formatter)
 }
