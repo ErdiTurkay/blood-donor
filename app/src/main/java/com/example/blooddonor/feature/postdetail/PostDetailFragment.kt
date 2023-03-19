@@ -40,7 +40,7 @@ class PostDetailFragment : Fragment() {
 
         Glide.with(this)
             .load("https://imgrosetta.mynet.com.tr/file/16648974/16648974-728xauto.jpg")
-            .placeholder(R.drawable.celalsengor)
+            .placeholder(R.drawable.person_placeholder)
             .centerCrop()
             .into(binding.image)
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.FragmentProfileBinding
 import com.example.blooddonor.utils.SessionManager
@@ -29,6 +30,12 @@ class ProfileFragment : Fragment() {
 
         binding.profileName.text = sessionManager.getFullName()
         binding.profileMail.text = sessionManager.getUser().email
+
+        Glide.with(this)
+            .load(sessionManager.getUser())
+            .placeholder(R.drawable.person_placeholder)
+            .fitCenter()
+            .into(binding.image)
 
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))

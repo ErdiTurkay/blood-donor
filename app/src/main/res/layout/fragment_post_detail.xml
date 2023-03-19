@@ -27,8 +27,7 @@
                 android:id="@+id/image"
                 android:layout_width="115dp"
                 android:layout_height="115dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/celalsengor" />
+                android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
 

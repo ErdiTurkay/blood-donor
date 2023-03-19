@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.blooddonor.R
 import com.example.blooddonor.data.model.Post
 import com.example.blooddonor.data.model.age
@@ -39,11 +40,11 @@ class BloodAdAdapter(
             }
         }
 
-        /*Glide.with(holder.itemView.context)
-            .load(bloodAdList[position].user)
-            .placeholder(R.drawable.celalsengor)
+        Glide.with(holder.itemView.context)
+            .load(postList[position].user)
+            .placeholder(R.drawable.person_placeholder)
             .fitCenter()
-            .into(holder.patientImage)*/
+            .into(holder.image)
     }
 
     override fun getItemCount() = postList.size
@@ -60,6 +61,7 @@ class BloodAdAdapter(
         val age = binding.age
         val date = binding.date
         val root = binding.root
+        val image = binding.image
 
         init {
             root.setOnClickListener {

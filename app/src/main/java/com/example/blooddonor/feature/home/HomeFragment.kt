@@ -81,7 +81,8 @@ class HomeFragment : Fragment(), PostClickListener {
     }
 
     override fun postOnClick(post: Post) {
-        val postJson = post.convertToJson()
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson))
+        post.convertToJson().let {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(it))
+        }
     }
 }
