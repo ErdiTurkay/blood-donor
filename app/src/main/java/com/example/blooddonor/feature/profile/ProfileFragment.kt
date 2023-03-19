@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.blooddonor.R
 import com.example.blooddonor.databinding.FragmentProfileBinding
+import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var activity: MainActivity
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -27,6 +29,9 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        activity = requireActivity() as MainActivity
+
+        activity.binding.includeHeader.headerTitle.text = getString(R.string.profile)
 
         binding.profileName.text = sessionManager.getFullName()
         binding.profileMail.text = sessionManager.getUser().email

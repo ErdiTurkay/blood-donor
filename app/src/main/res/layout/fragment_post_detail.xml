@@ -47,7 +47,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp">
 
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/campton"
-                android:text="Yaş: "
+                android:text="@string/post_detail_age"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/full_name"
                 app:layout_constraintTop_toBottomOf="@id/full_name" />
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:fontFamily="@font/campton"
-                android:text="Kan Grubu: "
+                android:text="@string/post_detail_blood_type"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/age"
                 app:layout_constraintTop_toBottomOf="@id/full_name" />
@@ -103,45 +103,47 @@
                 app:layout_constraintTop_toBottomOf="@id/full_name"
                 tools:text="A Rh+" />
 
-            <TextView
-                android:id="@+id/label_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton"
-                android:text="Konum: "
-                android:textSize="18sp"
+            <ImageView
+                android:id="@+id/ic_location"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintTop_toTopOf="@id/location"
+                app:layout_constraintBottom_toBottomOf="@id/location"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_age" />
+                app:tint="@color/main_color" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/campton_light"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/label_location"
-                app:layout_constraintTop_toTopOf="@id/label_location"
+                app:layout_constraintBottom_toTopOf="@id/date"
+                app:layout_constraintStart_toEndOf="@id/ic_location"
                 tools:text="Bağcılar/İstanbul" />
 
-            <TextView
-                android:id="@+id/label_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton"
-                android:text="İlan Tarihi: "
-                android:textSize="18sp"
+            <ImageView
+                android:id="@+id/ic_date"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                app:layout_constraintTop_toTopOf="@id/date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_location" />
+                app:tint="@color/main_color" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/campton_light"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/label_date"
-                app:layout_constraintTop_toTopOf="@id/label_date"
-                tools:text="Bağcılar/İstanbul" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_date"
+                tools:text="19/07/1907" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -164,15 +166,26 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp">
 
+            <ImageView
+                android:id="@+id/ic_description"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_description"
+                app:layout_constraintTop_toTopOf="@id/label_message"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/label_message"
+                app:tint="@color/main_color" />
+
             <TextView
                 android:id="@+id/label_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/campton_bold"
-                android:text="Message: "
+                android:fontFamily="@font/campton"
+                android:text="@string/post_description"
                 android:textColor="@color/main_color"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/ic_description"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -180,11 +193,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/campton"
+                android:fontFamily="@font/campton_light"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_message"
-                tools:text="Message: " />
+                tools:text="Lorem ipsum" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

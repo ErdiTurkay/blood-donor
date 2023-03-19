@@ -52,4 +52,14 @@
     <!-- Item Blood Ad -->
     <string name="x_days_ago">%1$d gün önce</string>
     <!-- ***************************************************************** -->
+
+    <!-- Post Detail -->
+    <string name="post_detail_title">İlan Detayları</string>
+    <string name="post_description">İlan Açıklaması</string>
+    <string name="post_detail_blood_type">Kan Grubu:&#160;</string>
+    <string name="post_detail_age">Yaş:&#160;</string>
+
+    <!-- Notifications -->
+    <string name="notifications">Bildirimler</string>
+    <!-- ***************************************************************** -->
 </resources>

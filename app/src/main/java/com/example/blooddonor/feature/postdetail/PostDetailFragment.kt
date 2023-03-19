@@ -13,12 +13,12 @@ import com.example.blooddonor.data.model.age
 import com.example.blooddonor.data.model.fullLocation
 import com.example.blooddonor.data.model.fullName
 import com.example.blooddonor.databinding.FragmentPostDetailBinding
-import com.example.blooddonor.utils.convertToLocalDateTime
-import com.example.blooddonor.utils.convertToPost
-import com.example.blooddonor.utils.convertToReadableDate
+import com.example.blooddonor.feature.MainActivity
+import com.example.blooddonor.utils.* // ktlint-disable no-wildcard-imports
 
 class PostDetailFragment : Fragment() {
     private lateinit var binding: FragmentPostDetailBinding
+    private lateinit var activity: MainActivity
     lateinit var post: Post
 
     override fun onCreateView(
@@ -27,16 +27,22 @@ class PostDetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentPostDetailBinding.inflate(layoutInflater)
+        activity = requireActivity() as MainActivity
 
         val navArgs by navArgs<PostDetailFragmentArgs>()
         post = navArgs.post.convertToPost()
 
-        binding.fullName.text = post.user.fullName()
-        binding.bloodGroup.text = post.bloodType
-        binding.location.text = post.location.fullLocation()
-        binding.age.text = post.user.age().toString()
-        binding.message.text = post.message
-        binding.date.text = post.createdAt.convertToLocalDateTime().convertToReadableDate()
+        activity.binding.includeHeader.back.show()
+        activity.binding.includeHeader.headerTitle.text = getString(R.string.post_detail_title)
+
+        post.run {
+            binding.fullName.text = user.fullName()
+            binding.bloodGroup.text = bloodType
+            binding.location.text = location.fullLocation()
+            binding.age.text = user.age().toString()
+            binding.message.text = message
+            binding.date.text = createdAt.convertToLocalDateTime().convertToReadableDate()
+        }
 
         Glide.with(this)
             .load("https://imgrosetta.mynet.com.tr/file/16648974/16648974-728xauto.jpg")
@@ -45,5 +51,10 @@ class PostDetailFragment : Fragment() {
             .into(binding.image)
 
         return binding.root
+    }
+
+    override fun onDetach() {
+        activity.binding.includeHeader.back.gone()
+        super.onDetach()
     }
 }
