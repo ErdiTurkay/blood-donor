@@ -12,17 +12,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:layout_marginVertical="6dp"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/icon_card"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginVertical="6dp"
-            android:layout_marginStart="10dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -33,7 +33,7 @@
                 app:cardCornerRadius="250dp">
 
                 <ImageView
-                    android:id="@+id/patient_image"
+                    android:id="@+id/image"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     android:scaleType="centerCrop"
@@ -44,7 +44,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/patient_name"
+            android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -56,45 +56,67 @@
             tools:text="Celal ŞENGÖR" />
 
         <TextView
-            android:id="@+id/patient_age_label"
+            android:id="@+id/label_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton"
             android:text="Yaş: "
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/patient_name"
-            app:layout_constraintTop_toBottomOf="@id/patient_name" />
+            app:layout_constraintStart_toStartOf="@id/full_name"
+            app:layout_constraintTop_toBottomOf="@id/full_name" />
 
         <TextView
-            android:id="@+id/patient_age"
+            android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton_light"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/patient_age_label"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"
+            app:layout_constraintStart_toEndOf="@id/label_age"
+            app:layout_constraintTop_toBottomOf="@id/full_name"
             tools:text="67" />
 
         <TextView
-            android:id="@+id/patient_blood_group_label"
+            android:id="@+id/label_blood_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:fontFamily="@font/campton"
             android:text="Kan Grubu: "
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/patient_age"
-            app:layout_constraintTop_toBottomOf="@id/patient_name" />
+            app:layout_constraintStart_toEndOf="@id/age"
+            app:layout_constraintTop_toBottomOf="@id/full_name" />
 
         <TextView
-            android:id="@+id/patient_blood_group"
+            android:id="@+id/blood_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton_light"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/patient_blood_group_label"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"
+            app:layout_constraintStart_toEndOf="@id/label_blood_group"
+            app:layout_constraintTop_toBottomOf="@id/full_name"
             tools:text="A Rh+" />
+
+        <ImageView
+            android:id="@+id/calendar_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintTop_toBottomOf="@id/icon_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/main_color" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/campton_light"
+            android:layout_marginStart="5dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/calendar_icon"
+            app:layout_constraintTop_toTopOf="@id/calendar_icon"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_icon"
+            tools:text="10/11/2023" />
 
         <ImageView
             android:layout_width="32dp"

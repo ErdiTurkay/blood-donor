@@ -7,4 +7,8 @@ object APIConstants {
     const val REGISTER_URL = "auth/signup"
     const val UPDATE_PASSWORD_URL = "user/password"
     const val UPDATE_PHONE_NUMBER_URL = "user/phone"
+    const val GET_ALL_POSTS = "post"
+
+    //
+    const val DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 }

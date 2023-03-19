@@ -4,13 +4,11 @@ import com.example.blooddonor.data.api.request.ChangePasswordRequest
 import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.request.RegisterRequest
-import com.example.blooddonor.data.api.response.ChangePasswordResponse
-import com.example.blooddonor.data.api.response.ChangePhoneNumberResponse
-import com.example.blooddonor.data.api.response.LoginResponse
-import com.example.blooddonor.data.api.response.RegisterResponse
+import com.example.blooddonor.data.api.response.*
 import com.example.blooddonor.utils.APIConstants
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -25,4 +23,7 @@ interface ApiService {
 
     @POST(APIConstants.UPDATE_PHONE_NUMBER_URL)
     suspend fun changePhoneNumber(@Body changePhoneNumberRequest: ChangePhoneNumberRequest): Response<ChangePhoneNumberResponse>
+
+    @GET(APIConstants.GET_ALL_POSTS)
+    suspend fun getAllPosts(): Response<AllPostsResponse>
 }

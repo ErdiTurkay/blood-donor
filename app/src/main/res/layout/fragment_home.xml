@@ -8,6 +8,16 @@
     android:paddingVertical="8dp"
     tools:context=".feature.home.HomeFragment">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/blood_ad_rv"
         android:layout_width="match_parent"
@@ -16,6 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="7"
-        tools:listitem="@layout/item_blood_ad" />
+        tools:listitem="@layout/item_post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

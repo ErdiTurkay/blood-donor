@@ -1,15 +1,19 @@
 package com.example.blooddonor.feature.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.blooddonor.data.model.BloodAd
+import com.example.blooddonor.data.api.response.BaseResponse
+import com.example.blooddonor.data.model.Post
 import com.example.blooddonor.databinding.FragmentHomeBinding
 import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
+import com.example.blooddonor.utils.gone
 import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -35,6 +39,7 @@ class HomeFragment : Fragment() {
         activity.binding.includeHeader.root.show()
         setHeaderTitle()
 
+        viewModel.getAllPosts()
         setBloodAdRV()
 
         return binding.root
@@ -43,12 +48,31 @@ class HomeFragment : Fragment() {
     private fun setBloodAdRV() {
         val bloodAdAdapter = BloodAdAdapter()
         binding.bloodAdRv.adapter = bloodAdAdapter
-        val bloodAdList = listOf(
-            BloodAd("Ulaş Deniz Işık", 27, "A Rh+", "https://imgyukle.com/f/2023/02/25/QIHJqH.png"),
-            BloodAd("Celal Şengör", 63, "A Rh+", "https://cdn.karar.com/news/1528527.jpg"),
-        )
+        var postList = emptyList<Post>()
 
-        bloodAdAdapter.setBloodAdList(bloodAdList)
+        viewModel.getAllPosts()
+
+        viewModel.postResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                }
+
+                is BaseResponse.Success -> {
+                    it.data?.posts?.let { posts ->
+                        postList = posts
+                    }
+
+                    bloodAdAdapter.setBloodAdList(postList)
+                    binding.progress.gone()
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
+                    Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun setHeaderTitle() {
