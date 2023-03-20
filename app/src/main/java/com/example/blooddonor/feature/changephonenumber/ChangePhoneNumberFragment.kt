@@ -37,7 +37,12 @@ class ChangePhoneNumberFragment : Fragment() {
         binding = FragmentChangePhoneNumberBinding.inflate(layoutInflater)
 
         currentPhoneNumber = sessionManager.getUser().phone
-        binding.txtInputPhoneNumber.setText(currentPhoneNumber)
+
+        val countryCode = currentPhoneNumber.split(" ")[0]
+        val afterCountryCode = currentPhoneNumber.split(" ")[1]
+
+        binding.countryPicker.setCountryForPhoneCode(countryCode.toInt())
+        binding.txtInputPhoneNumber.setText(afterCountryCode)
 
         viewModel.responseResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -70,17 +75,32 @@ class ChangePhoneNumberFragment : Fragment() {
         }
 
         binding.btnChangePhoneNumber.setOnClickListener {
-            newPhoneNumber = binding.txtInputPhoneNumber.text.toString()
-            val phoneNumbersAreSame = currentPhoneNumber == newPhoneNumber
-            if (phoneNumbersAreSame) {
-                binding.error.text = getString(R.string.passwords_cannot_be_same)
-                binding.error.show()
+            val countryCode = binding.countryPicker.selectedCountryCode
+            val afterCountryCode = binding.txtInputPhoneNumber.text.toString()
+
+            newPhoneNumber = "$countryCode $afterCountryCode"
+
+            val isPhoneNumbersAreSame = currentPhoneNumber == newPhoneNumber
+            val isPhoneNumberStartsWithZero = afterCountryCode[0] == '0'
+            val isLengthOfPhoneNumberTen = afterCountryCode.length == 10
+
+            binding.error.text = if (isPhoneNumberStartsWithZero) {
+                getString(R.string.phone_cannot_be_start_with_zero)
+            } else if (isPhoneNumbersAreSame) {
+                getString(R.string.phone_cannot_be_same)
+            } else if (!isLengthOfPhoneNumberTen) {
+                getString(R.string.phone_numbers_length_must_be_ten)
+            } else {
+                binding.error.text
             }
 
-            isAvailable = newPhoneNumber.isNotEmpty() && !phoneNumbersAreSame
+            isAvailable = afterCountryCode.isNotEmpty() && !isPhoneNumbersAreSame &&
+                !isPhoneNumberStartsWithZero && isLengthOfPhoneNumberTen
 
             if (isAvailable) {
                 viewModel.changePhoneNumber(newPhoneNumber)
+            } else {
+                binding.error.show()
             }
         }
 

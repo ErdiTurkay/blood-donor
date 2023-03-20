@@ -46,7 +46,9 @@
     <string name="update_phone_number">Telefon Numarasını Güncelle</string>
     <string name="phone_number">Telefon Numarası</string>
     <string name="phone_number_is_succesfully_changed">Telefon numarası başarıyla değiştirildi.</string>
-    <string name="passwords_cannot_be_same">Girilen şifre, mevcut şifre ile aynı olamaz.</string>
+    <string name="phone_cannot_be_same">Girilen telefon numarası mevcut ile aynı olamaz.</string>
+    <string name="phone_cannot_be_start_with_zero">Telefon numarası 0 ile başlayamaz.</string>
+    <string name="phone_numbers_length_must_be_ten">Telefon numarası 10 rakamdan oluşmalıdır.</string>
     <!-- ***************************************************************** -->
 
     <!-- Item Blood Ad -->
