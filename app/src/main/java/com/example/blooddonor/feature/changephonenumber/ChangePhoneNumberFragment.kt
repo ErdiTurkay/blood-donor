@@ -11,6 +11,7 @@ import com.example.blooddonor.NavGraphDirections
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.databinding.FragmentChangePhoneNumberBinding
+import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.gone
 import com.example.blooddonor.utils.show
@@ -22,6 +23,8 @@ import javax.inject.Inject
 class ChangePhoneNumberFragment : Fragment() {
     private lateinit var binding: FragmentChangePhoneNumberBinding
     private val viewModel: ChangePhoneNumberViewModel by viewModels()
+    private lateinit var activity: MainActivity
+
     private var isAvailable: Boolean = false
     lateinit var currentPhoneNumber: String
     lateinit var newPhoneNumber: String
@@ -35,6 +38,9 @@ class ChangePhoneNumberFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentChangePhoneNumberBinding.inflate(layoutInflater)
+        activity = requireActivity() as MainActivity
+
+        activity.binding.includeHeader.back.show()
 
         currentPhoneNumber = sessionManager.getUser().phone
 
@@ -75,35 +81,44 @@ class ChangePhoneNumberFragment : Fragment() {
         }
 
         binding.btnChangePhoneNumber.setOnClickListener {
-            val countryCode = binding.countryPicker.selectedCountryCode
-            val afterCountryCode = binding.txtInputPhoneNumber.text.toString()
-
-            newPhoneNumber = "$countryCode $afterCountryCode"
-
-            val isPhoneNumbersAreSame = currentPhoneNumber == newPhoneNumber
-            val isPhoneNumberStartsWithZero = afterCountryCode[0] == '0'
-            val isLengthOfPhoneNumberTen = afterCountryCode.length == 10
-
-            binding.error.text = if (isPhoneNumberStartsWithZero) {
-                getString(R.string.phone_cannot_be_start_with_zero)
-            } else if (isPhoneNumbersAreSame) {
-                getString(R.string.phone_cannot_be_same)
-            } else if (!isLengthOfPhoneNumberTen) {
-                getString(R.string.phone_numbers_length_must_be_ten)
-            } else {
-                binding.error.text
-            }
-
-            isAvailable = afterCountryCode.isNotEmpty() && !isPhoneNumbersAreSame &&
-                !isPhoneNumberStartsWithZero && isLengthOfPhoneNumberTen
-
-            if (isAvailable) {
-                viewModel.changePhoneNumber(newPhoneNumber)
-            } else {
-                binding.error.show()
-            }
+            changePhoneNumber()
         }
 
         return binding.root
+    }
+
+    private fun changePhoneNumber() {
+        val countryCode = binding.countryPicker.selectedCountryCode
+        val afterCountryCode = binding.txtInputPhoneNumber.text.toString()
+
+        newPhoneNumber = "$countryCode $afterCountryCode"
+
+        val isPhoneNumbersAreSame = currentPhoneNumber == newPhoneNumber
+        val isPhoneNumberStartsWithZero = afterCountryCode[0] == '0'
+        val isLengthOfPhoneNumberTen = afterCountryCode.length == 10
+
+        binding.error.text = if (isPhoneNumberStartsWithZero) {
+            getString(R.string.phone_cannot_be_start_with_zero)
+        } else if (isPhoneNumbersAreSame) {
+            getString(R.string.phone_cannot_be_same)
+        } else if (!isLengthOfPhoneNumberTen) {
+            getString(R.string.phone_numbers_length_must_be_ten)
+        } else {
+            binding.error.text
+        }
+
+        isAvailable = afterCountryCode.isNotEmpty() && !isPhoneNumbersAreSame &&
+            !isPhoneNumberStartsWithZero && isLengthOfPhoneNumberTen
+
+        if (isAvailable) {
+            viewModel.changePhoneNumber(newPhoneNumber)
+        } else {
+            binding.error.show()
+        }
+    }
+
+    override fun onDetach() {
+        activity.binding.includeHeader.back.gone()
+        super.onDetach()
     }
 }
