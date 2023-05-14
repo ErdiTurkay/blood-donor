@@ -7,16 +7,28 @@ data class Post(
     val location: Location,
 
     @SerializedName("_id")
-    val _id: String,
+    val id: String,
 
     @SerializedName("user")
     val user: PostUser,
 
-    @SerializedName("bloodType")
-    val bloodType: String,
+    @SerializedName("patientName")
+    val patientName: String,
+
+    @SerializedName("patientSurname")
+    val patientSurname: String,
+
+    @SerializedName("patientAge")
+    val patientAge: Int,
+
+    @SerializedName("patientBloodType")
+    val patientBloodType: String,
 
     @SerializedName("message")
     val message: String,
+
+    @SerializedName("replies")
+    var replies: ArrayList<Reply>,
 
     @SerializedName("createdAt")
     val createdAt: String,

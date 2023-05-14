@@ -4,203 +4,401 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="15dp"
-    android:paddingVertical="8dp"
     tools:context=".feature.postdetail.PostDetailFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/image_card"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:cardBackgroundColor="@color/main_color"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="115dp"
-            android:layout_height="115dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="10dp">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:scaleType="centerCrop" />
-
-        </androidx.cardview.widget.CardView>
-
-    </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/person_card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:elevation="5dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/image_card"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_card"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="5dp">
-
-            <TextView
-                android:id="@+id/full_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton_bold"
-                android:textColor="@color/main_color"
-                android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Erdi Türkay" />
-
-            <TextView
-                android:id="@+id/label_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton"
-                android:text="@string/post_detail_age"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@id/full_name"
-                app:layout_constraintTop_toBottomOf="@id/full_name" />
-
-            <TextView
-                android:id="@+id/age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton_light"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/label_age"
-                app:layout_constraintTop_toBottomOf="@id/full_name"
-                tools:text="67" />
-
-            <TextView
-                android:id="@+id/label_blood_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:fontFamily="@font/campton"
-                android:text="@string/post_detail_blood_type"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/age"
-                app:layout_constraintTop_toBottomOf="@id/full_name" />
-
-            <TextView
-                android:id="@+id/blood_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/campton_light"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/label_blood_group"
-                app:layout_constraintTop_toBottomOf="@id/full_name"
-                tools:text="A Rh+" />
-
-            <ImageView
-                android:id="@+id/ic_location"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintTop_toTopOf="@id/location"
-                app:layout_constraintBottom_toBottomOf="@id/location"
-                app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/main_color" />
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/campton_light"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/date"
-                app:layout_constraintStart_toEndOf="@id/ic_location"
-                tools:text="Bağcılar/İstanbul" />
-
-            <ImageView
-                android:id="@+id/ic_date"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_calendar"
-                app:layout_constraintBottom_toBottomOf="@id/date"
-                app:layout_constraintTop_toTopOf="@id/date"
-                app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/main_color" />
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/campton_light"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ic_date"
-                tools:text="19/07/1907" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/message_card"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:elevation="5dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/person_card">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="8dp">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_card"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardBackgroundColor="@color/main_color"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="115dp"
+                        android:layout_height="115dp"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/person_card"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/image_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_card"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp">
+
+                    <TextView
+                        android:id="@+id/full_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_bold"
+                        android:textColor="@color/main_color"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Erdi Türkay" />
+
+                    <TextView
+                        android:id="@+id/label_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton"
+                        android:text="@string/post_detail_age"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/full_name"
+                        app:layout_constraintTop_toBottomOf="@id/full_name" />
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_light"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@id/label_age"
+                        app:layout_constraintTop_toBottomOf="@id/full_name"
+                        tools:text="67" />
+
+                    <TextView
+                        android:id="@+id/label_blood_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="@font/campton"
+                        android:text="@string/post_detail_blood_type"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@id/age"
+                        app:layout_constraintTop_toBottomOf="@id/full_name" />
+
+                    <TextView
+                        android:id="@+id/blood_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/campton_light"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@id/label_blood_group"
+                        app:layout_constraintTop_toBottomOf="@id/full_name"
+                        tools:text="A Rh+" />
+
+                    <ImageView
+                        android:id="@+id/ic_location"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_location"
+                        app:layout_constraintBottom_toBottomOf="@id/location"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/location"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/campton_light"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@id/date"
+                        app:layout_constraintStart_toEndOf="@id/ic_location"
+                        tools:text="Bağcılar/İstanbul" />
+
+                    <ImageView
+                        android:id="@+id/ic_date"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="@id/date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/date"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/campton_light"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ic_date"
+                        tools:text="19/07/1907" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <ImageView
-                android:id="@+id/ic_description"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_description"
-                app:layout_constraintTop_toTopOf="@id/label_message"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/label_message"
+                android:id="@+id/ic_ad_owner"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toBottomOf="@id/owner_name"
+                app:layout_constraintEnd_toStartOf="@id/owner_name"
+                app:layout_constraintTop_toTopOf="@id/owner_name"
                 app:tint="@color/main_color" />
 
             <TextView
-                android:id="@+id/label_message"
+                android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/campton"
-                android:text="@string/post_description"
-                android:textColor="@color/main_color"
-                android:textSize="20sp"
                 android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@id/ic_description"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/campton_light"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/person_card"
+                tools:text="İlan Sahibi: Erdi Türkay" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/call_button"
+                style="@style/MyMaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text="İlan Sahibini Ara"
+                android:textAllCaps="true"
+                android:textSize="13sp"
+                app:backgroundTint="#2782AA"
+                app:icon="@drawable/wp_icon"
+                app:iconGravity="textStart"
+                app:iconSize="20dp"
+                app:iconTint="@android:color/transparent"
+                app:iconTintMode="add"
+                app:layout_constraintEnd_toStartOf="@id/wp_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_message"
-                tools:text="Lorem ipsum" />
+                app:layout_constraintTop_toBottomOf="@id/owner_name" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/wp_button"
+                style="@style/MyMaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="WhatsApp'tan Yaz"
+                android:textAllCaps="true"
+                android:textSize="13sp"
+                app:backgroundTint="#128C7E"
+                app:icon="@drawable/wp_icon"
+                app:iconGravity="textStart"
+                app:iconSize="20dp"
+                app:iconTint="@android:color/transparent"
+                app:iconTintMode="add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/call_button"
+                app:layout_constraintTop_toBottomOf="@id/owner_name" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/message_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wp_button">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp">
+
+                    <ImageView
+                        android:id="@+id/ic_description"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_description"
+                        app:layout_constraintBottom_toBottomOf="@id/label_message"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_message"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:id="@+id/label_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/campton"
+                        android:text="@string/post_description"
+                        android:textColor="@color/main_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@id/ic_description"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/campton_light"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_message"
+                        tools:text="Lorem ipsum" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reply_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/message_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp">
+
+                    <ImageView
+                        android:id="@+id/ic_comments"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_comment"
+                        app:layout_constraintBottom_toBottomOf="@id/label_comments"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_comments"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:id="@+id/label_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/campton"
+                        android:text="@string/comments"
+                        android:textColor="@color/main_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@id/ic_comments"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLay_new_comment"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:hint="Yorumunuz..."
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:layout_constraintEnd_toStartOf="@id/btn_send"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_comments">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtInput_new_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/campton"
+                            android:maxLength="35" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_send"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/main_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/txtLay_new_comment"
+                        app:layout_constraintBottom_toBottomOf="@id/txtLay_new_comment"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/btn_send_image"
+                            android:layout_width="match_parent"
+                            android:src="@drawable/ic_right_arrow"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:padding="5dp"
+                            app:tint="@color/white" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/error_new_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/campton"
+                        android:text="@string/should_not_be_empty"
+                        android:textColor="@color/main_color"
+                        app:layout_constraintStart_toStartOf="@id/txtLay_new_comment"
+                        app:layout_constraintTop_toBottomOf="@id/txtLay_new_comment"
+                        android:visibility="invisible" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/reply_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/error_new_comment"
+                        tools:listitem="@layout/item_reply" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

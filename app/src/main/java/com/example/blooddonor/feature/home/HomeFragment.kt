@@ -40,7 +40,6 @@ class HomeFragment : Fragment(), PostClickListener {
         activity.binding.includeHeader.root.show()
         setHeaderTitle()
 
-        viewModel.getAllPosts()
         setBloodAdRV()
 
         return binding.root
@@ -50,8 +49,6 @@ class HomeFragment : Fragment(), PostClickListener {
         val bloodAdAdapter = BloodAdAdapter(this)
         binding.bloodAdRv.adapter = bloodAdAdapter
         var postList = emptyList<Post>()
-
-        viewModel.getAllPosts()
 
         viewModel.postResponse.observe(viewLifecycleOwner) {
             when (it) {

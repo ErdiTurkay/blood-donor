@@ -36,27 +36,34 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
-        activity.binding.bottomNav.gone()
-        activity.binding.includeHeader.root.gone()
-
         val token = sessionManager.getToken()
         if (!token.isNullOrBlank()) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
 
+        activity.binding.run {
+            bottomNav.gone()
+            includeHeader.root.gone()
+        }
+
         binding.timeTitle.text = greetingMessage.getTimeString()
         binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable())
-
-        txtInputTextChange()
-
-        binding.btnLogin.setOnClickListener {
-            doLogin()
-        }
 
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
 
+        binding.btnLogin.setOnClickListener {
+            doLogin()
+        }
+
+        observeLoginResponse()
+        txtInputTextChange()
+
+        return binding.root
+    }
+
+    private fun observeLoginResponse() {
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
@@ -69,14 +76,14 @@ class LoginFragment : Fragment() {
                 }
 
                 is BaseResponse.Error -> {
-                    binding.progress.gone()
-                    binding.errorInvalid.text = it.msg
-                    binding.errorInvalid.show()
+                    binding.run {
+                        progress.gone()
+                        errorInvalid.text = it.msg
+                        errorInvalid.show()
+                    }
                 }
             }
         }
-
-        return binding.root
     }
 
     private fun txtInputTextChange() {

@@ -3,10 +3,8 @@ package com.example.blooddonor.feature.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.response.AllPostsResponse
 import com.example.blooddonor.data.api.response.BaseResponse
-import com.example.blooddonor.data.api.response.LoginResponse
 import com.example.blooddonor.data.repository.PostRepository
 import com.example.blooddonor.utils.convertToErrorResponse
 import dagger.hilt.android.lifecycle.HiltViewModel

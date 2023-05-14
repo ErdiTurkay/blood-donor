@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.blooddonor.R
 import com.example.blooddonor.data.model.Post
-import com.example.blooddonor.data.model.age
 import com.example.blooddonor.databinding.ItemPostBinding
 import com.example.blooddonor.utils.convertToLocalDateTime
 import java.time.LocalDateTime
@@ -26,17 +25,17 @@ class BloodAdAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         postList[position].run {
-            holder.fullName.text = user.name.plus(" ").plus(user.surname)
-            holder.bloodGroup.text = bloodType
-            holder.age.text = user.age().toString()
+            holder.fullName.text = patientName.plus(" ").plus(patientSurname)
+            holder.bloodGroup.text = patientBloodType
+            holder.age.text = patientAge.toString()
 
             val postCreated = createdAt.convertToLocalDateTime()
-            val daysBetween = ChronoUnit.DAYS.between(postCreated, LocalDateTime.now())
+            val daysBetween = ChronoUnit.DAYS.between(postCreated, LocalDateTime.now()).toInt()
 
-            holder.date.text = if (daysBetween > 0) {
-                holder.itemView.context.getString(R.string.x_days_ago, daysBetween)
-            } else {
-                holder.itemView.context.getString(R.string.today)
+            holder.date.text = when (daysBetween) {
+                0 -> holder.itemView.context.getString(R.string.today)
+                1 -> holder.itemView.context.getString(R.string.yesterday)
+                else -> holder.itemView.context.getString(R.string.x_days_ago, daysBetween)
             }
         }
 

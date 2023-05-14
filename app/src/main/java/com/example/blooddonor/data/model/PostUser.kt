@@ -1,7 +1,5 @@
 package com.example.blooddonor.data.model
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.blooddonor.utils.convertToLocalDateTime
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
@@ -19,6 +17,9 @@ data class PostUser(
 
     @SerializedName("dateOfBirth")
     var dateOfBirth: String,
+
+    @SerializedName("phone")
+    var phone: String,
 )
 
 fun PostUser.fullName(): String {

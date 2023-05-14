@@ -90,11 +90,10 @@ class ChangePhoneNumberFragment : Fragment() {
     private fun changePhoneNumber() {
         val countryCode = binding.countryPicker.selectedCountryCode
         val afterCountryCode = binding.txtInputPhoneNumber.text.toString()
-
         newPhoneNumber = "$countryCode $afterCountryCode"
 
         val isPhoneNumbersAreSame = currentPhoneNumber == newPhoneNumber
-        val isPhoneNumberStartsWithZero = afterCountryCode[0] == '0'
+        val isPhoneNumberStartsWithZero = afterCountryCode.isNotEmpty() && afterCountryCode[0] == '0'
         val isLengthOfPhoneNumberTen = afterCountryCode.length == 10
 
         binding.error.text = if (isPhoneNumberStartsWithZero) {
@@ -117,8 +116,8 @@ class ChangePhoneNumberFragment : Fragment() {
         }
     }
 
-    override fun onDetach() {
+    override fun onPause() {
         activity.binding.includeHeader.back.gone()
-        super.onDetach()
+        super.onPause()
     }
 }

@@ -4,8 +4,11 @@ import android.view.View
 import com.example.blooddonor.data.api.response.ErrorResponse
 import com.example.blooddonor.data.model.Post
 import com.google.gson.Gson
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -34,6 +37,12 @@ fun String?.convertToErrorResponse(): ErrorResponse {
 fun String?.convertToLocalDateTime(): LocalDateTime {
     val formatter = DateTimeFormatter.ofPattern(APIConstants.DATE_TIME_PATTERN)
     return LocalDateTime.parse(this, formatter)
+}
+
+fun String.convertToDate(): Date {
+    val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+    return format.parse(this) ?: Date()
 }
 
 fun Post.convertToJson(): String {

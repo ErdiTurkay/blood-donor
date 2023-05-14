@@ -23,11 +23,11 @@ data class RegisterRequest(
     @SerializedName("location")
     var location: Location,
 
-    @SerializedName("lastDonation")
-    var lastDonation: Date,
-
     @SerializedName("dateOfBirth")
     var dateOfBirth: Date,
+
+    @SerializedName("lastDonation")
+    var lastDonation: Date,
 
     @SerializedName("phone")
     var phone: String,

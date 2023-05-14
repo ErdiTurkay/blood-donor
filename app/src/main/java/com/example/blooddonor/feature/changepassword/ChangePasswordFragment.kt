@@ -30,8 +30,18 @@ class ChangePasswordFragment : Fragment() {
     ): View {
         binding = FragmentChangePasswordBinding.inflate(layoutInflater)
 
-        inputChangeListener()
+        txtInputTextChangeListener()
 
+        binding.btnChangePassword.setOnClickListener {
+            changePassword()
+        }
+
+        observeResponseResult()
+
+        return binding.root
+    }
+
+    private fun observeResponseResult() {
         viewModel.responseResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
@@ -57,12 +67,6 @@ class ChangePasswordFragment : Fragment() {
                 }
             }
         }
-
-        binding.btnChangePassword.setOnClickListener {
-            changePassword()
-        }
-
-        return binding.root
     }
 
     private fun changePassword() {
@@ -87,7 +91,7 @@ class ChangePasswordFragment : Fragment() {
         }
     }
 
-    private fun inputChangeListener() {
+    private fun txtInputTextChangeListener() {
         binding.run {
             txtInputCurrentPassword.doAfterTextChanged {
                 errorCurrentPassword.showOrHide(it?.length == 0)
