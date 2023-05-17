@@ -28,6 +28,7 @@ class BloodAdAdapter(
             holder.fullName.text = patientName.plus(" ").plus(patientSurname)
             holder.bloodGroup.text = patientBloodType
             holder.age.text = patientAge.toString()
+            holder.message.text = message
 
             val postCreated = createdAt.convertToLocalDateTime()
             val daysBetween = ChronoUnit.DAYS.between(postCreated, LocalDateTime.now()).toInt()
@@ -59,6 +60,7 @@ class BloodAdAdapter(
         val bloodGroup = binding.bloodGroup
         val age = binding.age
         val date = binding.date
+        val message = binding.message
         val root = binding.root
         val image = binding.image
 

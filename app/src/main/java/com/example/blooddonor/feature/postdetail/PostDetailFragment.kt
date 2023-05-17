@@ -19,7 +19,7 @@ import com.example.blooddonor.data.model.fullLocation
 import com.example.blooddonor.data.model.fullName
 import com.example.blooddonor.databinding.FragmentPostDetailBinding
 import com.example.blooddonor.feature.MainActivity
-import com.example.blooddonor.utils.*
+import com.example.blooddonor.utils.* // ktlint-disable no-wildcard-imports
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +41,8 @@ class PostDetailFragment : Fragment() {
 
         val navArgs by navArgs<PostDetailFragmentArgs>()
         post = navArgs.post.convertToPost()
+
+        activity.binding.bottomNav.gone()
 
         activity.binding.includeHeader.back.show()
         activity.binding.includeHeader.headerTitle.text = getString(R.string.post_detail_title)

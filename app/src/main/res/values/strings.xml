@@ -91,7 +91,7 @@
         <item>AB+</item>
         <item>AB-</item>
     </string-array>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="location_can_not_be_same">Mevcut konumunuzdan farklı bir tercih yapmalısınız.</string>

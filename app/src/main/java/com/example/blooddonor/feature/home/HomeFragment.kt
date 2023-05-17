@@ -15,6 +15,7 @@ import com.example.blooddonor.feature.MainActivity
 import com.example.blooddonor.utils.GreetingMessage
 import com.example.blooddonor.utils.convertToJson
 import com.example.blooddonor.utils.gone
+import com.example.blooddonor.utils.hide
 import com.example.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -41,6 +42,10 @@ class HomeFragment : Fragment(), PostClickListener {
         setHeaderTitle()
 
         setBloodAdRV()
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateNewPostFragment())
+        }
 
         viewModel.getAllPosts()
 

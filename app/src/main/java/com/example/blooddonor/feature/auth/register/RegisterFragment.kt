@@ -278,8 +278,28 @@ class RegisterFragment : Fragment() {
                 errorSurname.showOrHide(it?.length == 0)
             }
 
+            txtInputBirthday.doAfterTextChanged {
+                errorBirthday.showOrHide(it?.length == 0)
+            }
+
             txtInputPhoneNumber.doAfterTextChanged {
                 errorPhoneNumber.showOrHide(it?.length == 0)
+            }
+
+            txtInputLastDonation.doAfterTextChanged {
+                errorLastDonation.showOrHide(it?.length == 0)
+            }
+
+            txtInputBloodGroup.doAfterTextChanged {
+                errorBloodGroup.showOrHide(it?.length == 0)
+            }
+
+            txtInputCity.doAfterTextChanged {
+                errorCity.showOrHide(it?.length == 0)
+            }
+
+            txtInputDistrict.doAfterTextChanged {
+                errorDistrict.showOrHide(it?.length == 0)
             }
         }
     }

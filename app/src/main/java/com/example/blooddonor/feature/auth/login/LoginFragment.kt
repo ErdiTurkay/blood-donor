@@ -66,9 +66,7 @@ class LoginFragment : Fragment() {
     private fun observeLoginResponse() {
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
+                is BaseResponse.Loading -> binding.progress.show()
 
                 is BaseResponse.Success -> {
                     binding.progress.gone()
