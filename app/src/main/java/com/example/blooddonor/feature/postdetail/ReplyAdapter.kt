@@ -1,13 +1,11 @@
 package com.example.blooddonor.feature.postdetail
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.blooddonor.R
-import com.example.blooddonor.data.model.Post
 import com.example.blooddonor.data.model.Reply
 import com.example.blooddonor.data.model.fullName
 import com.example.blooddonor.databinding.ItemReplyBinding

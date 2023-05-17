@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.blooddonor.data.api.request.ChangeLocationRequest
-import com.example.blooddonor.data.api.request.ChangePasswordRequest
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.ChangeLocationResponse
 import com.example.blooddonor.data.model.Location
