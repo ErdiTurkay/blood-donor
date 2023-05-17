@@ -10,6 +10,7 @@ object APIConstants {
     const val UPDATE_LOCATION = "user/location"
     const val GET_ALL_POSTS = "post"
     const val REPLY_POST = "post/reply"
+    const val CREATE_NEW_POST = "post"
 
     //
     const val DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

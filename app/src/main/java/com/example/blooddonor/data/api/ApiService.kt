@@ -3,6 +3,7 @@ package com.example.blooddonor.data.api
 import com.example.blooddonor.data.api.request.ChangeLocationRequest
 import com.example.blooddonor.data.api.request.ChangePasswordRequest
 import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
+import com.example.blooddonor.data.api.request.CreateNewPostRequest
 import com.example.blooddonor.data.api.request.LoginRequest
 import com.example.blooddonor.data.api.request.RegisterRequest
 import com.example.blooddonor.data.api.request.ReplyPostRequest
@@ -32,6 +33,9 @@ interface ApiService {
 
     @GET(APIConstants.GET_ALL_POSTS)
     suspend fun getAllPosts(): Response<AllPostsResponse>
+
+    @POST(APIConstants.CREATE_NEW_POST)
+    suspend fun createNewPost(@Body createNewPostRequest: CreateNewPostRequest): Response<CreateNewPostResponse>
 
     @POST(APIConstants.REPLY_POST)
     suspend fun replyPost(@Body replyPostRequest: ReplyPostRequest): Response<ReplyPostResponse>

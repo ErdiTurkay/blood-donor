@@ -39,8 +39,9 @@ class HomeFragment : Fragment(), PostClickListener {
 
         activity.binding.bottomNav.show()
         activity.binding.includeHeader.root.show()
-        setHeaderTitle()
+        activity.binding.includeHeader.back.gone()
 
+        setHeaderTitle()
         setBloodAdRV()
 
         binding.fab.setOnClickListener {

@@ -45,7 +45,7 @@ class ReplyAdapter() : RecyclerView.Adapter<ReplyAdapter.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun setReplyList(replies: List<Reply>) {
-        replyList = replies
+        replyList = replies.reversed()
         notifyDataSetChanged()
     }
 

@@ -51,7 +51,7 @@ class BloodAdAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setBloodAdList(bloodAds: List<Post>) {
-        postList = bloodAds
+        postList = bloodAds.reversed()
         notifyDataSetChanged()
     }
 

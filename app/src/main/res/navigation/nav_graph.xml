@@ -113,5 +113,10 @@
         android:id="@+id/createNewPostFragment"
         android:name="com.example.blooddonor.feature.createnewpost.CreateNewPostFragment"
         android:label="fragment_create_new_post"
-        tools:layout="@layout/fragment_create_new_post" />
+        tools:layout="@layout/fragment_create_new_post" >
+        <action
+            android:id="@+id/action_createNewPostFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 </navigation>
