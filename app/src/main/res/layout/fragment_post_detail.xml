@@ -32,15 +32,15 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 app:cardBackgroundColor="@color/main_color"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="60dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
+                    android:layout_width="116dp"
+                    android:layout_height="116dp"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="10dp">
+                    app:cardCornerRadius="58dp">
 
                     <ImageView
                         android:id="@+id/image"
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton_bold"
-                        android:textColor="@color/main_color"
+                        android:textColor="@color/title_gray"
                         android:textSize="22sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -204,6 +204,7 @@
                 android:textAllCaps="true"
                 android:textSize="13sp"
                 app:backgroundTint="#2782AA"
+                app:cornerRadius="25dp"
                 app:icon="@drawable/wp_icon"
                 app:iconGravity="textStart"
                 app:iconSize="20dp"
@@ -225,6 +226,7 @@
                 android:textAllCaps="true"
                 android:textSize="13sp"
                 app:backgroundTint="#128C7E"
+                app:cornerRadius="25dp"
                 app:icon="@drawable/wp_icon"
                 app:iconGravity="textStart"
                 app:iconSize="20dp"
@@ -267,7 +269,7 @@
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/campton"
                         android:text="@string/post_description"
-                        android:textColor="@color/main_color"
+                        android:textColor="@color/title_gray"
                         android:textSize="20sp"
                         app:layout_constraintStart_toEndOf="@id/ic_description"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -320,7 +322,7 @@
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/campton"
                         android:text="@string/comments"
-                        android:textColor="@color/main_color"
+                        android:textColor="@color/title_gray"
                         android:textSize="20sp"
                         app:layout_constraintStart_toEndOf="@id/ic_comments"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -355,18 +357,18 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         app:cardBackgroundColor="@color/main_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/txtLay_new_comment"
+                        app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="@id/txtLay_new_comment"
-                        app:cardCornerRadius="10dp">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/txtLay_new_comment">
 
                         <ImageView
                             android:id="@+id/btn_send_image"
                             android:layout_width="match_parent"
-                            android:src="@drawable/ic_right_arrow"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
                             android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_right_arrow"
                             app:tint="@color/white" />
 
                     </androidx.cardview.widget.CardView>
@@ -379,9 +381,9 @@
                         android:fontFamily="@font/campton"
                         android:text="@string/should_not_be_empty"
                         android:textColor="@color/main_color"
+                        android:visibility="invisible"
                         app:layout_constraintStart_toStartOf="@id/txtLay_new_comment"
-                        app:layout_constraintTop_toBottomOf="@id/txtLay_new_comment"
-                        android:visibility="invisible" />
+                        app:layout_constraintTop_toBottomOf="@id/txtLay_new_comment" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/reply_rv"
