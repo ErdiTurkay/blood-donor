@@ -33,8 +33,10 @@ class ProfileFragment : Fragment() {
 
         activity.binding.includeHeader.headerTitle.text = getString(R.string.profile)
 
-        binding.profileName.text = sessionManager.getFullName()
-        binding.profileMail.text = sessionManager.getUser().email
+        sessionManager.run {
+            binding.profileName.text = getFullName()
+            binding.profileMail.text = getUser().email
+        }
 
         Glide.with(this)
             .load(sessionManager.getUser())
@@ -55,6 +57,14 @@ class ProfileFragment : Fragment() {
             rowText.text = getString(R.string.change_phone_number)
             root.setOnClickListener {
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToChangePhoneNumberFragment())
+            }
+        }
+
+        binding.changeLocation.run {
+            rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_location))
+            rowText.text = getString(R.string.change_location)
+            root.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToChangeLocationFragment())
             }
         }
 

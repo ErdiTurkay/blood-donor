@@ -65,7 +65,7 @@ class ChangePhoneNumberFragment : Fragment() {
                         Snackbar.LENGTH_LONG,
                     ).show()
 
-                    findNavController().navigate(NavGraphDirections.actionGlobalProfileFragment())
+                    findNavController().popBackStack()
 
                     val newUser = sessionManager.getUser()
                     newUser.phone = newPhoneNumber

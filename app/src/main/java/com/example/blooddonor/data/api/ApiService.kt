@@ -1,5 +1,6 @@
 package com.example.blooddonor.data.api
 
+import com.example.blooddonor.data.api.request.ChangeLocationRequest
 import com.example.blooddonor.data.api.request.ChangePasswordRequest
 import com.example.blooddonor.data.api.request.ChangePhoneNumberRequest
 import com.example.blooddonor.data.api.request.LoginRequest
@@ -25,6 +26,9 @@ interface ApiService {
 
     @POST(APIConstants.UPDATE_PHONE_NUMBER_URL)
     suspend fun changePhoneNumber(@Body changePhoneNumberRequest: ChangePhoneNumberRequest): Response<ChangePhoneNumberResponse>
+
+    @POST(APIConstants.UPDATE_LOCATION)
+    suspend fun changeLocation(@Body changeLocationRequest: ChangeLocationRequest): Response<ChangeLocationResponse>
 
     @GET(APIConstants.GET_ALL_POSTS)
     suspend fun getAllPosts(): Response<AllPostsResponse>

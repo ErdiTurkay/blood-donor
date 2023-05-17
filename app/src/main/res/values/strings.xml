@@ -34,11 +34,14 @@
     <string name="date_of_last_donation">Son Kan Bağışı Tarihi</string>
     <string name="surname">Soyad</string>
     <string name="name">Ad</string>
+    <string name="city">İl</string>
+    <string name="district">İlçe</string>
     <!-- ***************************************************************** -->
 
     <!-- Profile Rows -->
     <string name="change_password">Şifreni Değiştir</string>
     <string name="change_phone_number">Telefon Numaranı Değiştir</string>
+    <string name="change_location">Konumunu Değiştir</string>
     <string name="exit">Çıkış Yap</string>
     <!-- ***************************************************************** -->
 
@@ -54,6 +57,7 @@
     <string name="update_phone_number">Telefon Numarasını Güncelle</string>
     <string name="phone_number">Telefon Numarası</string>
     <string name="phone_number_is_succesfully_changed">Telefon numarası başarıyla değiştirildi.</string>
+    <string name="location_succesfully_changed">Konumunuz başarıyla değiştirildi.</string>
     <string name="phone_cannot_be_same">Girilen telefon numarası mevcut ile aynı olamaz.</string>
     <string name="phone_cannot_be_start_with_zero">Telefon numarası 0 ile başlayamaz.</string>
     <string name="phone_numbers_length_must_be_ten">Telefon numarası 10 rakamdan oluşmalıdır.</string>
@@ -77,6 +81,7 @@
     <!-- ***************************************************************** -->
 
     <string-array name="blood_groups">
+        <item>Kan Grubu seçiniz…</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -86,5 +91,9 @@
         <item>AB+</item>
         <item>AB-</item>
     </string-array>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="location_can_not_be_same">Mevcut konumunuzdan farklı bir tercih yapmalısınız.</string>
 
 </resources>

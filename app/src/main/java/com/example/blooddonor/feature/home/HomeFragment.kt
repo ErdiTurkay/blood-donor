@@ -42,6 +42,8 @@ class HomeFragment : Fragment(), PostClickListener {
 
         setBloodAdRV()
 
+        viewModel.getAllPosts()
+
         return binding.root
     }
 

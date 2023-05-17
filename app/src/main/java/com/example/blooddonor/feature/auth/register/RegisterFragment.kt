@@ -2,6 +2,7 @@ package com.example.blooddonor.feature.auth.register
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.blooddonor.R
 import com.example.blooddonor.data.api.response.BaseResponse
 import com.example.blooddonor.data.api.response.RegisterResponse
+import com.example.blooddonor.data.model.City
 import com.example.blooddonor.data.model.Location
+import com.example.blooddonor.data.model.loadCitiesFromJson
 import com.example.blooddonor.databinding.FragmentRegisterBinding
 import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.convertToDate
@@ -35,6 +38,9 @@ class RegisterFragment : Fragment() {
     @Inject
     lateinit var sessionManager: SessionManager
 
+    private var cities: Array<City>? = null
+    private var cityNames: ArrayList<String>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,9 +48,21 @@ class RegisterFragment : Fragment() {
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
 
+        cities = loadCitiesFromJson(requireContext())
+        cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
+
         setBloodTypeSpinner()
         setBirthdaySpinner()
         setLastDonationSpinner()
+        setCitySpinner()
+
+        binding.txtInputCity.setOnClickListener {
+            binding.spinnerCity.performClick()
+        }
+
+        binding.txtInputDistrict.setOnClickListener {
+            binding.spinnerDistrict.performClick()
+        }
 
         binding.btnLogin.setOnClickListener {
             findNavController().popBackStack()
@@ -59,6 +77,59 @@ class RegisterFragment : Fragment() {
         observeResponseResult()
 
         return binding.root
+    }
+
+    private fun setCitySpinner() {
+        cityNames?.add(0, binding.txtInputCity.hint.toString() + " seçiniz...")
+
+        val cityAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            cityNames?.toArray() as Array<out Any>,
+        )
+
+        binding.spinnerCity.adapter = cityAdapter
+
+        val firstPosition: Int = binding.spinnerCity.selectedItemPosition
+        binding.spinnerCity.setSelection(firstPosition, true)
+
+        binding.spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                binding.txtInputCity.setText(selectedItem)
+                setDistrictSpinner(binding.txtInputCity.text.toString().lowercase())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setDistrictSpinner(city: String) {
+        val selectedCity = cities?.filter { it.name == city }
+        val districts: ArrayList<String>? = selectedCity?.get(0)?.counties as ArrayList<String>?
+        val districtNames: ArrayList<String>? = districts?.map { it.substring(0, 1).uppercase() + it.substring(1) } as ArrayList<String>?
+
+        districtNames?.add(0, binding.txtInputDistrict.hint.toString() + " seçiniz...")
+
+        val districtAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            districtNames?.toArray() as Array<out Any>,
+        )
+
+        binding.spinnerDistrict.adapter = districtAdapter
+
+        val firstPosition: Int = binding.spinnerDistrict.selectedItemPosition
+        binding.spinnerDistrict.setSelection(firstPosition, true)
+
+        binding.spinnerDistrict.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                binding.txtInputDistrict.setText(selectedItem)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 
     private fun observeResponseResult() {
@@ -132,6 +203,9 @@ class RegisterFragment : Fragment() {
         val birthday = binding.txtInputBirthday.text.toString()
         val lastDonation = binding.txtInputLastDonation.text.toString()
 
+        val city = binding.txtInputCity.text.toString()
+        val district = binding.txtInputDistrict.text.toString()
+
         val isPhoneNumberStartsWithZero = afterCountryCode.isNotEmpty() && afterCountryCode[0] == '0'
         val isLengthOfPhoneNumberTen = afterCountryCode.length == 10
 
@@ -145,7 +219,21 @@ class RegisterFragment : Fragment() {
 
         val isAvailable = name.isNotEmpty() && surname.isNotEmpty() &&
             mail.isNotEmpty() && password.isNotEmpty() &&
-            bloodType.isNotEmpty() && afterCountryCode.isNotEmpty()
+            bloodType.isNotEmpty() && afterCountryCode.isNotEmpty() &&
+            city.isNotEmpty() && district.isNotEmpty()
+
+        binding.run {
+            errorEmail.showOrHide(mail.isEmpty())
+            errorPassword.showOrHide(password.isEmpty())
+            errorName.showOrHide(name.isEmpty())
+            errorSurname.showOrHide(surname.isEmpty())
+            errorBirthday.showOrHide(birthday.isEmpty())
+            errorPhoneNumber.showOrHide(afterCountryCode.isEmpty() || isPhoneNumberStartsWithZero || !isLengthOfPhoneNumberTen)
+            errorLastDonation.showOrHide(lastDonation.isEmpty())
+            errorBloodGroup.showOrHide(bloodType.isEmpty())
+            errorCity.showOrHide(city.isEmpty())
+            errorDistrict.showOrHide(district.isEmpty())
+        }
 
         if (isAvailable) {
             viewModel.registerUser(
@@ -155,7 +243,7 @@ class RegisterFragment : Fragment() {
                 password = password,
                 bloodType = bloodType,
                 phone = phone,
-                location = Location("İstanbul", "Zeytinburnu"),
+                location = Location(city, district),
                 dateOfBirth = birthday.convertToDate(),
                 lastDonation = lastDonation.convertToDate(),
             )
@@ -212,7 +300,7 @@ class RegisterFragment : Fragment() {
         }
 
         val firstPosition: Int = binding.spinnerBloodGroup.selectedItemPosition
-        binding.spinnerBloodGroup.setSelection(firstPosition, false)
+        binding.spinnerBloodGroup.setSelection(firstPosition, true)
 
         binding.spinnerBloodGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {

@@ -60,6 +60,10 @@
             android:id="@+id/action_profileFragment_to_changePhoneNumberFragment"
             app:destination="@id/changePhoneNumberFragment"
             app:popUpTo="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changeLocationFragment"
+            app:destination="@id/changeLocationFragment"
+            app:popUpTo="@id/profileFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_profileFragment"
@@ -96,4 +100,9 @@
             android:name="post"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/changeLocationFragment"
+        android:name="com.example.blooddonor.feature.changelocation.ChangeLocationFragment"
+        android:label="fragment_change_location"
+        tools:layout="@layout/fragment_change_location" />
 </navigation>

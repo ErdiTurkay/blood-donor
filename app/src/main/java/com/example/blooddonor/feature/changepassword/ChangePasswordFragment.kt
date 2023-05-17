@@ -44,9 +44,7 @@ class ChangePasswordFragment : Fragment() {
     private fun observeResponseResult() {
         viewModel.responseResult.observe(viewLifecycleOwner) {
             when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
+                is BaseResponse.Loading -> binding.progress.show()
 
                 is BaseResponse.Success -> {
                     binding.progress.gone()
@@ -57,7 +55,7 @@ class ChangePasswordFragment : Fragment() {
                         Snackbar.LENGTH_LONG,
                     ).show()
 
-                    findNavController().navigate(NavGraphDirections.actionGlobalProfileFragment())
+                    findNavController().popBackStack()
                 }
 
                 is BaseResponse.Error -> {

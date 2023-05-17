@@ -77,6 +77,10 @@
             layout="@layout/item_profile_row" />
 
         <include
+            android:id="@+id/change_location"
+            layout="@layout/item_profile_row" />
+
+        <include
             android:id="@+id/logout"
             layout="@layout/item_profile_row" />
 

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -48,20 +47,17 @@ class PostDetailFragment : Fragment() {
 
         setReplyRV()
 
-        binding.txtInputNewComment.doAfterTextChanged {
-            binding.errorNewComment.showOrHide(it?.length == 0)
-        }
-
         binding.btnSend.setOnClickListener {
             val isAvailable = !binding.txtInputNewComment.text.isNullOrEmpty()
 
             val postId = post.id
             val comment = binding.txtInputNewComment.text.toString()
 
+            binding.errorNewComment.showOrHide(comment.isEmpty())
+
             if (isAvailable) {
                 viewModel.replyPost(postId, comment)
-            } else {
-                binding.errorNewComment.show()
+                binding.txtInputNewComment.setText("")
             }
         }
 
@@ -105,7 +101,6 @@ class PostDetailFragment : Fragment() {
         binding.wpButton.setOnClickListener {
             val packageManager = requireContext().packageManager
             val wpIntent = Intent(Intent.ACTION_VIEW)
-
             wpIntent.data = Uri.parse("https://wa.me/${post.user.phone}")
 
             if (wpIntent.resolveActivity(packageManager) != null) {
@@ -137,7 +132,6 @@ class PostDetailFragment : Fragment() {
     private fun setReplyRV() {
         val replyAdapter = ReplyAdapter()
         binding.replyRv.adapter = replyAdapter
-
         replyAdapter.setReplyList(post.replies)
     }
 
