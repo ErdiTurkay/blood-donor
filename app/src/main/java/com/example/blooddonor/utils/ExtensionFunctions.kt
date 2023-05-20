@@ -1,6 +1,7 @@
 package com.example.blooddonor.utils
 
 import android.view.View
+import android.widget.TextView
 import com.example.blooddonor.data.api.response.ErrorResponse
 import com.example.blooddonor.data.model.Post
 import com.google.gson.Gson
@@ -24,6 +25,14 @@ fun View.gone() {
 
 fun View.showOrHide(boolean: Boolean) {
     visibility = if (boolean) {
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
+}
+
+fun TextView.showErrorOrHide() {
+    visibility = if (text.isEmpty()) {
         View.VISIBLE
     } else {
         View.INVISIBLE

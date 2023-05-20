@@ -30,7 +30,7 @@ class PostDetailFragment : Fragment() {
     private val viewModel: PostDetailViewModel by viewModels()
     lateinit var post: Post
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "QueryPermissionsNeeded")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -96,19 +96,18 @@ class PostDetailFragment : Fragment() {
 
         binding.callButton.setOnClickListener {
             val callIntent = Intent(Intent.ACTION_DIAL)
-            callIntent.data = Uri.parse("tel:${post.user.phone}")
+            callIntent.data = Uri.parse("tel:+${post.user.phone}")
             startActivity(callIntent)
         }
 
         binding.wpButton.setOnClickListener {
             val packageManager = requireContext().packageManager
-            val wpIntent = Intent(Intent.ACTION_VIEW)
-            wpIntent.data = Uri.parse("https://wa.me/${post.user.phone}")
-
-            if (wpIntent.resolveActivity(packageManager) != null) {
-                startActivity(wpIntent)
+            val whatsappIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+${post.user.phone}"))
+            whatsappIntent.setPackage("com.whatsapp")
+            if (whatsappIntent.resolveActivity(packageManager) != null) {
+                startActivity(whatsappIntent)
             } else {
-                Toast.makeText(context, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show()
             }
         }
 

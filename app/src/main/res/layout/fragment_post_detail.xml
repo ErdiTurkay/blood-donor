@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton_bold"
                         android:textColor="@color/title_gray"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Erdi Türkay" />
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton"
                         android:text="@string/post_detail_age"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@id/full_name"
                         app:layout_constraintTop_toBottomOf="@id/full_name" />
 
@@ -96,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton_light"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/label_age"
                         app:layout_constraintTop_toBottomOf="@id/full_name"
                         tools:text="67" />
@@ -108,7 +108,7 @@
                         android:layout_marginStart="7dp"
                         android:fontFamily="@font/campton"
                         android:text="@string/post_detail_blood_type"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/age"
                         app:layout_constraintTop_toBottomOf="@id/full_name" />
 
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton_light"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/label_blood_group"
                         app:layout_constraintTop_toBottomOf="@id/full_name"
                         tools:text="A Rh+" />
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/campton_light"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/date"
                         app:layout_constraintStart_toEndOf="@id/ic_location"
                         tools:text="Bağcılar/İstanbul" />
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/campton_light"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/ic_date"
                         tools:text="19/07/1907" />

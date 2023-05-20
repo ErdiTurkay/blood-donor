@@ -22,6 +22,7 @@ import com.example.blooddonor.utils.SessionManager
 import com.example.blooddonor.utils.convertToDate
 import com.example.blooddonor.utils.gone
 import com.example.blooddonor.utils.show
+import com.example.blooddonor.utils.showErrorOrHide
 import com.example.blooddonor.utils.showOrHide
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -222,16 +223,16 @@ class RegisterFragment : Fragment() {
             city.isNotEmpty() && district.isNotEmpty()
 
         binding.run {
-            errorEmail.showOrHide(mail.isEmpty())
-            errorPassword.showOrHide(password.isEmpty())
-            errorName.showOrHide(name.isEmpty())
-            errorSurname.showOrHide(surname.isEmpty())
-            errorBirthday.showOrHide(birthday.isEmpty())
+            errorEmail.showErrorOrHide()
+            errorPassword.showErrorOrHide()
+            errorName.showErrorOrHide()
+            errorSurname.showErrorOrHide()
+            errorBirthday.showErrorOrHide()
             errorPhoneNumber.showOrHide(afterCountryCode.isEmpty() || isPhoneNumberStartsWithZero || !isLengthOfPhoneNumberTen)
-            errorLastDonation.showOrHide(lastDonation.isEmpty())
-            errorBloodGroup.showOrHide(bloodType.isEmpty())
-            errorCity.showOrHide(city.isEmpty())
-            errorDistrict.showOrHide(district.isEmpty())
+            errorLastDonation.showErrorOrHide()
+            errorBloodGroup.showErrorOrHide()
+            errorCity.showErrorOrHide()
+            errorDistrict.showErrorOrHide()
         }
 
         if (isAvailable) {
@@ -263,43 +264,43 @@ class RegisterFragment : Fragment() {
     private fun txtInputTextChange() {
         binding.run {
             txtInputEmail.doAfterTextChanged {
-                errorEmail.showOrHide(it?.length == 0)
+                errorEmail.showErrorOrHide()
             }
 
             txtInputPassword.doAfterTextChanged {
-                errorPassword.showOrHide(it?.length == 0)
+                errorPassword.showErrorOrHide()
             }
 
             txtInputName.doAfterTextChanged {
-                errorName.showOrHide(it?.length == 0)
+                errorName.showErrorOrHide()
             }
 
             txtInputSurname.doAfterTextChanged {
-                errorSurname.showOrHide(it?.length == 0)
+                errorSurname.showErrorOrHide()
             }
 
             txtInputBirthday.doAfterTextChanged {
-                errorBirthday.showOrHide(it?.length == 0)
+                errorBirthday.showErrorOrHide()
             }
 
             txtInputPhoneNumber.doAfterTextChanged {
-                errorPhoneNumber.showOrHide(it?.length == 0)
+                errorPhoneNumber.showErrorOrHide()
             }
 
             txtInputLastDonation.doAfterTextChanged {
-                errorLastDonation.showOrHide(it?.length == 0)
+                errorLastDonation.showErrorOrHide()
             }
 
             txtInputBloodGroup.doAfterTextChanged {
-                errorBloodGroup.showOrHide(it?.length == 0)
+                errorBloodGroup.showErrorOrHide()
             }
 
             txtInputCity.doAfterTextChanged {
-                errorCity.showOrHide(it?.length == 0)
+                errorCity.showErrorOrHide()
             }
 
             txtInputDistrict.doAfterTextChanged {
-                errorDistrict.showOrHide(it?.length == 0)
+                errorDistrict.showErrorOrHide()
             }
         }
     }
