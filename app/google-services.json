@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1051016446566",
+    "project_id": "blood-donor-tr",
+    "storage_bucket": "blood-donor-tr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051016446566:android:f524e3c3db8d0ad514e3a7",
+        "android_client_info": {
+          "package_name": "com.erdi.blooddonor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051016446566-m16ufavblf024p0dd0jrndmavj9qv5o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuUvRWcbYBGPaJIUV-hwGELGEqO33Ue8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051016446566-m16ufavblf024p0dd0jrndmavj9qv5o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

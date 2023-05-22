@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.blooddonor.feature.auth.login.LoginFragment"
+        android:name="com.erdi.blooddonor.feature.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.blooddonor.feature.home.HomeFragment"
+        android:name="com.erdi.blooddonor.feature.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.blooddonor.feature.auth.register.RegisterFragment"
+        android:name="com.erdi.blooddonor.feature.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.blooddonor.feature.profile.ProfileFragment"
+        android:name="com.erdi.blooddonor.feature.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -77,7 +77,7 @@
         app:popUpTo="@id/homeFragment" />
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.example.blooddonor.feature.notification.NotificationFragment"
+        android:name="com.erdi.blooddonor.feature.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
     <action
@@ -87,31 +87,31 @@
         app:popUpTo="@id/homeFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.blooddonor.feature.changepassword.ChangePasswordFragment"
+        android:name="com.erdi.blooddonor.feature.changepassword.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/changePhoneNumberFragment"
-        android:name="com.example.blooddonor.feature.changephonenumber.ChangePhoneNumberFragment"
+        android:name="com.erdi.blooddonor.feature.changephonenumber.ChangePhoneNumberFragment"
         android:label="fragment_change_phone_number"
         tools:layout="@layout/fragment_change_phone_number" />
     <fragment
         android:id="@+id/postDetailFragment"
-        android:name="com.example.blooddonor.feature.postdetail.PostDetailFragment"
+        android:name="com.erdi.blooddonor.feature.postdetail.PostDetailFragment"
         android:label="fragment_post_detail"
         tools:layout="@layout/fragment_post_detail" >
         <argument
-            android:name="post"
+            android:name="postId"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/changeLocationFragment"
-        android:name="com.example.blooddonor.feature.changelocation.ChangeLocationFragment"
+        android:name="com.erdi.blooddonor.feature.changelocation.ChangeLocationFragment"
         android:label="fragment_change_location"
         tools:layout="@layout/fragment_change_location" />
     <fragment
         android:id="@+id/createNewPostFragment"
-        android:name="com.example.blooddonor.feature.createnewpost.CreateNewPostFragment"
+        android:name="com.erdi.blooddonor.feature.createnewpost.CreateNewPostFragment"
         android:label="fragment_create_new_post"
         tools:layout="@layout/fragment_create_new_post" >
         <action
