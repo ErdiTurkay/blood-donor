@@ -12,6 +12,8 @@ import com.erdi.blooddonor.R
 import com.erdi.blooddonor.databinding.FragmentProfileBinding
 import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.SessionManager
+import com.erdi.blooddonor.utils.hide
+import com.erdi.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,18 +33,13 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
-        activity.binding.includeHeader.headerTitle.text = getString(R.string.profile)
-
-        sessionManager.run {
-            binding.profileName.text = getFullName()
-            binding.profileMail.text = getUser().email
+        activity.binding.run {
+            includeHeader.back.show()
+            bottomNav.hide()
+            includeHeader.headerTitle.text = getString(R.string.profile)
         }
 
-        Glide.with(this)
-            .load(sessionManager.getUser())
-            .placeholder(R.drawable.person_placeholder)
-            .fitCenter()
-            .into(binding.image)
+        setUserInformation()
 
         binding.changePassword.run {
             rowIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_password))
@@ -78,5 +75,18 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun setUserInformation() {
+        sessionManager.run {
+            binding.profileName.text = getFullName()
+            binding.profileMail.text = getUser().email
+        }
+
+        Glide.with(this)
+            .load(sessionManager.getUser())
+            .placeholder(R.drawable.person_placeholder)
+            .fitCenter()
+            .into(binding.image)
     }
 }

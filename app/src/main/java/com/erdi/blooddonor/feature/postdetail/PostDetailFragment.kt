@@ -1,16 +1,17 @@
 package com.erdi.blooddonor.feature.postdetail
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.erdi.blooddonor.R
@@ -23,6 +24,7 @@ import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.* // ktlint-disable no-wildcard-imports
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostDetailFragment : Fragment() {
@@ -32,7 +34,10 @@ class PostDetailFragment : Fragment() {
     lateinit var postId: String
     lateinit var post: Post
 
-    @SuppressLint("SetTextI18n", "QueryPermissionsNeeded")
+    @Inject
+    lateinit var sessionManager: SessionManager
+
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,13 +49,90 @@ class PostDetailFragment : Fragment() {
         val navArgs by navArgs<PostDetailFragmentArgs>()
         postId = navArgs.postId
 
-        activity.binding.bottomNav.gone()
-
-        activity.binding.includeHeader.back.show()
-        activity.binding.includeHeader.headerTitle.text = getString(R.string.post_detail_title)
+        activity.binding.run {
+            bottomNav.gone()
+            includeHeader.back.show()
+            includeHeader.headerTitle.text = getString(R.string.post_detail_title)
+        }
 
         viewModel.readPost(postId)
 
+        observePostResponse()
+        observeDeleteResponse()
+        observeReplyResponse()
+
+        binding.btnSend.setOnClickListener {
+            sendReply()
+        }
+
+        binding.icRemove.setOnClickListener {
+            showTwoOptionsDialog()
+        }
+
+        binding.callButton.setOnClickListener {
+            callThisNumber(post.user.phone)
+        }
+
+        binding.wpButton.setOnClickListener {
+            writeThisNumberOnWhatsApp(post.user.phone)
+        }
+
+        return binding.root
+    }
+
+    private fun callThisNumber(number: String) {
+        val callIntent = Intent(Intent.ACTION_DIAL)
+        callIntent.data = Uri.parse("tel:+$number")
+        startActivity(callIntent)
+    }
+
+    private fun writeThisNumberOnWhatsApp(number: String) {
+        val url = "https://wa.me/${number.replace(" ", "")}"
+
+        val openWhatsappIntent = Intent(Intent.ACTION_VIEW)
+        openWhatsappIntent.data = Uri.parse(url)
+        startActivity(openWhatsappIntent)
+    }
+
+    private fun showTwoOptionsDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+
+        dialogBuilder.setTitle("UYARI")
+        dialogBuilder.setMessage("İlanı silmek istediğine emin misin?\nBu işlemden sonra ilanın diğer kullanıcılar tarafından görüntülenemeyecektir.")
+            .setPositiveButton(
+                "Evet",
+            ) { _, _ ->
+                viewModel.deletePost(postId)
+            }
+            .setNegativeButton(
+                "Hayır",
+            ) { _, _ ->
+            }
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun setReplyRV() {
+        val replyAdapter = ReplyAdapter()
+        binding.replyRv.adapter = replyAdapter
+        replyAdapter.setReplyList(post.replies)
+    }
+
+    private fun sendReply() {
+        val isAvailable = !binding.txtInputNewComment.text.isNullOrEmpty()
+        val comment = binding.txtInputNewComment.text.toString()
+
+        binding.errorNewComment.showOrHide(comment.isEmpty())
+
+        if (isAvailable) {
+            viewModel.replyPost(postId, comment, post.user.notificationToken)
+            binding.txtInputNewComment.setText("")
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun observePostResponse() {
         viewModel.postResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
@@ -71,8 +153,12 @@ class PostDetailFragment : Fragment() {
                         binding.location.text = location.fullLocation()
                         binding.age.text = patientAge.toString()
                         binding.message.text = message
-                        binding.date.text = createdAt.convertToLocalDateTime().convertToReadableDate()
-                        binding.ownerName.text = resources.getString(R.string.post_owner, user.fullName())
+                        binding.date.text =
+                            createdAt.convertToLocalDateTime().convertToReadableDate()
+                        binding.ownerName.text =
+                            resources.getString(R.string.post_owner, user.fullName())
+
+                        binding.icRemove.showOrHide(sessionManager.getUser().id == post.user.id)
                     }
 
                     Glide.with(this)
@@ -87,25 +173,37 @@ class PostDetailFragment : Fragment() {
 
                 is BaseResponse.Error -> {
                     binding.progress.gone()
+                    binding.adIsRemoved.show()
+                }
+            }
+        }
+    }
+
+    private fun observeDeleteResponse() {
+        viewModel.deleteResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                    binding.postDetailLayout.hide()
+                }
+
+                is BaseResponse.Success -> {
+                    binding.progress.gone()
+
+                    Toast.makeText(requireContext(), "İlanınız başarıyla kaldırıldı.", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
                     binding.errorNewComment.text = it.msg
                     binding.errorNewComment.show()
                 }
             }
         }
+    }
 
-        binding.btnSend.setOnClickListener {
-            val isAvailable = !binding.txtInputNewComment.text.isNullOrEmpty()
-            val comment = binding.txtInputNewComment.text.toString()
-
-            binding.errorNewComment.showOrHide(comment.isEmpty())
-
-            if (isAvailable) {
-                Log.d("Fayırbeys", "Post sahibinin tokenı: ${post.user.notificationToken}")
-                viewModel.replyPost(postId, comment, post.user.notificationToken)
-                binding.txtInputNewComment.setText("")
-            }
-        }
-
+    private fun observeReplyResponse() {
         viewModel.responseResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
@@ -136,35 +234,5 @@ class PostDetailFragment : Fragment() {
                 }
             }
         }
-
-        binding.callButton.setOnClickListener {
-            val callIntent = Intent(Intent.ACTION_DIAL)
-            callIntent.data = Uri.parse("tel:+${post.user.phone}")
-            startActivity(callIntent)
-        }
-
-        binding.wpButton.setOnClickListener {
-            val packageManager = requireContext().packageManager
-            val whatsappIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+${post.user.phone}"))
-            whatsappIntent.setPackage("com.whatsapp")
-            if (whatsappIntent.resolveActivity(packageManager) != null) {
-                startActivity(whatsappIntent)
-            } else {
-                Toast.makeText(requireContext(), "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        return binding.root
-    }
-
-    private fun setReplyRV() {
-        val replyAdapter = ReplyAdapter()
-        binding.replyRv.adapter = replyAdapter
-        replyAdapter.setReplyList(post.replies)
-    }
-
-    override fun onDetach() {
-        activity.binding.includeHeader.back.gone()
-        super.onDetach()
     }
 }

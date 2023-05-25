@@ -31,7 +31,7 @@ class ChangeLocationFragment : Fragment() {
     @Inject
     lateinit var sessionManager: SessionManager
 
-    lateinit var newLocation: Location
+    private lateinit var newLocation: Location
 
     private var cities: Array<City>? = null
     private var cityNames: ArrayList<String>? = null
@@ -43,72 +43,32 @@ class ChangeLocationFragment : Fragment() {
     ): View {
         binding = FragmentChangeLocationBinding.inflate(layoutInflater)
 
+        loadCitiesAndAssign()
+        getLocationOfUser()
+        setCitySpinner()
+        setSpinnerClicks()
+
+        binding.btnChangeLocation.setOnClickListener {
+            changeLocation()
+        }
+
+        observeResponseResult()
+
+        return binding.root
+    }
+
+    private fun loadCitiesAndAssign() {
         cities = loadCitiesFromJson(requireContext())
         cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
+    }
 
+    private fun getLocationOfUser() {
         sessionManager.getUser().location.run {
             binding.txtInputCity.setText(city)
             binding.txtInputDistrict.setText(district)
 
             setDistrictSpinner(city.lowercase())
         }
-
-        setCitySpinner()
-
-        binding.txtInputCity.setOnClickListener {
-            binding.spinnerCity.performClick()
-        }
-
-        binding.txtInputDistrict.setOnClickListener {
-            binding.spinnerDistrict.performClick()
-        }
-
-        binding.btnChangeLocation.setOnClickListener {
-            val city = binding.txtInputCity.text.toString()
-            val district = binding.txtInputDistrict.text.toString()
-
-            newLocation = Location(city, district)
-            val currentLocation = sessionManager.getUser().location
-
-            if (city == currentLocation.city && district == currentLocation.district) {
-                binding.errorInvalid.text = getString(R.string.location_can_not_be_same)
-                binding.errorInvalid.show()
-            } else {
-                viewModel.changeLocation(newLocation)
-            }
-        }
-
-        viewModel.responseResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
-
-                is BaseResponse.Success -> {
-                    binding.progress.gone()
-
-                    Snackbar.make(
-                        requireView(),
-                        getString(com.erdi.blooddonor.R.string.location_succesfully_changed),
-                        Snackbar.LENGTH_LONG,
-                    ).show()
-
-                    findNavController().popBackStack()
-
-                    val newUser = sessionManager.getUser()
-                    newUser.location = newLocation
-                    sessionManager.saveUser(newUser)
-                }
-
-                is BaseResponse.Error -> {
-                    binding.progress.gone()
-                    binding.errorInvalid.text = it.msg
-                    binding.errorInvalid.show()
-                }
-            }
-        }
-
-        return binding.root
     }
 
     private fun setCitySpinner() {
@@ -164,6 +124,65 @@ class ChangeLocationFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setSpinnerClicks() {
+        binding.run {
+            txtInputCity.setOnClickListener {
+                binding.spinnerCity.performClick()
+            }
+
+            txtInputDistrict.setOnClickListener {
+                binding.spinnerDistrict.performClick()
+            }
+        }
+    }
+
+    private fun changeLocation() {
+        val city = binding.txtInputCity.text.toString()
+        val district = binding.txtInputDistrict.text.toString()
+
+        newLocation = Location(city, district)
+        val currentLocation = sessionManager.getUser().location
+
+        if (city == currentLocation.city && district == currentLocation.district) {
+            binding.errorInvalid.text = getString(R.string.location_can_not_be_same)
+            binding.errorInvalid.show()
+        } else {
+            viewModel.changeLocation(newLocation)
+        }
+    }
+
+    private fun observeResponseResult() {
+        viewModel.responseResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                }
+
+                is BaseResponse.Success -> {
+                    binding.progress.gone()
+
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.location_succesfully_changed),
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+
+                    findNavController().popBackStack()
+
+                    val newUser = sessionManager.getUser()
+                    newUser.location = newLocation
+                    sessionManager.saveUser(newUser)
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
+                    binding.errorInvalid.text = it.msg
+                    binding.errorInvalid.show()
+                }
+            }
         }
     }
 }

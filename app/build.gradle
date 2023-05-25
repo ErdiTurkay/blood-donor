@@ -102,4 +102,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
+
+    // Swipe Refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
+    // Splash Screen
+    implementation "androidx.core:core-splashscreen:1.0.0"
 }

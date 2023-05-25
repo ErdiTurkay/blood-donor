@@ -2,8 +2,10 @@ package com.erdi.blooddonor.utils
 
 import android.content.Context
 import com.erdi.blooddonor.R
+import com.erdi.blooddonor.data.model.NotificationItem
 import com.erdi.blooddonor.data.model.User
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,6 +19,7 @@ class SessionManager @Inject constructor(
         private const val JWT_TOKEN = "jwt_token"
         private const val NOTIFICATION_TOKEN = "notification_token"
         private const val USER = "user"
+        private const val NOTIFICATION = "notification"
     }
 
     fun saveAuthToken(token: String) {
@@ -33,6 +36,33 @@ class SessionManager @Inject constructor(
 
     fun getNotificationToken(): String? {
         return getString(NOTIFICATION_TOKEN)
+    }
+
+    fun clearNotificationsAndRefresh(): MutableList<NotificationItem> {
+        saveNotificationList(mutableListOf())
+        return getNotificationList()
+    }
+
+    fun setNotification(title: String, message: String, date: String, postId: String) {
+        val notificationList = getNotificationList()
+        val notification = NotificationItem(title, message, date, postId)
+        notificationList.add(notification)
+        saveNotificationList(notificationList)
+    }
+
+    fun getNotificationList(): MutableList<NotificationItem> {
+        val notificationJson = getString(NOTIFICATION)
+        return if (notificationJson != null) {
+            val notificationType = object : TypeToken<MutableList<NotificationItem>>() {}.type
+            Gson().fromJson(notificationJson, notificationType)
+        } else {
+            mutableListOf()
+        }
+    }
+
+    private fun saveNotificationList(notificationList: MutableList<NotificationItem>) {
+        val notificationJson = Gson().toJson(notificationList)
+        saveString(NOTIFICATION, notificationJson)
     }
 
     fun getFullName(): String {

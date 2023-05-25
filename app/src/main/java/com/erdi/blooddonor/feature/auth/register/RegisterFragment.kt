@@ -48,35 +48,57 @@ class RegisterFragment : Fragment() {
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
 
-        cities = loadCitiesFromJson(requireContext())
-        cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
-
+        loadCitiesAndAssign()
         setBloodTypeSpinner()
         setBirthdaySpinner()
         setLastDonationSpinner()
         setCitySpinner()
-
-        binding.txtInputCity.setOnClickListener {
-            binding.spinnerCity.performClick()
-        }
-
-        binding.txtInputDistrict.setOnClickListener {
-            binding.spinnerDistrict.performClick()
-        }
+        setSpinnerClicks()
 
         binding.btnLogin.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        txtInputTextChange()
-
         binding.btnRegister.setOnClickListener {
             doRegister()
         }
 
+        txtInputTextChange()
         observeResponseResult()
 
         return binding.root
+    }
+
+    private fun loadCitiesAndAssign() {
+        cities = loadCitiesFromJson(requireContext())
+        cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
+    }
+
+    private fun setBloodTypeSpinner() {
+        binding.txtInputBloodGroup.setOnClickListener {
+            binding.spinnerBloodGroup.performClick()
+        }
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.blood_groups,
+            android.R.layout.simple_spinner_item,
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerBloodGroup.adapter = adapter
+        }
+
+        val firstPosition: Int = binding.spinnerBloodGroup.selectedItemPosition
+        binding.spinnerBloodGroup.setSelection(firstPosition, true)
+
+        binding.spinnerBloodGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                binding.txtInputBloodGroup.setText(selectedItem)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 
     private fun setCitySpinner() {
@@ -132,27 +154,6 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun observeResponseResult() {
-        viewModel.registerResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
-
-                is BaseResponse.Success -> {
-                    binding.progress.gone()
-                    processLogin(it.data)
-                }
-
-                is BaseResponse.Error -> {
-                    binding.progress.gone()
-                    binding.errorInvalid.text = it.msg
-                    binding.errorInvalid.show()
-                }
-            }
-        }
-    }
-
     private fun setBirthdaySpinner() {
         binding.txtInputBirthday.setOnClickListener {
             showDatePickerDialog { _, year, month, dayOfMonth ->
@@ -179,14 +180,37 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun showDatePickerDialog(listener: DatePickerDialog.OnDateSetListener) {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+    private fun setSpinnerClicks() {
+        binding.run {
+            txtInputCity.setOnClickListener {
+                spinnerCity.performClick()
+            }
 
-        val datePickerDialog = DatePickerDialog(requireContext(), listener, year, month, day)
-        datePickerDialog.show()
+            txtInputDistrict.setOnClickListener {
+                spinnerDistrict.performClick()
+            }
+        }
+    }
+
+    private fun observeResponseResult() {
+        viewModel.registerResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                }
+
+                is BaseResponse.Success -> {
+                    binding.progress.gone()
+                    processLogin(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
+                    binding.errorInvalid.text = it.msg
+                    binding.errorInvalid.show()
+                }
+            }
+        }
     }
 
     private fun doRegister() {
@@ -308,30 +332,13 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun setBloodTypeSpinner() {
-        binding.txtInputBloodGroup.setOnClickListener {
-            binding.spinnerBloodGroup.performClick()
-        }
+    private fun showDatePickerDialog(listener: DatePickerDialog.OnDateSetListener) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.blood_groups,
-            android.R.layout.simple_spinner_item,
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerBloodGroup.adapter = adapter
-        }
-
-        val firstPosition: Int = binding.spinnerBloodGroup.selectedItemPosition
-        binding.spinnerBloodGroup.setSelection(firstPosition, true)
-
-        binding.spinnerBloodGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                binding.txtInputBloodGroup.setText(selectedItem)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
+        val datePickerDialog = DatePickerDialog(requireContext(), listener, year, month, day)
+        datePickerDialog.show()
     }
 }

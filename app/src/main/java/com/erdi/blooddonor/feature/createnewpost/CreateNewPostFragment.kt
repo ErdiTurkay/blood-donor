@@ -17,7 +17,6 @@ import com.erdi.blooddonor.data.model.Location
 import com.erdi.blooddonor.data.model.loadCitiesFromJson
 import com.erdi.blooddonor.databinding.FragmentCreateNewPostBinding
 import com.erdi.blooddonor.feature.MainActivity
-import com.erdi.blooddonor.utils.convertToJson
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import com.erdi.blooddonor.utils.showOrHide
@@ -41,25 +40,17 @@ class CreateNewPostFragment : Fragment() {
         binding = FragmentCreateNewPostBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
-        activity.binding.bottomNav.gone()
-        activity.binding.includeHeader.back.show()
-        activity.binding.includeHeader.headerTitle.text = getString(R.string.create_new_post)
+        activity.binding.run {
+            bottomNav.gone()
+            includeHeader.back.show()
+            includeHeader.headerTitle.text = getString(R.string.create_new_post)
+        }
 
-        cities = loadCitiesFromJson(requireContext())
-        cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
-
+        loadCitiesAndAssign()
         setBloodTypeSpinner()
         setCitySpinner()
-
         txtInputTextChange()
-
-        binding.txtInputCity.setOnClickListener {
-            binding.spinnerCity.performClick()
-        }
-
-        binding.txtInputDistrict.setOnClickListener {
-            binding.spinnerDistrict.performClick()
-        }
+        setSpinnerClicks()
 
         binding.btnCreateNewPost.setOnClickListener {
             createNewPost()
@@ -70,101 +61,9 @@ class CreateNewPostFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeResponseResult() {
-        viewModel.responseResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
-
-                is BaseResponse.Success -> {
-                    binding.progress.gone()
-
-                    Snackbar.make(
-                        requireView(),
-                        getString(R.string.post_is_succesfully_created),
-                        Snackbar.LENGTH_LONG,
-                    ).show()
-
-                    it.data?.post?.let { post ->
-                        findNavController().navigate(CreateNewPostFragmentDirections.actionCreateNewPostFragmentToPostDetailFragment(post.id))
-                    }
-                }
-
-                is BaseResponse.Error -> {
-                    binding.progress.gone()
-                    /*binding.errorInvalid.text = it.msg
-                    binding.errorInvalid.show()*/
-                }
-            }
-        }
-    }
-
-    private fun createNewPost() {
-        val name = binding.txtInputName.text.toString()
-        val surname = binding.txtInputSurname.text.toString()
-        val age = binding.txtInputAge.text.toString()
-        val bloodType = binding.txtInputBloodGroup.text.toString()
-        val city = binding.txtInputCity.text.toString()
-        val district = binding.txtInputDistrict.text.toString()
-        val message = binding.txtInputMessage.text.toString()
-
-        val isAvailable = name.isNotEmpty() && surname.isNotEmpty() &&
-            age.isNotEmpty() && bloodType.isNotEmpty() && city.isNotEmpty() &&
-            district.isNotEmpty() && message.isNotEmpty()
-
-        binding.run {
-            errorName.showOrHide(name.isEmpty())
-            errorSurname.showOrHide(surname.isEmpty())
-            errorAge.showOrHide(age.isEmpty())
-            errorBloodGroup.showOrHide(bloodType.isEmpty())
-            errorCity.showOrHide(city.isEmpty())
-            errorDistrict.showOrHide(district.isEmpty())
-            errorMessage.showOrHide(message.isEmpty())
-        }
-
-        if (isAvailable) {
-            viewModel.createNewPost(
-                patientName = name,
-                patientSurname = surname,
-                patientAge = age.toInt(),
-                patientBloodType = bloodType,
-                patientLocation = Location(city, district),
-                message = message,
-            )
-        }
-    }
-
-    private fun txtInputTextChange() {
-        binding.run {
-            txtInputName.doAfterTextChanged {
-                errorName.showOrHide(it?.length == 0)
-            }
-
-            txtInputSurname.doAfterTextChanged {
-                errorSurname.showOrHide(it?.length == 0)
-            }
-
-            txtInputAge.doAfterTextChanged {
-                errorAge.showOrHide(it?.length == 0)
-            }
-
-            txtInputBloodGroup.doAfterTextChanged {
-                errorBloodGroup.showOrHide(it?.length == 0)
-            }
-
-            txtInputCity.doAfterTextChanged {
-                errorCity.showOrHide(it?.length == 0)
-            }
-
-            txtInputDistrict.doAfterTextChanged {
-                errorDistrict.showOrHide(it?.length == 0)
-            }
-
-            txtInputMessage.doAfterTextChanged {
-                errorMessage.showOrHide(it?.length == 0)
-            }
-        }
+    private fun loadCitiesAndAssign() {
+        cities = loadCitiesFromJson(requireContext())
+        cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
     }
 
     private fun setBloodTypeSpinner() {
@@ -244,6 +143,115 @@ class CreateNewPostFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setSpinnerClicks() {
+        binding.run {
+            txtInputCity.setOnClickListener {
+                binding.spinnerCity.performClick()
+            }
+
+            txtInputDistrict.setOnClickListener {
+                binding.spinnerDistrict.performClick()
+            }
+        }
+    }
+
+    private fun createNewPost() {
+        val name = binding.txtInputName.text.toString()
+        val surname = binding.txtInputSurname.text.toString()
+        val age = binding.txtInputAge.text.toString()
+        val bloodType = binding.txtInputBloodGroup.text.toString()
+        val city = binding.txtInputCity.text.toString()
+        val district = binding.txtInputDistrict.text.toString()
+        val message = binding.txtInputMessage.text.toString()
+
+        val isAvailable = name.isNotEmpty() && surname.isNotEmpty() &&
+            age.isNotEmpty() && bloodType.isNotEmpty() && city.isNotEmpty() &&
+            district.isNotEmpty() && message.isNotEmpty()
+
+        binding.run {
+            errorName.showOrHide(name.isEmpty())
+            errorSurname.showOrHide(surname.isEmpty())
+            errorAge.showOrHide(age.isEmpty())
+            errorBloodGroup.showOrHide(bloodType.isEmpty())
+            errorCity.showOrHide(city.isEmpty())
+            errorDistrict.showOrHide(district.isEmpty())
+            errorMessage.showOrHide(message.isEmpty())
+        }
+
+        if (isAvailable) {
+            viewModel.createNewPost(
+                patientName = name,
+                patientSurname = surname,
+                patientAge = age.toInt(),
+                patientBloodType = bloodType,
+                patientLocation = Location(city, district),
+                message = message,
+            )
+        }
+    }
+
+    private fun txtInputTextChange() {
+        binding.run {
+            txtInputName.doAfterTextChanged {
+                errorName.showOrHide(it?.length == 0)
+            }
+
+            txtInputSurname.doAfterTextChanged {
+                errorSurname.showOrHide(it?.length == 0)
+            }
+
+            txtInputAge.doAfterTextChanged {
+                errorAge.showOrHide(it?.length == 0)
+            }
+
+            txtInputBloodGroup.doAfterTextChanged {
+                errorBloodGroup.showOrHide(it?.length == 0)
+            }
+
+            txtInputCity.doAfterTextChanged {
+                errorCity.showOrHide(it?.length == 0)
+            }
+
+            txtInputDistrict.doAfterTextChanged {
+                errorDistrict.showOrHide(it?.length == 0)
+            }
+
+            txtInputMessage.doAfterTextChanged {
+                errorMessage.showOrHide(it?.length == 0)
+            }
+        }
+    }
+
+    private fun observeResponseResult() {
+        viewModel.responseResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                }
+
+                is BaseResponse.Success -> {
+                    binding.progress.gone()
+
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.post_is_succesfully_created),
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+
+                    it.data?.post?.let { post ->
+                        findNavController().navigate(CreateNewPostFragmentDirections.actionCreateNewPostFragmentToPostDetailFragment(post.id))
+                    }
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
+                    /*binding.errorInvalid.text = it.msg
+                    binding.errorInvalid.show()*/
+                }
+            }
         }
     }
 }

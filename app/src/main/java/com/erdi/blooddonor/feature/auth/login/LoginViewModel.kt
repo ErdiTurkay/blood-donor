@@ -1,6 +1,5 @@
 package com.erdi.blooddonor.feature.auth.login
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +20,7 @@ class LoginViewModel @Inject constructor(
     var userRepository: UserRepository,
 ) : ViewModel() {
     val loginResult: MutableLiveData<BaseResponse<AuthResponse>> = MutableLiveData()
-    val notificationResponse: MutableLiveData<BaseResponse<SendNotificationTokenResponse>> = MutableLiveData()
+    private val notificationResponse: MutableLiveData<BaseResponse<SendNotificationTokenResponse>> = MutableLiveData()
 
     fun loginUser(email: String, password: String) {
         loginResult.value = BaseResponse.Loading()
@@ -52,7 +51,6 @@ class LoginViewModel @Inject constructor(
                 val response = userRepository.sendNotificationToken(sendNotificationTokenRequest)
 
                 if (response.isSuccessful) {
-                    Log.d("Fayırbeys", "Backende yolladım: $token")
                     notificationResponse.value = BaseResponse.Success(response.body())
                 } else {
                     val json = response.errorBody()?.string()

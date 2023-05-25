@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="15dp"
         android:paddingVertical="8dp"
-        tools:context=".feature.home.HomeFragment">
+        tools:context=".feature.myposts.MyPostsFragment">
 
         <ProgressBar
             android:id="@+id/progress"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton"
-            android:text="Henüz ilan yok."
+            android:text="Henüz ilanınız yok."
             android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,5 +58,4 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

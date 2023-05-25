@@ -36,18 +36,14 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
-        val token = sessionManager.getToken()
-        if (!token.isNullOrBlank()) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-        }
+        checkToken()
 
         activity.binding.run {
             bottomNav.gone()
             includeHeader.root.gone()
         }
 
-        binding.timeTitle.text = greetingMessage.getTimeString()
-        binding.timeImage.setImageDrawable(greetingMessage.getTimeDrawable())
+        setTimeAndTimeDrawable()
 
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
@@ -61,6 +57,48 @@ class LoginFragment : Fragment() {
         txtInputTextChange()
 
         return binding.root
+    }
+
+    private fun checkToken() {
+        val token = sessionManager.getToken()
+        if (!token.isNullOrBlank()) {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        }
+    }
+
+    private fun setTimeAndTimeDrawable() {
+        binding.run {
+            timeTitle.text = greetingMessage.getTimeString()
+            timeImage.setImageDrawable(greetingMessage.getTimeDrawable())
+        }
+    }
+
+    private fun doLogin() {
+        val email = binding.txtInputEmail.text.toString()
+        val password = binding.txtInputPassword.text.toString()
+
+        binding.errorEmail.showOrHide(email.isEmpty())
+        binding.errorPassword.showOrHide(password.isEmpty())
+
+        val isAvailable = email.isNotEmpty() && password.isNotEmpty()
+
+        if (isAvailable) {
+            viewModel.loginUser(email = email, password = password)
+        }
+    }
+
+    private fun processLogin(data: AuthResponse?) {
+        data?.run {
+            sessionManager.run {
+                saveUser(user)
+                saveAuthToken(token)
+                getNotificationToken()?.let {
+                    viewModel.sendNotificationToken(it)
+                }
+            }
+
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        }
     }
 
     private fun observeLoginResponse() {
@@ -93,34 +131,6 @@ class LoginFragment : Fragment() {
             txtInputPassword.doAfterTextChanged {
                 errorPassword.showOrHide(it?.length == 0)
             }
-        }
-    }
-
-    private fun doLogin() {
-        val email = binding.txtInputEmail.text.toString()
-        val password = binding.txtInputPassword.text.toString()
-
-        binding.errorEmail.showOrHide(email.isEmpty())
-        binding.errorPassword.showOrHide(password.isEmpty())
-
-        val isAvailable = email.isNotEmpty() && password.isNotEmpty()
-
-        if (isAvailable) {
-            viewModel.loginUser(email = email, password = password)
-        }
-    }
-
-    private fun processLogin(data: AuthResponse?) {
-        data?.run {
-            sessionManager.run {
-                saveUser(user)
-                saveAuthToken(token)
-                getNotificationToken()?.let {
-                    viewModel.sendNotificationToken(it)
-                }
-            }
-
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
 }

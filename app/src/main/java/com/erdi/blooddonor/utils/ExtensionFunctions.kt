@@ -48,6 +48,11 @@ fun String?.convertToLocalDateTime(): LocalDateTime {
     return LocalDateTime.parse(this, formatter)
 }
 
+fun String?.convertToLocalDateTimeWithoutHour(): LocalDateTime {
+    val formatter = DateTimeFormatter.ofPattern(APIConstants.DATE_TIME_PATTERN)
+    return LocalDateTime.parse(this, formatter)
+}
+
 fun String.convertToDate(): Date {
     val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
@@ -63,6 +68,6 @@ fun String?.convertToPost(): Post {
 }
 
 fun LocalDateTime?.convertToReadableDate(): String? {
-    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")
     return this?.format(formatter)
 }

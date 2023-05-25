@@ -1,4 +1,4 @@
-package com.erdi.blooddonor.feature.home
+package com.erdi.blooddonor.feature.myposts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.erdi.blooddonor.R
 import com.erdi.blooddonor.data.api.response.BaseResponse
 import com.erdi.blooddonor.data.model.Post
-import com.erdi.blooddonor.databinding.FragmentHomeBinding
+import com.erdi.blooddonor.databinding.FragmentMyPostsBinding
 import com.erdi.blooddonor.feature.MainActivity
-import com.erdi.blooddonor.utils.GreetingMessage
+import com.erdi.blooddonor.feature.home.BloodAdAdapter
+import com.erdi.blooddonor.feature.home.PostClickListener
 import com.erdi.blooddonor.utils.SessionManager
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
@@ -20,13 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), PostClickListener {
-    private lateinit var binding: FragmentHomeBinding
+class MyPostsFragment : Fragment(), PostClickListener {
+    private lateinit var binding: FragmentMyPostsBinding
     private lateinit var activity: MainActivity
-    private val viewModel: HomeViewModel by viewModels()
-
-    @Inject
-    lateinit var greetingMessage: GreetingMessage
+    private val viewModel: MyPostsViewModel by viewModels()
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -36,24 +35,24 @@ class HomeFragment : Fragment(), PostClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding = FragmentMyPostsBinding.inflate(layoutInflater)
         activity = requireActivity() as MainActivity
 
         activity.binding.run {
             bottomNav.show()
             includeHeader.root.show()
             includeHeader.back.gone()
+            includeHeader.headerTitle.text = getString(R.string.my_posts)
         }
 
-        setHeaderTitle()
         setBloodAdRV()
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateNewPostFragment())
+            findNavController().navigate(MyPostsFragmentDirections.actionMyPostsFragmentToCreateNewPostFragment())
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getAllPosts()
+            viewModel.getMyPosts()
             binding.swipeRefresh.isRefreshing = false
         }
 
@@ -81,7 +80,6 @@ class HomeFragment : Fragment(), PostClickListener {
                     } else {
                         bloodAdAdapter.setBloodAdList(postList)
                     }
-
                     binding.progress.gone()
                 }
 
@@ -93,13 +91,9 @@ class HomeFragment : Fragment(), PostClickListener {
         }
     }
 
-    private fun setHeaderTitle() {
-        activity.binding.includeHeader.headerTitle.text = greetingMessage.getHeaderText()
-    }
-
     override fun postOnClick(post: Post) {
         post.id.let {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(it))
+            findNavController().navigate(MyPostsFragmentDirections.actionMyPostsFragmentToPostDetailFragment(it))
         }
     }
 }

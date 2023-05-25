@@ -99,4 +99,6 @@
     <string name="age">Yaş</string>
     <string name="post_is_succesfully_created">İlan başarıyla oluşturuldu.</string>
 
+    <string name="my_posts">İlanlarım</string>
+
 </resources>

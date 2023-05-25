@@ -13,9 +13,11 @@ import androidx.navigation.NavDeepLinkBuilder
 import com.erdi.blooddonor.R
 import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.SessionManager
+import com.erdi.blooddonor.utils.convertToReadableDate
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,7 +40,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        Log.d("onMessageReceived", "onMessageReceived: ${remoteMessage.notification!!.body}")
+
+        val title = remoteMessage.notification!!.title!!
+        val body = remoteMessage.notification!!.body!!
+        val date = LocalDateTime.now().convertToReadableDate()!!
+        val postId = remoteMessage.data["postId"]
+
+        Log.d("onMessageReceived", "onMessageReceived: $remoteMessage")
+
+        if (remoteMessage.data.isNotEmpty()) {
+            sessionManager.setNotification(remoteMessage.data["title"]!!, remoteMessage.data["body"]!!, date, remoteMessage.data["postId"]!!)
+        }
 
         // it is a class to notify the user of events that happen.
         // This is how you tell the user that something has happened in the
@@ -58,9 +70,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // same method again will get back the same pending
         // intent for future reference
         // intent passed here is to our afterNotification class
-        //val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT)
+        // val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT)
 
-        val args = bundleOf("postId" to remoteMessage.data["postId"])
+        val args = bundleOf("postId" to postId)
 
         val pendingIntent = NavDeepLinkBuilder(this)
             .setComponentName(MainActivity::class.java)

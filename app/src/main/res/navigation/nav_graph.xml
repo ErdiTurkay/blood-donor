@@ -79,7 +79,11 @@
         android:id="@+id/notificationFragment"
         android:name="com.erdi.blooddonor.feature.notification.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_notificationFragment"
         app:destination="@id/notificationFragment"
@@ -118,5 +122,17 @@
             android:id="@+id/action_createNewPostFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPostsFragment"
+        android:name="com.erdi.blooddonor.feature.myposts.MyPostsFragment"
+        android:label="fragment_my_posts"
+        tools:layout="@layout/fragment_my_posts" >
+        <action
+            android:id="@+id/action_myPostsFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+        <action
+            android:id="@+id/action_myPostsFragment_to_createNewPostFragment"
+            app:destination="@id/createNewPostFragment" />
     </fragment>
 </navigation>

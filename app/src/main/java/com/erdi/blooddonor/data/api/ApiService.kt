@@ -12,6 +12,7 @@ import com.erdi.blooddonor.data.api.response.* // ktlint-disable no-wildcard-imp
 import com.erdi.blooddonor.utils.APIConstants
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -36,8 +37,14 @@ interface ApiService {
     @GET(APIConstants.GET_ALL_POSTS)
     suspend fun getAllPosts(): Response<AllPostsResponse>
 
-    @GET("post/{postId}")
+    @GET(APIConstants.GET_MY_POSTS)
+    suspend fun getMyPosts(): Response<GetMyPostsResponse>
+
+    @GET(APIConstants.POST_WITH_ID)
     suspend fun getOnePost(@Path("postId") postId: String): Response<GetOnePostResponse>
+
+    @DELETE(APIConstants.POST_WITH_ID)
+    suspend fun deletePost(@Path("postId") postId: String): Response<DeletePostResponse>
 
     @POST(APIConstants.CREATE_NEW_POST)
     suspend fun createNewPost(@Body createNewPostRequest: CreateNewPostRequest): Response<CreateNewPostResponse>

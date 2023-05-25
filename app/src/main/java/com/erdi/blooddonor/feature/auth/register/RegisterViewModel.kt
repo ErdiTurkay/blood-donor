@@ -1,6 +1,5 @@
 package com.erdi.blooddonor.feature.auth.register
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +22,7 @@ class RegisterViewModel @Inject constructor(
     var userRepository: UserRepository,
 ) : ViewModel() {
     val registerResult: MutableLiveData<BaseResponse<AuthResponse>> = MutableLiveData()
-    val notificationResponse: MutableLiveData<BaseResponse<SendNotificationTokenResponse>> = MutableLiveData()
+    private val notificationResponse: MutableLiveData<BaseResponse<SendNotificationTokenResponse>> = MutableLiveData()
 
     fun registerUser(
         name: String,
@@ -42,7 +41,7 @@ class RegisterViewModel @Inject constructor(
                 val registerRequest = RegisterRequest(email, password, name, surname, bloodType, location, dateOfBirth, lastDonation, phone)
                 val response = userRepository.registerUser(registerRequest)
 
-                if (response.code() == HttpURLConnection.HTTP_CREATED) {
+                if (response.isSuccessful) {
                     registerResult.value = BaseResponse.Success(response.body())
                 } else {
                     val json = response.errorBody()?.string()
@@ -64,7 +63,6 @@ class RegisterViewModel @Inject constructor(
                 val response = userRepository.sendNotificationToken(sendNotificationTokenRequest)
 
                 if (response.isSuccessful) {
-                    Log.d("Fayırbeys", "Backende yolladım: $token")
                     notificationResponse.value = BaseResponse.Success(response.body())
                 } else {
                     val json = response.errorBody()?.string()

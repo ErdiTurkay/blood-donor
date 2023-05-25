@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.erdi.blooddonor.R
 import com.erdi.blooddonor.data.api.response.BaseResponse
 import com.erdi.blooddonor.databinding.FragmentChangePhoneNumberBinding
-import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.SessionManager
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class ChangePhoneNumberFragment : Fragment() {
     private lateinit var binding: FragmentChangePhoneNumberBinding
     private val viewModel: ChangePhoneNumberViewModel by viewModels()
-    private lateinit var activity: MainActivity
 
     private var isAvailable: Boolean = false
     lateinit var currentPhoneNumber: String
@@ -37,10 +35,19 @@ class ChangePhoneNumberFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentChangePhoneNumberBinding.inflate(layoutInflater)
-        activity = requireActivity() as MainActivity
 
-        activity.binding.includeHeader.back.show()
+        setUserPhoneNumber()
 
+        binding.btnChangePhoneNumber.setOnClickListener {
+            changePhoneNumber()
+        }
+
+        observeResponseResult()
+
+        return binding.root
+    }
+
+    private fun setUserPhoneNumber() {
         currentPhoneNumber = sessionManager.getUser().phone
 
         val countryCode = currentPhoneNumber.split(" ")[0]
@@ -48,42 +55,6 @@ class ChangePhoneNumberFragment : Fragment() {
 
         binding.countryPicker.setCountryForPhoneCode(countryCode.toInt())
         binding.txtInputPhoneNumber.setText(afterCountryCode)
-
-        viewModel.responseResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is BaseResponse.Loading -> {
-                    binding.progress.show()
-                }
-
-                is BaseResponse.Success -> {
-                    binding.progress.gone()
-
-                    Snackbar.make(
-                        requireView(),
-                        getString(R.string.phone_number_is_succesfully_changed),
-                        Snackbar.LENGTH_LONG,
-                    ).show()
-
-                    findNavController().popBackStack()
-
-                    val newUser = sessionManager.getUser()
-                    newUser.phone = newPhoneNumber
-                    sessionManager.saveUser(newUser)
-                }
-
-                is BaseResponse.Error -> {
-                    binding.progress.gone()
-                    binding.error.text = it.msg
-                    binding.error.show()
-                }
-            }
-        }
-
-        binding.btnChangePhoneNumber.setOnClickListener {
-            changePhoneNumber()
-        }
-
-        return binding.root
     }
 
     private fun changePhoneNumber() {
@@ -115,8 +86,35 @@ class ChangePhoneNumberFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        activity.binding.includeHeader.back.gone()
-        super.onPause()
+    private fun observeResponseResult() {
+        viewModel.responseResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    binding.progress.show()
+                }
+
+                is BaseResponse.Success -> {
+                    binding.progress.gone()
+
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.phone_number_is_succesfully_changed),
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+
+                    findNavController().popBackStack()
+
+                    val newUser = sessionManager.getUser()
+                    newUser.phone = newPhoneNumber
+                    sessionManager.saveUser(newUser)
+                }
+
+                is BaseResponse.Error -> {
+                    binding.progress.gone()
+                    binding.error.text = it.msg
+                    binding.error.show()
+                }
+            }
+        }
     }
 }
