@@ -31,12 +31,25 @@ fun View.showOrHide(boolean: Boolean) {
     }
 }
 
+fun View.showOrGone(boolean: Boolean) {
+    visibility = if (boolean) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
+
 fun TextView.showErrorOrHide() {
     visibility = if (text.isEmpty()) {
         View.VISIBLE
     } else {
         View.INVISIBLE
     }
+}
+
+fun String.camelCase(): String {
+    return this.substring(0, 1).uppercase() + this.substring(1)
 }
 
 fun String?.convertToErrorResponse(): ErrorResponse {
@@ -70,4 +83,18 @@ fun String?.convertToPost(): Post {
 fun LocalDateTime?.convertToReadableDate(): String? {
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")
     return this?.format(formatter)
+}
+
+fun String?.availableBloodTypes(): List<String> {
+    return when (this) {
+        "0-" -> listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-")
+        "0+" -> listOf("A+", "B+", "AB+", "0+")
+        "AB+" -> listOf("AB+")
+        "AB-" -> listOf("AB-")
+        "A+" -> listOf("A+", "AB+")
+        "A-" -> listOf("A+", "A-", "AB+", "AB-")
+        "B+" -> listOf("B+", "AB+")
+        "B-" -> listOf("B+", "B-", "AB+", "AB-")
+        else -> emptyList()
+    }
 }

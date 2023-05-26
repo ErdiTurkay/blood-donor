@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="15dp"
-        android:paddingVertical="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
         tools:context=".feature.home.postinmycity.PostInMyCityFragment">
 
         <ProgressBar
@@ -23,27 +24,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_blood_group"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:fontFamily="@font/campton"
+            android:text="@string/only_my_blood_group"
+            android:textColor="@color/title_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchPadding="8dp" />
+
         <LinearLayout
             android:id="@+id/city_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/switch_blood_group"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toTopOf="@id/switch_blood_group">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Şehriniz: "
-                android:fontFamily="@font/campton_bold" />
+                android:fontFamily="@font/campton_bold"
+                android:text="@string/your_city" />
 
             <TextView
                 android:id="@+id/city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="İstanbul"
-                android:fontFamily="@font/campton" />
+                android:fontFamily="@font/campton"
+                tools:text="İstanbul" />
 
         </LinearLayout>
 
@@ -53,7 +65,7 @@
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/city_layout"
+            app:layout_constraintTop_toBottomOf="@id/switch_blood_group"
             tools:itemCount="7"
             tools:listitem="@layout/item_post" />
 
@@ -62,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton"
-            android:text="Henüz ilan yok."
+            android:text="@string/no_ad_yet"
             android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

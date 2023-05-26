@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/campton"
-                        android:text="@string/post_detail_age"
+                        android:text="@string/age_two_dot"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@id/full_name"
                         app:layout_constraintTop_toBottomOf="@id/full_name" />
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:fontFamily="@font/campton"
-                        android:text="@string/post_detail_blood_type"
+                        android:text="@string/blood_group_two_dot"
                         android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/age"
                         app:layout_constraintTop_toBottomOf="@id/full_name" />
@@ -200,7 +200,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="2dp"
                 android:gravity="center"
-                android:text="İlan Sahibini Ara"
+                android:text="@string/call_the_author"
                 android:textAllCaps="true"
                 android:textSize="13sp"
                 app:backgroundTint="#2782AA"
@@ -222,7 +222,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="WhatsApp'tan Yaz"
+                android:text="@string/write_on_whatsapp"
                 android:textAllCaps="true"
                 android:textSize="13sp"
                 app:backgroundTint="#128C7E"
@@ -247,10 +247,31 @@
                 app:layout_constraintTop_toBottomOf="@id/wp_button">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="5dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/share_card"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/green"
+                        app:cardCornerRadius="18dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/btn_share"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_share"
+                            app:tint="@color/white" />
+
+                    </androidx.cardview.widget.CardView>
 
                     <ImageView
                         android:id="@+id/ic_description"
@@ -333,7 +354,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:hint="Yorumunuz..."
+                        android:hint="@string/your_comment"
                         app:boxCornerRadiusBottomEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusTopEnd="10dp"
@@ -407,14 +428,14 @@
         android:id="@+id/ad_is_removed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/campton"
         android:text="Görüntülemeye çalıştığınız ilan kaldırılmış."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="18sp"
         android:visibility="gone"
-        android:fontFamily="@font/campton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ProgressBar
@@ -424,8 +445,8 @@
         android:layout_marginBottom="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

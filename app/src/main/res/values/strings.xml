@@ -2,6 +2,7 @@
     <string name="app_name">BloodDonor</string>
 
     <!-- Common -->
+    <string name="app_version">version 1.0</string>
     <string name="today">Bugün</string>
     <string name="yesterday">Dün</string>
     <!-- ***************************************************************** -->
@@ -15,7 +16,7 @@
 
     <!-- Bottom Navigation -->
     <string name="home">Anasayfa</string>
-    <string name="profile">Profil</string>
+    <string name="my_posts">İlanlarım</string>
     <!-- ***************************************************************** -->
 
     <!-- Login/Register -->
@@ -36,9 +37,18 @@
     <string name="name">Ad</string>
     <string name="city">İl</string>
     <string name="district">İlçe</string>
+    <string name="email_or_password_invalid">E-Mail veya Şifre hatalı…</string>
+    <!-- ***************************************************************** -->
+
+    <!-- Create New Post -->
+    <string name="create_new_post">Yeni İlan Oluştur</string>
+    <string name="post_is_succesfully_created">İlan başarıyla oluşturuldu.</string>
+    <string name="age">Yaş</string>
+    <string name="message">Mesaj</string>
     <!-- ***************************************************************** -->
 
     <!-- Profile Rows -->
+    <string name="profile">Profil</string>
     <string name="change_password">Şifreni Değiştir</string>
     <string name="change_phone_number">Telefon Numaranı Değiştir</string>
     <string name="change_location">Konumunu Değiştir</string>
@@ -63,6 +73,10 @@
     <string name="phone_numbers_length_must_be_ten">Telefon numarası 10 rakamdan oluşmalıdır.</string>
     <!-- ***************************************************************** -->
 
+    <!-- Change Location -->
+    <string name="location_can_not_be_same">Mevcut konumunuzdan farklı bir tercih yapmalısınız.</string>
+    <!-- ***************************************************************** -->
+
     <!-- Item Blood Ad -->
     <string name="x_days_ago">%1$d gün önce</string>
     <!-- ***************************************************************** -->
@@ -70,14 +84,26 @@
     <!-- Post Detail -->
     <string name="post_detail_title">İlan Detayları</string>
     <string name="post_description">İlan Açıklaması</string>
-    <string name="post_detail_blood_type">Kan Grubu:&#160;</string>
-    <string name="post_detail_age">Yaş:&#160;</string>
     <string name="post_owner">İlan Sahibi: %s</string>
     <string name="comment_sent">Yorumunuz gönderildi.</string>
+    <string name="age_two_dot">Yaş:&#160;</string>
+    <string name="blood_group_two_dot">Kan Grubu:&#160;</string>
+    <string name="call_the_author">İlan Sahibini Ara</string>
+    <string name="write_on_whatsapp">WhatsApp\'tan Yaz</string>
+    <string name="your_comment">Yorumunuz…</string>
+    <string name="comments">Yorumlar</string>
+    <!-- ***************************************************************** -->
 
     <!-- Notifications -->
     <string name="notifications">Bildirimler</string>
-    <string name="comments">Yorumlar</string>
+    <string name="no_ad_yet">Henüz ilan yok.</string>
+    <string name="clear_notifications">Bildirimleri Temizle</string>
+    <!-- ***************************************************************** -->
+
+    <!-- Post List -->
+    <string name="your_city">Şehriniz:&#160;</string>
+    <string name="your_district">İlçeniz:&#160;</string>
+    <string name="only_my_blood_group">Kan Grubuma Uygun</string>
     <!-- ***************************************************************** -->
 
     <string-array name="blood_groups">
@@ -91,14 +117,7 @@
         <item>AB+</item>
         <item>AB-</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="location_can_not_be_same">Mevcut konumunuzdan farklı bir tercih yapmalısınız.</string>
-    <string name="create_new_post">Yeni İlan Oluştur</string>
-    <string name="age">Yaş</string>
-    <string name="post_is_succesfully_created">İlan başarıyla oluşturuldu.</string>
-
-    <string name="my_posts">İlanlarım</string>
+    <string name="share_text">%s yaşında olan %s isimli hastamız için %s kan grubu kana ihtiyacımız var. Yardımcı olabilir misiniz? \n\nDetaylar için BloodDonor uygulamasını indirebilirsin: https://link.com.tr"</string>
 
 </resources>

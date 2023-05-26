@@ -24,11 +24,11 @@
         android:layout_height="wrap_content"
         app:ccpDialog_keyboardAutoPopup="false"
         app:ccp_clickable="true"
+        app:ccp_defaultNameCode="TR"
         app:ccp_showArrow="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txtLay_phone_number"
         app:layout_constraintBottom_toBottomOf="@id/txtLay_phone_number"
-        app:ccp_defaultNameCode="TR"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtLay_phone_number" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLay_phone_number"
@@ -58,9 +58,9 @@
         android:layout_marginTop="3dp"
         android:text="@string/should_not_be_empty"
         android:textColor="@color/main_color"
-        app:layout_constraintTop_toBottomOf="@id/txtLay_phone_number"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible" />
+        app:layout_constraintTop_toBottomOf="@id/txtLay_phone_number" />
 
     <Button
         android:id="@+id/btn_change_phone_number"

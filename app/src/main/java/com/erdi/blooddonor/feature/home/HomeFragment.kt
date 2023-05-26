@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -58,7 +57,7 @@ class HomeFragment : Fragment() {
             FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     viewModel.sendNotificationToken(task.result)
-                    //Toast.makeText(requireContext(), task.result, Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(requireContext(), task.result, Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("Firebase Token", "Token alınamadı: ${task.exception?.message}")
                 }

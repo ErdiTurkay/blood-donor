@@ -19,6 +19,7 @@ import com.erdi.blooddonor.data.model.loadCitiesFromJson
 import com.erdi.blooddonor.databinding.FragmentCreateNewPostBinding
 import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.FirebaseMethods
+import com.erdi.blooddonor.utils.camelCase
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import com.erdi.blooddonor.utils.showOrHide
@@ -169,8 +170,8 @@ class CreateNewPostFragment : Fragment() {
     }
 
     private fun createNewPost() {
-        val name = binding.txtInputName.text.toString()
-        val surname = binding.txtInputSurname.text.toString()
+        val name = binding.txtInputName.text.toString().camelCase()
+        val surname = binding.txtInputSurname.text.toString().camelCase()
         val age = binding.txtInputAge.text.toString()
         val bloodType = binding.txtInputBloodGroup.text.toString()
         val city = binding.txtInputCity.text.toString()

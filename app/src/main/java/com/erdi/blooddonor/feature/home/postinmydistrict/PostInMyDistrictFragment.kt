@@ -1,6 +1,5 @@
 package com.erdi.blooddonor.feature.home.postinmydistrict
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import com.erdi.blooddonor.feature.home.HomeFragmentDirections
 import com.erdi.blooddonor.feature.home.HomeViewModel
 import com.erdi.blooddonor.feature.home.PostClickListener
 import com.erdi.blooddonor.utils.SessionManager
+import com.erdi.blooddonor.utils.availableBloodTypes
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,6 @@ class PostInMyDistrictFragment : Fragment(), PostClickListener {
     @Inject
     lateinit var sessionManager: SessionManager
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,13 +39,41 @@ class PostInMyDistrictFragment : Fragment(), PostClickListener {
 
         setBloodAdRV()
 
+        binding.switchBloodGroup.setOnCheckedChangeListener { _, isChecked ->
+            val bloodAdAdapter = BloodAdAdapter(this, sessionManager.getUser())
+            binding.bloodAdRv.adapter = bloodAdAdapter
+            var myList = viewModel.inMyDistrictList
+
+            if (isChecked) {
+                myList = myList.filter { post ->
+                    sessionManager.getUser().bloodType
+                        .availableBloodTypes()
+                        .contains(post.patientBloodType)
+                }
+
+                if (myList.isEmpty()) {
+                    binding.noAdText.show()
+                } else {
+                    bloodAdAdapter.setBloodAdList(myList)
+                    binding.noAdText.gone()
+                }
+            } else {
+                if (myList.isEmpty()) {
+                    binding.noAdText.show()
+                } else {
+                    bloodAdAdapter.setBloodAdList(myList)
+                    binding.noAdText.gone()
+                }
+            }
+        }
+
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getPostsInMyDistrict()
             binding.swipeRefresh.isRefreshing = false
         }
 
         viewModel.location.observe(viewLifecycleOwner) {
-            binding.location.text = "${it.district}/${it.city}"
+            binding.location.text = it.district
         }
 
         return binding.root
@@ -72,6 +99,7 @@ class PostInMyDistrictFragment : Fragment(), PostClickListener {
                         binding.noAdText.show()
                     } else {
                         bloodAdAdapter.setBloodAdList(postList)
+                        binding.noAdText.gone()
                     }
 
                     binding.progress.gone()

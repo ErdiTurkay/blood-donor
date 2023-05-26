@@ -16,6 +16,7 @@ import com.erdi.blooddonor.feature.home.HomeFragmentDirections
 import com.erdi.blooddonor.feature.home.HomeViewModel
 import com.erdi.blooddonor.feature.home.PostClickListener
 import com.erdi.blooddonor.utils.SessionManager
+import com.erdi.blooddonor.utils.availableBloodTypes
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,34 @@ class PostInMyCityFragment : Fragment(), PostClickListener {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentPostInMyCityBinding.inflate(layoutInflater)
+
+        binding.switchBloodGroup.setOnCheckedChangeListener { _, isChecked ->
+            val bloodAdAdapter = BloodAdAdapter(this, sessionManager.getUser())
+            binding.bloodAdRv.adapter = bloodAdAdapter
+            var myList = viewModel.inMyCityList
+
+            if (isChecked) {
+                myList = myList.filter { post ->
+                    sessionManager.getUser().bloodType
+                        .availableBloodTypes()
+                        .contains(post.patientBloodType)
+                }
+
+                if (myList.isEmpty()) {
+                    binding.noAdText.show()
+                } else {
+                    bloodAdAdapter.setBloodAdList(myList)
+                    binding.noAdText.gone()
+                }
+            } else {
+                if (myList.isEmpty()) {
+                    binding.noAdText.show()
+                } else {
+                    bloodAdAdapter.setBloodAdList(myList)
+                    binding.noAdText.gone()
+                }
+            }
+        }
 
         setBloodAdRV()
 
@@ -70,6 +99,7 @@ class PostInMyCityFragment : Fragment(), PostClickListener {
                         binding.noAdText.show()
                     } else {
                         bloodAdAdapter.setBloodAdList(postList)
+                        binding.noAdText.gone()
                     }
 
                     binding.progress.gone()

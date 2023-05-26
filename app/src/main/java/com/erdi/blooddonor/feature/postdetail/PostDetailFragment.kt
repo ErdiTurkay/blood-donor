@@ -3,12 +3,17 @@ package com.erdi.blooddonor.feature.postdetail
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,6 +29,8 @@ import com.erdi.blooddonor.feature.MainActivity
 import com.erdi.blooddonor.utils.* // ktlint-disable no-wildcard-imports
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -75,6 +82,37 @@ class PostDetailFragment : Fragment() {
 
         binding.wpButton.setOnClickListener {
             writeThisNumberOnWhatsApp(post.user.phone)
+        }
+
+        binding.shareCard.setOnClickListener {
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.share_image)
+            val bitmap = (drawable as BitmapDrawable).bitmap
+
+            val cachePath = File(context?.cacheDir, "image.jpg")
+            val outputStream = FileOutputStream(cachePath)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            outputStream.close()
+
+            val imageUri = FileProvider.getUriForFile(requireContext(), context?.packageName + ".fileprovider", cachePath)
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    resources.getString(
+                        R.string.share_text,
+                        post.patientAge.toString(),
+                        post.patientName,
+                        post.patientBloodType,
+                    ),
+                )
+                type = "image/*"
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
 
         return binding.root
@@ -158,7 +196,10 @@ class PostDetailFragment : Fragment() {
                         binding.ownerName.text =
                             resources.getString(R.string.post_owner, user.fullName())
 
-                        binding.icRemove.showOrHide(sessionManager.getUser().id == post.user.id)
+                        val isMyPost = sessionManager.getUser().id == post.user.id
+                        binding.icRemove.showOrHide(isMyPost)
+                        binding.callButton.showOrGone(!isMyPost)
+                        binding.wpButton.showOrGone(!isMyPost)
                     }
 
                     Glide.with(this)

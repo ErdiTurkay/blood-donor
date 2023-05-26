@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:fontFamily="@font/campton"
-                android:text="E-Mail veya Şifre hatalı..."
+                android:text="@string/email_or_password_invalid"
                 android:textColor="@color/main_color"
                 android:visibility="gone" />
 

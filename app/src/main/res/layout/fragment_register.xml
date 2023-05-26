@@ -14,8 +14,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="30dp">
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="15dp">
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -44,8 +44,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
                 android:layout_marginTop="20dp"
+                android:hint="@string/email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sign_in_title">
@@ -106,9 +106,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="@font/campton"
-                    tools:text="E-Mail veya Şifre hatalı..."
                     android:textColor="@color/main_color"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:text="E-Mail veya Şifre hatalı..." />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -323,10 +323,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/city"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginEnd="3dp"
+                android:hint="@string/city"
                 app:layout_constraintEnd_toStartOf="@id/txtLay_district"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtLay_blood_group">
 
                 <com.google.android.material.textfield.TextInputEditText

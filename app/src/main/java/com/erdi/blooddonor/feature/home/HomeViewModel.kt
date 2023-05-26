@@ -9,6 +9,7 @@ import com.erdi.blooddonor.data.api.response.BaseResponse
 import com.erdi.blooddonor.data.api.response.GetMyPostsResponse
 import com.erdi.blooddonor.data.api.response.SendNotificationTokenResponse
 import com.erdi.blooddonor.data.model.Location
+import com.erdi.blooddonor.data.model.Post
 import com.erdi.blooddonor.data.repository.PostRepository
 import com.erdi.blooddonor.data.repository.UserRepository
 import com.erdi.blooddonor.utils.SessionManager
@@ -29,6 +30,10 @@ class HomeViewModel @Inject constructor(
     val postInMyDistrictResponse: MutableLiveData<BaseResponse<GetMyPostsResponse>> = MutableLiveData()
     private val notificationResponse: MutableLiveData<BaseResponse<SendNotificationTokenResponse>> = MutableLiveData()
 
+    var allPostList: List<Post> = emptyList()
+    var inMyCityList: List<Post> = emptyList()
+    var inMyDistrictList: List<Post> = emptyList()
+
     val location: MutableLiveData<Location> = MutableLiveData()
 
     init {
@@ -45,6 +50,7 @@ class HomeViewModel @Inject constructor(
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     postResponse.value = BaseResponse.Success(response.body())
+                    allPostList = response.body()!!.posts!!
                 } else {
                     val json = response.errorBody()?.string()
                     val errorObject = json.convertToErrorResponse()
@@ -66,6 +72,7 @@ class HomeViewModel @Inject constructor(
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     postInMyCityResponse.value = BaseResponse.Success(response.body())
+                    inMyCityList = response.body()!!.posts!!
                 } else {
                     val json = response.errorBody()?.string()
                     val errorObject = json.convertToErrorResponse()
@@ -87,6 +94,7 @@ class HomeViewModel @Inject constructor(
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     postInMyDistrictResponse.value = BaseResponse.Success(response.body())
+                    inMyDistrictList = response.body()!!.posts!!
                 } else {
                     val json = response.errorBody()?.string()
                     val errorObject = json.convertToErrorResponse()

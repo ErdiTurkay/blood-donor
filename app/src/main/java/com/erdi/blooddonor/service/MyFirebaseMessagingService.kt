@@ -91,8 +91,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         builder = Notification.Builder(this, channelId)
             .setContentTitle(remoteMessage.notification!!.title)
             .setContentText(remoteMessage.notification!!.body)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
+            .setSmallIcon(R.drawable.ic_notification)
+            .setLargeIcon(BitmapFactory.decodeResource(applicationContext.resources, R.mipmap.ic_launcher))
             .setContentIntent(pendingIntent)
 
         notificationManager.notify(1234, builder.build())

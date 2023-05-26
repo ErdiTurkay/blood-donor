@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="15dp"
-        android:paddingVertical="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
         tools:context=".feature.home.allposts.AllPostsFragment">
 
         <ProgressBar
@@ -23,13 +24,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_blood_group"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:fontFamily="@font/campton"
+            android:text="@string/only_my_blood_group"
+            android:textColor="@color/title_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchPadding="8dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/blood_ad_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_blood_group"
             tools:itemCount="7"
             tools:listitem="@layout/item_post" />
 
@@ -38,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/campton"
-            android:text="Henüz ilan yok."
+            android:text="@string/no_ad_yet"
             android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
