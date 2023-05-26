@@ -22,10 +22,9 @@
             android:layout_height="48dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="46dp"
@@ -35,12 +34,12 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:src="@drawable/ic_notification"
-                    android:padding="12dp"
-                    app:tint="@color/main_color"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
-                    android:scaleType="centerCrop" />
+                    android:padding="12dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_notification"
+                    app:tint="@color/main_color" />
 
             </androidx.cardview.widget.CardView>
 
@@ -50,25 +49,27 @@
             android:id="@+id/notification_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/campton"
             android:textColor="@color/title_gray"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/icon_card"
             app:layout_constraintEnd_toStartOf="@id/arrow"
+            app:layout_constraintStart_toEndOf="@id/icon_card"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="İlanınıza 1 yeni yorum geldi!" />
 
         <TextView
             android:id="@+id/notification_body"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/campton"
-            tools:text="Bildirim Body"
             android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/arrow"
             app:layout_constraintStart_toStartOf="@id/notification_title"
-            app:layout_constraintTop_toBottomOf="@id/notification_title" />
+            app:layout_constraintTop_toBottomOf="@id/notification_title"
+            tools:text="Bildirim Body" />
 
         <ImageView
             android:id="@+id/arrow"
@@ -95,9 +96,9 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:fontFamily="@font/campton_light"
             android:textSize="14sp"
-            android:layout_marginStart="2dp"
             app:layout_constraintBottom_toBottomOf="@id/calendar_icon"
             app:layout_constraintStart_toEndOf="@id/calendar_icon"
             app:layout_constraintTop_toTopOf="@id/calendar_icon"

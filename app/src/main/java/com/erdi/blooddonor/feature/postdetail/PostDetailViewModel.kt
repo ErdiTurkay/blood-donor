@@ -75,19 +75,19 @@ class PostDetailViewModel @Inject constructor(
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     responseResult.postValue(BaseResponse.Success(response.body()))
+
+                    if (!authorToken.isNullOrEmpty()) {
+                        firebaseMethods.sendReplyNotification(
+                            token = authorToken,
+                            name = sessionManager.getFullName(),
+                            comment = comment,
+                            postId = postId,
+                        )
+                    }
                 } else {
                     val json = response.errorBody()?.string()
                     val errorObject = json.convertToErrorResponse()
                     responseResult.postValue(BaseResponse.Error(errorObject.message))
-                }
-
-                if (!authorToken.isNullOrEmpty()) {
-                    firebaseMethods.sendReplyNotification(
-                        token = authorToken,
-                        name = sessionManager.getFullName(),
-                        comment = comment,
-                        postId = postId,
-                    )
                 }
             } catch (ex: Exception) {
                 responseResult.postValue(BaseResponse.Error(ex.message))

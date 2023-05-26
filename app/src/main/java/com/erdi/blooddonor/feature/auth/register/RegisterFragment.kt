@@ -284,7 +284,7 @@ class RegisterFragment : Fragment() {
                 }
             }
 
-            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment())
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(true))
         }
     }
 

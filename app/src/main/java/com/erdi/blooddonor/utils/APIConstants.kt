@@ -2,6 +2,7 @@ package com.erdi.blooddonor.utils
 
 object APIConstants {
     //const val BASE_URL = "http://10.0.2.2:8080/"
+
     const val BASE_URL = "http://blooddonor.com.tr/"
     const val LOGIN_URL = "auth/login"
     const val REGISTER_URL = "auth/signup"
@@ -14,6 +15,9 @@ object APIConstants {
     const val SEND_NOTIFICATION_TOKEN = "user/notificationToken"
     const val GET_MY_POSTS = "post/myPosts"
     const val POST_WITH_ID = "post/{postId}"
+    const val POST_WITH_CITY = "post/location/{cityName}"
+    const val POST_WITH_DISTRICT = "post/location"
+    const val GET_NOTIFICATION_TOKENS = "user/notificationToken/{cityName}/{districtName}"
 
     //
     const val DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

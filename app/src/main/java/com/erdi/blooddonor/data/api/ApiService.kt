@@ -17,6 +17,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST(APIConstants.LOGIN_URL)
@@ -43,6 +44,12 @@ interface ApiService {
     @GET(APIConstants.POST_WITH_ID)
     suspend fun getOnePost(@Path("postId") postId: String): Response<GetOnePostResponse>
 
+    @GET(APIConstants.POST_WITH_CITY)
+    suspend fun getPostWithCity(@Path("cityName") cityName: String): Response<GetMyPostsResponse>
+
+    @GET(APIConstants.POST_WITH_DISTRICT)
+    suspend fun getPostWithDistrict(@Query("city") cityName: String, @Query("district") districtName: String): Response<GetMyPostsResponse>
+
     @DELETE(APIConstants.POST_WITH_ID)
     suspend fun deletePost(@Path("postId") postId: String): Response<DeletePostResponse>
 
@@ -54,4 +61,7 @@ interface ApiService {
 
     @POST(APIConstants.SEND_NOTIFICATION_TOKEN)
     suspend fun sendNotificationToken(@Body sendNotificationTokenRequest: SendNotificationTokenRequest): Response<SendNotificationTokenResponse>
+
+    @GET(APIConstants.GET_NOTIFICATION_TOKENS)
+    suspend fun getNotificationTokens(@Path("cityName") city: String, @Path("districtName") district: String): Response<GetNotificationTokens>
 }

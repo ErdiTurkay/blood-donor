@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
     private fun checkToken() {
         val token = sessionManager.getToken()
         if (!token.isNullOrBlank()) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(false))
         }
     }
 
@@ -97,7 +97,7 @@ class LoginFragment : Fragment() {
                 }
             }
 
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(true))
         }
     }
 

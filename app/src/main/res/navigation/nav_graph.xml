@@ -36,6 +36,10 @@
             android:id="@+id/action_homeFragment_to_createNewPostFragment"
             app:destination="@id/createNewPostFragment"
             app:popUpTo="@id/homeFragment" />
+        <argument
+            android:name="afterAuth"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

@@ -1,6 +1,7 @@
 package com.erdi.blooddonor.feature.createnewpost
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +18,13 @@ import com.erdi.blooddonor.data.model.Location
 import com.erdi.blooddonor.data.model.loadCitiesFromJson
 import com.erdi.blooddonor.databinding.FragmentCreateNewPostBinding
 import com.erdi.blooddonor.feature.MainActivity
+import com.erdi.blooddonor.utils.FirebaseMethods
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import com.erdi.blooddonor.utils.showOrHide
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateNewPostFragment : Fragment() {
@@ -31,6 +34,9 @@ class CreateNewPostFragment : Fragment() {
 
     private var cities: Array<City>? = null
     private var cityNames: ArrayList<String>? = null
+
+    @Inject
+    lateinit var firebaseMethods: FirebaseMethods
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +60,10 @@ class CreateNewPostFragment : Fragment() {
 
         binding.btnCreateNewPost.setOnClickListener {
             createNewPost()
+        }
+
+        viewModel.notificationResponse.observe(viewLifecycleOwner) {
+            findNavController().navigate(CreateNewPostFragmentDirections.actionCreateNewPostFragmentToPostDetailFragment(it))
         }
 
         observeResponseResult()
@@ -242,7 +252,13 @@ class CreateNewPostFragment : Fragment() {
                     ).show()
 
                     it.data?.post?.let { post ->
-                        findNavController().navigate(CreateNewPostFragmentDirections.actionCreateNewPostFragmentToPostDetailFragment(post.id))
+                        viewModel.sendNotificationToThisLocation(
+                            post.id,
+                            post.patientName,
+                            post.patientBloodType,
+                            post.location.city,
+                            post.location.district,
+                        )
                     }
                 }
 

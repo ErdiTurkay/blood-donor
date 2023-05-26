@@ -8,16 +8,22 @@ import com.erdi.blooddonor.data.api.response.BaseResponse
 import com.erdi.blooddonor.data.api.response.CreateNewPostResponse
 import com.erdi.blooddonor.data.model.Location
 import com.erdi.blooddonor.data.repository.PostRepository
+import com.erdi.blooddonor.data.repository.UserRepository
+import com.erdi.blooddonor.utils.FirebaseMethods
 import com.erdi.blooddonor.utils.convertToErrorResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CreateNewPostViewModel @Inject constructor(
     var postRepository: PostRepository,
+    var userRepository: UserRepository,
+    var firebaseMethods: FirebaseMethods,
 ) : ViewModel() {
     val responseResult: MutableLiveData<BaseResponse<CreateNewPostResponse>> = MutableLiveData()
+    val notificationResponse: MutableLiveData<String> = MutableLiveData()
 
     fun createNewPost(
         patientName: String,
@@ -42,6 +48,26 @@ class CreateNewPostViewModel @Inject constructor(
                 }
             } catch (ex: Exception) {
                 responseResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun sendNotificationToThisLocation(postId: String, patientName: String, patientBloodType: String, city: String, district: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = userRepository.getNotificationTokens(city, district)
+
+                if (response.isSuccessful) {
+                    firebaseMethods.sendNewPostNotification(
+                        tokenList = response.body()!!.tokens,
+                        name = patientName,
+                        bloodType = patientBloodType,
+                        postId = postId,
+                    )
+
+                    notificationResponse.postValue(postId)
+                }
+            } catch (ex: Exception) {
             }
         }
     }

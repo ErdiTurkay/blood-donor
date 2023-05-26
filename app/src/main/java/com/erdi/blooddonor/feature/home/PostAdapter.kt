@@ -47,6 +47,8 @@ class BloodAdAdapter @Inject constructor(
 
             if (currentUser.id == user.id) {
                 holder.root.strokeWidth = 3
+            } else {
+                holder.root.strokeWidth = 0
             }
 
             holder.date.text = when (daysBetween) {

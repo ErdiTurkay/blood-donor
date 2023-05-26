@@ -27,6 +27,14 @@ class PostRepository @Inject constructor(
         return api.getOnePost(postId)
     }
 
+    suspend fun getPostWithCity(cityName: String): Response<GetMyPostsResponse> {
+        return api.getPostWithCity(cityName)
+    }
+
+    suspend fun getPostWithDistrict(cityName: String, districtName: String): Response<GetMyPostsResponse> {
+        return api.getPostWithDistrict(cityName, districtName)
+    }
+
     suspend fun deletePost(postId: String): Response<DeletePostResponse> {
         return api.deletePost(postId)
     }

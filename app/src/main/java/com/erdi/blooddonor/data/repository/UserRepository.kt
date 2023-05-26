@@ -11,6 +11,7 @@ import com.erdi.blooddonor.data.api.response.AuthResponse
 import com.erdi.blooddonor.data.api.response.ChangeLocationResponse
 import com.erdi.blooddonor.data.api.response.ChangePasswordResponse
 import com.erdi.blooddonor.data.api.response.ChangePhoneNumberResponse
+import com.erdi.blooddonor.data.api.response.GetNotificationTokens
 import com.erdi.blooddonor.data.api.response.SendNotificationTokenResponse
 import retrofit2.Response
 import javax.inject.Inject
@@ -38,7 +39,11 @@ class UserRepository @Inject constructor(
         return api.changeLocation(changeLocationRequest = changeLocationRequest)
     }
 
-    suspend fun sendNotificationToken(sendNotificationTokenRequest: SendNotificationTokenRequest): Response<SendNotificationTokenResponse>{
+    suspend fun sendNotificationToken(sendNotificationTokenRequest: SendNotificationTokenRequest): Response<SendNotificationTokenResponse> {
         return api.sendNotificationToken(sendNotificationTokenRequest = sendNotificationTokenRequest)
+    }
+
+    suspend fun getNotificationTokens(city: String, district: String): Response<GetNotificationTokens> {
+        return api.getNotificationTokens(city, district)
     }
 }
