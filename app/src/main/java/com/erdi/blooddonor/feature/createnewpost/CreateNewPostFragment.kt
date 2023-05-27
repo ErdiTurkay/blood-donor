@@ -22,6 +22,7 @@ import com.erdi.blooddonor.utils.camelCase
 import com.erdi.blooddonor.utils.gone
 import com.erdi.blooddonor.utils.show
 import com.erdi.blooddonor.utils.showOrHide
+import com.erdi.blooddonor.utils.sortAlphabetically
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -74,6 +75,7 @@ class CreateNewPostFragment : Fragment() {
     private fun loadCitiesAndAssign() {
         cities = loadCitiesFromJson(requireContext())
         cityNames = cities?.map { city -> city.name.substring(0, 1).uppercase() + city.name.substring(1) } as ArrayList<String>?
+        cityNames?.sortAlphabetically()
     }
 
     private fun setBloodTypeSpinner() {
@@ -132,6 +134,8 @@ class CreateNewPostFragment : Fragment() {
         val selectedCity = cities?.filter { it.name == city }
         val districts: ArrayList<String>? = selectedCity?.get(0)?.counties as ArrayList<String>?
         val districtNames: ArrayList<String>? = districts?.map { it.substring(0, 1).uppercase() + it.substring(1) } as ArrayList<String>?
+
+        districtNames?.sortAlphabetically()
 
         districtNames?.add(0, binding.txtInputDistrict.hint.toString() + " seçiniz...")
 

@@ -3,8 +3,8 @@ package com.erdi.blooddonor.utils
 import android.view.View
 import android.widget.TextView
 import com.erdi.blooddonor.data.api.response.ErrorResponse
-import com.erdi.blooddonor.data.model.Post
 import com.google.gson.Gson
+import java.text.Collator
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,7 +39,6 @@ fun View.showOrGone(boolean: Boolean) {
     }
 }
 
-
 fun TextView.showErrorOrHide() {
     visibility = if (text.isEmpty()) {
         View.VISIBLE
@@ -61,23 +60,10 @@ fun String?.convertToLocalDateTime(): LocalDateTime {
     return LocalDateTime.parse(this, formatter)
 }
 
-fun String?.convertToLocalDateTimeWithoutHour(): LocalDateTime {
-    val formatter = DateTimeFormatter.ofPattern(APIConstants.DATE_TIME_PATTERN)
-    return LocalDateTime.parse(this, formatter)
-}
-
 fun String.convertToDate(): Date {
     val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
     return format.parse(this) ?: Date()
-}
-
-fun Post.convertToJson(): String {
-    return Gson().toJson(this)
-}
-
-fun String?.convertToPost(): Post {
-    return Gson().fromJson(this, Post::class.java)
 }
 
 fun LocalDateTime?.convertToReadableDate(): String? {
@@ -97,4 +83,12 @@ fun String?.availableBloodTypes(): List<String> {
         "B-" -> listOf("B+", "B-", "AB+", "AB-")
         else -> emptyList()
     }
+}
+
+fun ArrayList<String>.sortAlphabetically(): ArrayList<String> {
+    val collator = Collator.getInstance()
+    collator.strength = Collator.PRIMARY
+    this.sortWith(collator)
+
+    return this
 }
