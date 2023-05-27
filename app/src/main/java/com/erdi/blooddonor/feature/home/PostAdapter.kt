@@ -3,7 +3,6 @@ package com.erdi.blooddonor.feature.home
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.erdi.blooddonor.R
@@ -18,14 +17,9 @@ import javax.inject.Inject
 
 class BloodAdAdapter @Inject constructor(
     var listener: PostClickListener,
-    val currentUser: User
+    val currentUser: User,
 ) : RecyclerView.Adapter<BloodAdAdapter.ViewHolder>() {
     private var postList = listOf<Post>()
-
-    private var isSwiping = false
-    private var initialX = 0f
-    private var cardViewOriginalX = 0f
-    private lateinit var deleteImageView: ImageView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -69,7 +63,7 @@ class BloodAdAdapter @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setBloodAdList(bloodAds: List<Post>) {
-        postList = bloodAds.reversed()
+        postList = bloodAds
         notifyDataSetChanged()
     }
 

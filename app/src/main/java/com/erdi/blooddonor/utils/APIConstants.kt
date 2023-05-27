@@ -1,8 +1,7 @@
 package com.erdi.blooddonor.utils
 
 object APIConstants {
-    //const val BASE_URL = "http://10.0.2.2:8080/"
-
+    // const val BASE_URL = "http://10.0.2.2:8080/"
     const val BASE_URL = "http://blooddonor.com.tr/"
     const val LOGIN_URL = "auth/login"
     const val REGISTER_URL = "auth/signup"
@@ -21,5 +20,4 @@ object APIConstants {
 
     //
     const val DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    const val DATE_TIME_PATTERN_WITHOUT_HOUR = "yyyy-MM-dd"
 }
