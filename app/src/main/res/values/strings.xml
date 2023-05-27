@@ -97,6 +97,7 @@
     <!-- Notifications -->
     <string name="notifications">Bildirimler</string>
     <string name="no_ad_yet">Henüz ilan yok.</string>
+    <string name="no_notification_yet">Henüz bildirim yok.</string>
     <string name="clear_notifications">Bildirimleri Temizle</string>
     <!-- ***************************************************************** -->
 
@@ -119,5 +120,6 @@
     </string-array>
 
     <string name="share_text">%s yaşında olan %s isimli hastamız için %s kan grubu kana ihtiyacımız var. Yardımcı olabilir misiniz? \n\nDetaylar için BloodDonor uygulamasını indirebilirsin: https://link.com.tr"</string>
+    <string name="ad_has_been_removed">Görüntülemeye çalıştığınız ilan kaldırılmış.</string>
 
 </resources>

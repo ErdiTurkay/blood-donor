@@ -41,15 +41,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        val title = remoteMessage.notification!!.title!!
-        val body = remoteMessage.notification!!.body!!
-        val date = LocalDateTime.now().convertToReadableDate()!!
-        val postId = remoteMessage.data["postId"]
-
         Log.d("onMessageReceived", "onMessageReceived: $remoteMessage")
 
+        var postId = ""
+
         if (remoteMessage.data.isNotEmpty()) {
-            sessionManager.setNotification(remoteMessage.data["title"]!!, remoteMessage.data["body"]!!, date, remoteMessage.data["postId"]!!)
+            val title = remoteMessage.data["title"]!!
+            val body = remoteMessage.data["body"]!!
+            postId = remoteMessage.data["postId"]!!
+            val date = LocalDateTime.now().convertToReadableDate()!!
+            sessionManager.setNotification(title, body, date, postId)
         }
 
         // it is a class to notify the user of events that happen.

@@ -1,7 +1,6 @@
 package com.erdi.blooddonor.feature.createnewpost
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -170,8 +169,8 @@ class CreateNewPostFragment : Fragment() {
     }
 
     private fun createNewPost() {
-        val name = binding.txtInputName.text.toString().camelCase()
-        val surname = binding.txtInputSurname.text.toString().camelCase()
+        val name = binding.txtInputName.text.toString()
+        val surname = binding.txtInputSurname.text.toString()
         val age = binding.txtInputAge.text.toString()
         val bloodType = binding.txtInputBloodGroup.text.toString()
         val city = binding.txtInputCity.text.toString()
@@ -194,8 +193,8 @@ class CreateNewPostFragment : Fragment() {
 
         if (isAvailable) {
             viewModel.createNewPost(
-                patientName = name,
-                patientSurname = surname,
+                patientName = name.camelCase(),
+                patientSurname = surname.camelCase(),
                 patientAge = age.toInt(),
                 patientBloodType = bloodType,
                 patientLocation = Location(city, district),

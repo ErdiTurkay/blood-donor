@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -72,7 +71,7 @@ class PostDetailFragment : Fragment() {
             sendReply()
         }
 
-        binding.icRemove.setOnClickListener {
+        binding.deleteCard.setOnClickListener {
             showTwoOptionsDialog()
         }
 
@@ -197,7 +196,7 @@ class PostDetailFragment : Fragment() {
                             resources.getString(R.string.post_owner, user.fullName())
 
                         val isMyPost = sessionManager.getUser().id == post.user.id
-                        binding.icRemove.showOrHide(isMyPost)
+                        binding.deleteCard.showOrHide(isMyPost)
                         binding.callButton.showOrGone(!isMyPost)
                         binding.wpButton.showOrGone(!isMyPost)
                     }
