@@ -119,7 +119,7 @@
         <item>AB-</item>
     </string-array>
 
-    <string name="share_text">%s yaşında olan %s isimli hastamız için %s kan grubu kana ihtiyacımız var. Yardımcı olabilir misiniz? \n\nDetaylar için BloodDonor uygulamasını indirebilirsin: https://link.com.tr"</string>
+    <string name="share_text">%s yaşında olan %s isimli hastamız için %s kan grubu kana ihtiyacımız var. Yardımcı olabilir misiniz? \n\nDetaylar için BloodDonor uygulamasını indirebilirsin: https://play.google.com/store/apps/details?id=com.erdi.blooddonor</string>
     <string name="ad_has_been_removed">Görüntülemeye çalıştığınız ilan kaldırılmış.</string>
 
 </resources>
